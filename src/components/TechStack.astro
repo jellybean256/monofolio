@@ -1,34 +1,31 @@
 ---
 import { techStackCategories } from '../data/portfolioData';
+
+// Flatten into one unified list without category divisions
+const allSkills = techStackCategories.flatMap((cat) => cat.skills);
 ---
 
-<div class="flex-1 min-h-0 bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-3 sm:p-3.5 flex flex-col justify-between overflow-hidden">
-  <div class="flex items-center justify-between mb-2 shrink-0">
+<div class="flex-1 min-h-0 bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-4 sm:p-4.5 flex flex-col justify-between overflow-hidden">
+  <div class="flex items-center justify-between mb-3 shrink-0">
     <span class="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
       Tech Stack
     </span>
   </div>
 
-  <div class="flex-1 min-h-0 space-y-2 overflow-y-auto custom-scrollbar pr-0.5">
-    {techStackCategories.map((group) => (
-      <div>
-        <span class="block text-[10.5px] font-mono text-zinc-400 dark:text-zinc-500 mb-1">
-          {group.category}
+  {/* Unified single list of technologies */}
+  <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar pr-0.5">
+    <div class="flex flex-wrap gap-1.5">
+      {allSkills.map((skill) => (
+        <span
+          class={`text-xs px-2.5 py-1 rounded-md font-mono transition-colors ${
+            skill.highlight
+              ? 'bg-zinc-100 dark:bg-zinc-800 font-medium text-zinc-900 dark:text-zinc-100'
+              : 'text-zinc-500 dark:text-zinc-400 bg-zinc-50/50 dark:bg-zinc-800/20'
+          }`}
+        >
+          {skill.name}
         </span>
-        <div class="flex flex-wrap gap-1">
-          {group.skills.map((skill) => (
-            <span
-              class={`text-[11px] px-1.5 py-0.5 rounded font-mono transition-colors ${
-                skill.highlight
-                  ? 'bg-zinc-100 dark:bg-zinc-800 font-medium text-zinc-900 dark:text-zinc-100'
-                  : 'text-zinc-500 dark:text-zinc-400'
-              }`}
-            >
-              {skill.name}
-            </span>
-          ))}
-        </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </div>

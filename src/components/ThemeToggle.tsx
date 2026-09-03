@@ -3,10 +3,8 @@ import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const stored = localStorage.getItem('theme');
     if (stored === 'light' || stored === 'dark') {
       setTheme(stored);
@@ -37,25 +35,16 @@ export default function ThemeToggle() {
     applyTheme(next);
   };
 
-  if (!mounted) {
-    return (
-      <div className="h-7 w-7 rounded-md" />
-    );
-  }
-
   return (
     <button
       onClick={toggleTheme}
       type="button"
-      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      aria-label={`Switch theme (currently ${theme})`}
+      title="Toggle color theme"
       className="inline-flex items-center justify-center h-7 w-7 rounded-md text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/60 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 cursor-pointer"
     >
-      {theme === 'dark' ? (
-        <Sun className="w-3.5 h-3.5 text-zinc-400 hover:text-amber-400 transition-colors" />
-      ) : (
-        <Moon className="w-3.5 h-3.5 text-zinc-500 hover:text-indigo-600 transition-colors" />
-      )}
+      <Sun className="w-3.5 h-3.5 text-zinc-400 hover:text-amber-400 transition-colors hidden dark:block" />
+      <Moon className="w-3.5 h-3.5 text-zinc-500 hover:text-indigo-600 transition-colors block dark:hidden" />
     </button>
   );
 }

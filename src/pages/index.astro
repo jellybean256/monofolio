@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProfileCard from '../components/ProfileCard.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import TechStack from '../components/TechStack.astro';
 import ProjectsArea from '../components/ProjectsArea';
 import GithubContributions from '../components/GithubContributions';
@@ -41,15 +40,14 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 
     {/* Responsive Dashboard Grid */}
     <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3">
-      {/* Left Column: Developer Profile, Social Links, Tech Stack */}
+      {/* Left Column: Unified Profile Component (Avatar, Identity, Bio, Social, Controls) & Unified Tech Stack */}
       <section 
         id="panel-profile"
         role="tabpanel"
         aria-label="Developer Profile and Tech Stack"
-        class="flex lg:flex lg:col-span-4 xl:col-span-3.5 2xl:col-span-3 flex-col gap-2.5 sm:gap-3 min-h-0 h-full overflow-hidden"
+        class="flex lg:flex lg:col-span-4 xl:col-span-3.5 2xl:col-span-3 flex-col gap-3 min-h-0 h-full overflow-hidden"
       >
         <ProfileCard />
-        <SocialLinks />
         <TechStack />
       </section>
 
@@ -58,7 +56,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         id="panel-work"
         role="tabpanel"
         aria-label="Engineering Projects and GitHub Contributions"
-        class="hidden lg:flex lg:col-span-8 xl:col-span-8.5 2xl:col-span-9 flex-col gap-2.5 sm:gap-3 min-h-0 h-full overflow-hidden"
+        class="hidden lg:flex lg:col-span-8 xl:col-span-8.5 2xl:col-span-9 flex-col gap-3 min-h-0 h-full overflow-hidden"
       >
         {/* Projects Section with category tabs and privacy markers */}
         <ProjectsArea 
