@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { developerProfile, socialLinks } from '../data/portfolioData';
 
 interface Props {
   title?: string;
@@ -10,18 +11,71 @@ const {
   title = "Julian Vance — Staff Software & Systems Engineer", 
   description = "Single-screen developer portfolio and profile for Julian Vance. Distributed systems, real-time architectures, and developer tooling."
 } = Astro.props;
+
+const canonicalUrl = "https://julianvance.dev";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "mainEntity": {
+    "@type": "Person",
+    "name": developerProfile.name,
+    "jobTitle": developerProfile.role,
+    "description": developerProfile.bio,
+    "image": developerProfile.avatarUrl,
+    "url": canonicalUrl,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "sameAs": socialLinks.map(s => s.url)
+  }
+};
 ---
 
 <!doctype html>
 <html lang="en" class="h-screen w-screen overflow-hidden">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
     <meta name="generator" content={Astro.generator} />
+
+    {/* Primary Meta Tags */}
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="author" content={developerProfile.name} />
+    <meta name="keywords" content="Julian Vance, Staff Engineer, Systems Engineer, Full-Stack, Rust, Go, TypeScript, Distributed Systems, eBPF, Astro Portfolio" />
+    <meta name="robots" content="index, follow" />
     <meta name="color-scheme" content="light dark" />
+
+    {/* Performance: DNS Prefetch and Preconnect for Unsplash Images */}
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    {/* Open Graph / Facebook */}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={developerProfile.avatarUrl} />
+    <meta property="og:site_name" content={`${developerProfile.name} Portfolio`} />
+    <meta property="og:locale" content="en_US" />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={developerProfile.avatarUrl} />
+    <meta name="twitter:creator" content="@julianvance" />
+
+    {/* Structured Data: JSON-LD Schema.org */}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
     {/* Inline script to prevent theme flash (FOUC) */}
     <script is:inline>

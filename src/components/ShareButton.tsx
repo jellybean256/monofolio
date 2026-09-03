@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Share2, Check, Copy } from 'lucide-react';
 
 export default function ShareButton() {
@@ -20,20 +20,13 @@ export default function ShareButton() {
       }
     }
 
-    // Fallback: Copy URL to clipboard
+    // Copy URL to clipboard
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2400);
     } catch {
-      const dummy = document.createElement('input');
-      document.body.appendChild(dummy);
-      dummy.value = window.location.href;
-      dummy.select();
-      document.execCommand('copy');
-      document.body.removeChild(dummy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2400);
+      // Ignored
     }
   };
 
