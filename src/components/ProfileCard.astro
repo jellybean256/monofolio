@@ -1,5 +1,7 @@
 ---
 import { developerProfile, socialLinks } from '../data/portfolioData';
+
+const coreStack = ['TypeScript', 'Rust', 'Go', 'Distributed Systems'];
 ---
 
 <div class="h-full bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-5 sm:p-6 flex flex-col justify-between text-left">
@@ -37,13 +39,22 @@ import { developerProfile, socialLinks } from '../data/portfolioData';
     </p>
 
     {/* Bio (Left-aligned monospace) */}
-    <p class="text-xs sm:text-sm font-mono text-zinc-700 dark:text-zinc-300 leading-relaxed mt-4">
+    <p class="text-xs sm:text-sm font-mono text-zinc-700 dark:text-zinc-300 leading-relaxed mt-3.5">
       {developerProfile.bio}
     </p>
+
+    {/* Core Focus / Tech Stack Pills (matching reference image) */}
+    <div class="flex flex-wrap gap-1.5 mt-3.5">
+      {coreStack.map((tech) => (
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
+          {tech}
+        </span>
+      ))}
+    </div>
   </div>
 
   {/* Social Links Capsule Pills (docked cleanly at bottom of card) */}
-  <div class="flex flex-wrap gap-2 pt-4">
+  <div class="flex flex-wrap gap-2 pt-3.5 border-t border-zinc-100/80 dark:border-zinc-800/60">
     {socialLinks.map((link) => (
       <a
         href={link.url}

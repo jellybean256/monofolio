@@ -7,8 +7,8 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Single-Screen Dashboard - strictly fits within 100dvh */}
-  <main class="h-screen w-screen p-2.5 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col">
+  {/* Single-Screen Dashboard - centered vertically within 100dvh */}
+  <main class="h-screen w-screen p-3 sm:p-5 lg:p-6 overflow-hidden flex flex-col justify-center">
     {/* Responsive View Switcher for mobile / tablet screens */}
     <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
       <div 
@@ -37,8 +37,8 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
       </div>
     </div>
 
-    {/* Two-Column Balanced Studio Layout: Both columns share the exact same height */}
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+    {/* Two-Column Balanced Studio Layout: Centered & harmonized */}
+    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
       {/* Left Column: Profile Card stretching to match right side */}
       <section 
         id="panel-profile"
@@ -67,11 +67,6 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         <GithubContributions client:load />
       </section>
     </div>
-
-    {/* Footer at bottom center */}
-    <footer class="mt-auto pt-3 pb-1 flex items-center justify-center text-xs font-mono text-zinc-400 dark:text-zinc-500 select-none">
-      <span>Made with <span class="text-rose-500">❤️</span></span>
-    </footer>
   </main>
 
   <script is:inline>
