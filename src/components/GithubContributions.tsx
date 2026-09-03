@@ -69,15 +69,16 @@ export default function GithubContributions() {
   };
 
   return (
-    <div className="shrink-0 flex flex-col justify-between w-full pt-2">
+    <div className="shrink-0 flex flex-col justify-between w-full min-w-0 max-w-full pt-2">
       {/* Header: Pure focus without badge noise */}
-      <div className="flex items-center justify-between gap-3 mb-2 shrink-0">
-        <div className="flex items-baseline gap-2">
-          <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
+      <div className="flex items-center justify-between gap-2 mb-2 shrink-0 min-w-0">
+        <div className="flex items-baseline gap-2 min-w-0">
+          <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 shrink-0">
             GitHub Activity
           </span>
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">
-            {githubSummary.totalLastYear.toLocaleString()} contributions in the last year
+          <span className="text-xs text-zinc-400 dark:text-zinc-500 truncate">
+            <span className="hidden sm:inline">{githubSummary.totalLastYear.toLocaleString()} contributions in the last year</span>
+            <span className="sm:hidden">{githubSummary.totalLastYear.toLocaleString()} contributions</span>
           </span>
         </div>
 
@@ -85,7 +86,7 @@ export default function GithubContributions() {
           href={githubSummary.profileUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
+          className="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors shrink-0"
         >
           <span>GitHub</span>
           <ExternalLink className="w-2.5 h-2.5 opacity-60" />
