@@ -7,102 +7,105 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Single-Screen Command Center Dashboard - strictly fits within 100dvh */}
-  <main class="h-screen w-screen p-2.5 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col gap-3">
-    {/* Top Row: Full-width Horizontal Profile Banner */}
-    <ProfileCard />
-
+  {/* Option A: "The Unified Studio" Dashboard - strictly fits within 100dvh */}
+  <main class="h-screen w-screen p-2.5 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col">
     {/* Responsive View Switcher for mobile / tablet screens */}
-    <div class="lg:hidden flex items-center justify-center shrink-0">
+    <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
       <div 
         role="tablist" 
         aria-label="Dashboard View Selector"
         class="inline-flex p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/80 text-xs font-medium"
       >
         <button
-          id="btn-view-projects"
+          id="btn-view-profile"
           role="tab"
           aria-selected="true"
-          aria-controls="panel-projects"
+          aria-controls="panel-profile"
           class="px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
         >
-          Projects
+          Profile
         </button>
         <button
-          id="btn-view-github"
+          id="btn-view-work"
           role="tab"
           aria-selected="false"
-          aria-controls="panel-github"
+          aria-controls="panel-work"
           class="px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
         >
-          GitHub Activity
+          Projects & Activity
         </button>
       </div>
     </div>
 
-    {/* Bottom Row: Side-by-Side Projects (Left) and GitHub Activity (Right) */}
+    {/* Two-Column Balanced Studio Layout */}
     <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden">
-      {/* Left/Center: Projects Area */}
+      {/* Left Column: Full-Height Profile Card */}
       <section 
-        id="panel-projects"
+        id="panel-profile"
         role="tabpanel"
-        aria-label="Engineering Projects"
-        class="flex lg:flex lg:col-span-7 xl:col-span-7 2xl:col-span-8 flex-col min-h-0 h-full overflow-hidden"
+        aria-label="Developer Profile"
+        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-full min-h-0 overflow-hidden"
       >
-        <ProjectsArea 
-          client:load 
-          publicProjects={publicProjects} 
-          closedProjects={closedProjects} 
-        />
+        <ProfileCard />
       </section>
 
-      {/* Right: GitHub Activity Dashboard */}
+      {/* Right Column: Projects (Top) + GitHub Activity (Bottom) */}
       <section 
-        id="panel-github"
+        id="panel-work"
         role="tabpanel"
-        aria-label="GitHub Activity"
-        class="hidden lg:flex lg:col-span-5 xl:col-span-5 2xl:col-span-4 flex-col min-h-0 h-full overflow-hidden"
+        aria-label="Engineering Projects and GitHub Activity"
+        class="hidden lg:flex lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 flex-col gap-3 h-full min-h-0 overflow-hidden"
       >
+        {/* Projects Area: takes remaining vertical space with internal scroll */}
+        <div class="flex-1 min-h-0 flex flex-col overflow-hidden">
+          <ProjectsArea 
+            client:load 
+            publicProjects={publicProjects} 
+            closedProjects={closedProjects} 
+          />
+        </div>
+
+        {/* GitHub Activity: anchored at bottom, fills 100% of the right column width */}
         <GithubContributions client:load />
       </section>
     </div>
   </main>
 
   <script is:inline>
-    const btnProjects = document.getElementById('btn-view-projects');
-    const btnGithub = document.getElementById('btn-view-github');
-    const panelProjects = document.getElementById('panel-projects');
-    const panelGithub = document.getElementById('panel-github');
+    const btnProfile = document.getElementById('btn-view-profile');
+    const btnWork = document.getElementById('btn-view-work');
+    const panelProfile = document.getElementById('panel-profile');
+    const panelWork = document.getElementById('panel-work');
 
     function setView(view) {
-      if (!btnProjects || !btnGithub || !panelProjects || !panelGithub) return;
+      if (!btnProfile || !btnWork || !panelProfile || !panelWork) return;
 
-      if (view === 'projects') {
-        panelProjects.classList.remove('hidden');
-        panelProjects.classList.add('flex');
-        panelGithub.classList.add('hidden');
-        panelGithub.classList.remove('flex');
+      if (view === 'profile') {
+        panelProfile.classList.remove('hidden');
+        panelProfile.classList.add('flex');
+        panelWork.classList.add('hidden');
+        panelWork.classList.remove('flex');
         
-        btnProjects.setAttribute('aria-selected', 'true');
-        btnProjects.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+        btnProfile.setAttribute('aria-selected', 'true');
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
         
-        btnGithub.setAttribute('aria-selected', 'false');
-        btnGithub.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
+        btnWork.setAttribute('aria-selected', 'false');
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
       } else {
-        panelGithub.classList.remove('hidden');
-        panelGithub.classList.add('flex');
-        panelProjects.classList.add('hidden');
-        panelProjects.classList.remove('flex');
+        panelWork.classList.remove('hidden');
+        panelWork.classList.add('flex');
+        panelProfile.classList.add('hidden');
+        panelProfile.classList.remove('flex');
 
-        btnGithub.setAttribute('aria-selected', 'true');
-        btnGithub.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+        btnWork.setAttribute('aria-selected', 'true');
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
 
-        btnProjects.setAttribute('aria-selected', 'false');
-        btnProjects.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
+        btnProfile.setAttribute('aria-selected', 'false');
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
       }
     }
 
-    btnProjects?.addEventListener('click', () => setView('projects'));
-    btnGithub?.addEventListener('click', () => setView('github'));
+    btnProfile?.addEventListener('click', () => setView('profile'));
+    btnWork?.addEventListener('click', () => setView('work'));
   </script>
 </Layout>
