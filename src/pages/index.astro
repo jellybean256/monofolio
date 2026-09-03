@@ -7,7 +7,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Option A: "The Unified Studio" Dashboard - strictly fits within 100dvh */}
+  {/* Single-Screen Dashboard - strictly fits within 100dvh */}
   <main class="h-screen w-screen p-2.5 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col">
     {/* Responsive View Switcher for mobile / tablet screens */}
     <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
@@ -37,19 +37,19 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
       </div>
     </div>
 
-    {/* Two-Column Balanced Studio Layout */}
-    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden items-start">
-      {/* Left Column: Profile Card */}
+    {/* Two-Column Balanced Studio Layout: Both columns share the exact same height */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+      {/* Left Column: Profile Card stretching to match right side */}
       <section 
         id="panel-profile"
         role="tabpanel"
         aria-label="Developer Profile"
-        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-fit min-h-0 overflow-hidden"
+        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-full min-h-0 overflow-hidden"
       >
         <ProfileCard />
       </section>
 
-      {/* Right Column: Projects (Top) + GitHub Activity (Bottom) */}
+      {/* Right Column: Projects (Top) + GitHub Activity (Bottom) defining row height */}
       <section 
         id="panel-work"
         role="tabpanel"
