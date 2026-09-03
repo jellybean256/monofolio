@@ -12,7 +12,7 @@ export interface DeveloperProfile {
   };
   avatarUrl: string;
   bio: string;
-  joinedDate: string;
+  joinedDate?: string;
   metrics: {
     label: string;
     value: string;
