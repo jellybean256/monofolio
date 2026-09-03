@@ -69,7 +69,7 @@ export default function GithubContributions() {
   };
 
   return (
-    <div className="shrink-0 bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-3 sm:p-3.5 flex flex-col justify-between w-full">
+    <div className="shrink-0 flex flex-col justify-between w-full pt-2">
       {/* Header: Pure focus without badge noise */}
       <div className="flex items-center justify-between gap-3 mb-2 shrink-0">
         <div className="flex items-baseline gap-2">

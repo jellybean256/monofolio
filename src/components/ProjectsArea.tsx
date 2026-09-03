@@ -28,9 +28,9 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
   });
 
   return (
-    <div className="flex flex-col bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 overflow-hidden h-fit max-h-[322px] shrink-0">
+    <div className="flex flex-col overflow-hidden h-fit max-h-[322px] shrink-0">
       {/* Header: Clean quiet tabs & minimal search */}
-      <div className="px-3.5 py-2.5 border-b border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between gap-3 shrink-0">
+      <div className="pb-2.5 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3">
           <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
             Projects
@@ -87,7 +87,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
       </div>
 
       {/* Projects Grid Container: fills vertical space and scrolls internally if content overflows */}
-      <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-3">
+      <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pr-1.5 pb-1">
         {filteredProjects.length === 0 ? (
           <div className="h-full flex items-center justify-center text-xs text-zinc-400">
             No matching projects
