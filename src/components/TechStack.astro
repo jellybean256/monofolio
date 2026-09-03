@@ -1,0 +1,45 @@
+---
+import { techStackCategories } from '../data/portfolioData';
+---
+
+<div class="flex-1 min-h-0 bg-white dark:bg-zinc-900/90 rounded-xl border border-slate-200/90 dark:border-zinc-800/80 p-3.5 shadow-2xs flex flex-col justify-between overflow-hidden">
+  <div class="flex items-center justify-between mb-2 shrink-0">
+    <span class="text-3xs font-semibold uppercase tracking-wider text-slate-400 dark:text-zinc-500 font-mono">
+      Core Tech Stack
+    </span>
+    <span class="text-3xs text-slate-500 dark:text-zinc-400 font-mono">
+      20+ Tools
+    </span>
+  </div>
+
+  <div class="flex-1 min-h-0 overflow-y-auto custom-scrollbar space-y-2.5 pr-0.5">
+    {techStackCategories.map((group) => (
+      <div>
+        <span class="block text-3xs font-medium text-slate-500 dark:text-zinc-400 mb-1 font-mono">
+          {group.category}
+        </span>
+        <div class="flex flex-wrap gap-1">
+          {group.skills.map((skill) => (
+            <span
+              class={`px-2 py-0.5 rounded text-3xs font-mono transition-colors ${
+                skill.highlight
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/60 font-semibold'
+                  : 'bg-slate-100 dark:bg-zinc-800/70 text-slate-700 dark:text-zinc-300 border border-slate-200/60 dark:border-zinc-700/60 hover:border-slate-300 dark:hover:border-zinc-600'
+              }`}
+            >
+              {skill.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-2 pt-2 border-t border-slate-100 dark:border-zinc-800/60 flex items-center justify-between text-3xs text-slate-400 dark:text-zinc-500 shrink-0 font-mono">
+    <span class="flex items-center gap-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+      <span>Primary stack</span>
+    </span>
+    <span>Production validated</span>
+  </div>
+</div>

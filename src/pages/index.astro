@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopBar from '../components/TopBar.astro';
+import ProfileCard from '../components/ProfileCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import TechStack from '../components/TechStack.astro';
+import ProjectsArea from '../components/ProjectsArea';
+import GithubContributions from '../components/GithubContributions';
+import { publicProjects, closedProjects } from '../data/portfolioData';
+---
+
+<Layout>
+  {/* Top Bar Header */}
+  <TopBar />
+
+  {/* Main Dashboard - strictly contained within 100dvh minus topbar */}
+  <main class="flex-1 min-h-0 p-2 sm:p-3 lg:p-3.5 overflow-hidden flex flex-col">
+    {/* Responsive View Switcher for mobile / tablet screens */}
+    <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
+      <div 
+        role="tablist" 
+        aria-label="Dashboard View Selector"
+        class="inline-flex p-0.5 rounded-lg bg-slate-200/80 dark:bg-zinc-800 text-xs font-medium border border-slate-300/60 dark:border-zinc-700/60"
+      >
+        <button
+          id="btn-view-profile"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-profile"
+          class="px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
+        >
+          Profile & Stack
+        </button>
+        <button
+          id="btn-view-work"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-work"
+          class="px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer"
+        >
+          Projects & Activity
+        </button>
+      </div>
+    </div>
+
+    {/* Responsive Dashboard Panels */}
+    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3">
+      {/* Left Column: Developer Profile, Social Links, Tech Stack */}
+      <section 
+        id="panel-profile"
+        role="tabpanel"
+        aria-label="Developer Profile and Tech Stack"
+        class="flex lg:flex lg:col-span-4 xl:col-span-3.5 flex-col gap-2 sm:gap-2.5 min-h-0 h-full overflow-hidden"
+      >
+        <ProfileCard />
+        <SocialLinks />
+        <TechStack />
+      </section>
+
+      {/* Right Column: Projects (Public & Closed) and GitHub Heatmap */}
+      <section 
+        id="panel-work"
+        role="tabpanel"
+        aria-label="Engineering Projects and GitHub Contributions"
+        class="hidden lg:flex lg:col-span-8 xl:col-span-8.5 flex-col gap-2 sm:gap-2.5 min-h-0 h-full overflow-hidden"
+      >
+        {/* Projects Section with category tabs and privacy markers */}
+        <ProjectsArea 
+          client:load 
+          publicProjects={publicProjects} 
+          closedProjects={closedProjects} 
+        />
+
+        {/* GitHub Contribution Heatmap */}
+        <GithubContributions client:load />
+      </section>
+    </div>
+  </main>
+
+  <script is:inline>
+    const btnProfile = document.getElementById('btn-view-profile');
+    const btnWork = document.getElementById('btn-view-work');
+    const panelProfile = document.getElementById('panel-profile');
+    const panelWork = document.getElementById('panel-work');
+
+    function setView(view) {
+      if (!btnProfile || !btnWork || !panelProfile || !panelWork) return;
+
+      if (view === 'profile') {
+        panelProfile.classList.remove('hidden');
+        panelProfile.classList.add('flex');
+        panelWork.classList.add('hidden');
+        panelWork.classList.remove('flex');
+        
+        btnProfile.setAttribute('aria-selected', 'true');
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+        
+        btnWork.setAttribute('aria-selected', 'false');
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer';
+      } else {
+        panelWork.classList.remove('hidden');
+        panelWork.classList.add('flex');
+        panelProfile.classList.add('hidden');
+        panelProfile.classList.remove('flex');
+
+        btnWork.setAttribute('aria-selected', 'true');
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+
+        btnProfile.setAttribute('aria-selected', 'false');
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer';
+      }
+    }
+
+    btnProfile?.addEventListener('click', () => setView('profile'));
+    btnWork?.addEventListener('click', () => setView('work'));
+  </script>
+</Layout>

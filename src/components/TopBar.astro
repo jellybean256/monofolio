@@ -1,0 +1,38 @@
+---
+import ThemeToggle from './ThemeToggle';
+import ShareButton from './ShareButton';
+import { developerProfile } from '../data/portfolioData';
+---
+
+<header class="h-12 border-b border-slate-200/80 dark:border-zinc-800/80 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between shrink-0 select-none z-20">
+  {/* Left: Brand / Identity identifier */}
+  <div class="flex items-center gap-2.5">
+    <div class="flex items-center gap-1.5">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span class="font-mono text-xs font-semibold tracking-tight text-slate-900 dark:text-zinc-100">
+        {developerProfile.name.toLowerCase().replace(/\s+/g, '')}.dev
+      </span>
+    </div>
+
+    <span class="hidden sm:inline text-slate-300 dark:text-zinc-700">/</span>
+
+    <span class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-3xs font-mono bg-slate-100 dark:bg-zinc-800/80 text-slate-600 dark:text-zinc-400 border border-slate-200/50 dark:border-zinc-700/50">
+      v2.4.0
+    </span>
+  </div>
+
+  {/* Center: Live status indicator */}
+  <div class="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-full bg-slate-100/80 dark:bg-zinc-900 border border-slate-200/60 dark:border-zinc-800 text-3xs font-medium text-slate-600 dark:text-zinc-400">
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+    <span>{developerProfile.status.text}</span>
+  </div>
+
+  {/* Right: Actions (Theme switcher & Share button) */}
+  <div class="flex items-center gap-2">
+    <ShareButton client:load />
+    <ThemeToggle client:load />
+  </div>
+</header>
