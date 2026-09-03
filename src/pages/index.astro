@@ -56,16 +56,14 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         aria-label="Engineering Projects and GitHub Activity"
         class="hidden lg:flex lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 flex-col gap-3 h-full min-h-0 overflow-hidden"
       >
-        {/* Projects Area: takes remaining vertical space with internal scroll */}
-        <div class="flex-1 min-h-0 flex flex-col overflow-hidden">
-          <ProjectsArea 
-            client:load 
-            publicProjects={publicProjects} 
-            closedProjects={closedProjects} 
-          />
-        </div>
+        {/* Projects Area: sized for 4 projects before scrolling */}
+        <ProjectsArea 
+          client:load 
+          publicProjects={publicProjects} 
+          closedProjects={closedProjects} 
+        />
 
-        {/* GitHub Activity: anchored at bottom, fills 100% of the right column width */}
+        {/* GitHub Activity: positioned directly below projects */}
         <GithubContributions client:load />
       </section>
     </div>
