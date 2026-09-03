@@ -38,13 +38,13 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
     </div>
 
     {/* Two-Column Balanced Studio Layout */}
-    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden">
-      {/* Left Column: Full-Height Profile Card */}
+    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 overflow-hidden items-start">
+      {/* Left Column: Profile Card */}
       <section 
         id="panel-profile"
         role="tabpanel"
         aria-label="Developer Profile"
-        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-full min-h-0 overflow-hidden"
+        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-fit min-h-0 overflow-hidden"
       >
         <ProfileCard />
       </section>
@@ -54,7 +54,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         id="panel-work"
         role="tabpanel"
         aria-label="Engineering Projects and GitHub Activity"
-        class="hidden lg:flex lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 flex-col gap-3 h-full min-h-0 overflow-hidden"
+        class="hidden lg:flex lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 flex-col gap-3 h-fit min-h-0 overflow-hidden"
       >
         {/* Projects Area: sized for 4 projects before scrolling */}
         <ProjectsArea 
