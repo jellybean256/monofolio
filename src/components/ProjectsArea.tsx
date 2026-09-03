@@ -86,51 +86,33 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
                       {project.title}
                     </h2>
 
-                    {/* Description */}
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-3 mb-3">
+                    {/* Description as primary focus */}
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
                   </div>
 
                   {/* Links Row */}
-                  <div className="flex items-center gap-3 pt-2 border-t border-zinc-100 dark:border-zinc-800/40 text-[11px] font-mono">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
-                      >
-                        <span>Live Demo</span>
-                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                      </a>
-                    )}
-                    {project.repoUrl && (
-                      <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
-                      >
-                        <span>Repository</span>
-                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                      </a>
-                    )}
-                    {project.caseStudyUrl && (
-                      <a
-                        href={project.caseStudyUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
-                      >
-                        <span>Overview</span>
-                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                      </a>
-                    )}
-                    {isClosed && (
-                      <span className="text-zinc-400 dark:text-zinc-600 italic text-[11px]">
+                  <div className="pt-2.5 mt-2.5 border-t border-zinc-100 dark:border-zinc-800/40 flex items-center justify-between text-xs">
+                    {isClosed ? (
+                      <span className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">
                         Closed-source enterprise platform
                       </span>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        {project.links?.map((link) => (
+                          <a
+                            key={link.label}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-0.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                          >
+                            <span>{link.label}</span>
+                            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                          </a>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </div>
