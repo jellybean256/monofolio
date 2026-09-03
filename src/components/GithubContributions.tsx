@@ -92,8 +92,9 @@ export default function GithubContributions() {
         </a>
       </div>
 
-      {/* Heatmap Grid - Fully spans 100% of the card width */}
-      <div className="w-full flex items-start gap-1.5 sm:gap-2">
+      {/* Heatmap Grid - Fully spans 100% of the card width on desktop, smoothly scrollable horizontally on narrow mobile screens */}
+      <div className="w-full overflow-x-auto custom-scrollbar pb-1">
+        <div className="min-w-[500px] lg:min-w-0 w-full flex items-start gap-1.5 sm:gap-2">
         {/* Days of week labels (M, W, F) row-aligned with matching gaps */}
         <div className="flex flex-col gap-[2px] sm:gap-[2.5px] md:gap-[3px] text-[9px] font-mono text-zinc-400 dark:text-zinc-500 select-none pt-4 shrink-0">
           <div className="w-2.5 aspect-square flex items-center justify-center invisible">S</div>
@@ -143,6 +144,7 @@ export default function GithubContributions() {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       {/* Clean Legend */}

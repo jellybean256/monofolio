@@ -7,103 +7,35 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Single-Screen Dashboard - strictly fits within 100dvh */}
-  <main class="h-screen w-screen p-2.5 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col">
-    {/* Responsive View Switcher for mobile / tablet screens */}
-    <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
-      <div 
-        role="tablist" 
-        aria-label="Dashboard View Selector"
-        class="inline-flex p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/80 text-xs font-medium"
-      >
-        <button
-          id="btn-view-profile"
-          role="tab"
-          aria-selected="true"
-          aria-controls="panel-profile"
-          class="px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
-        >
-          Profile
-        </button>
-        <button
-          id="btn-view-work"
-          role="tab"
-          aria-selected="false"
-          aria-controls="panel-work"
-          class="px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
-        >
-          Projects & Activity
-        </button>
-      </div>
-    </div>
-
-    {/* Two-Column Balanced Studio Layout: Both columns share the exact same height */}
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
-      {/* Left Column: Profile Card stretching to match right side */}
+  {/* Single-Screen on Desktop, Fluid Scrollable on Mobile without tabs */}
+  <main class="min-h-screen lg:h-screen w-full lg:w-screen p-3.5 sm:p-5 lg:p-4 overflow-y-auto lg:overflow-hidden flex flex-col">
+    {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile */}
+    <div class="flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-3 lg:items-stretch">
+      {/* Left Column on Desktop / Top Section on Mobile: Profile */}
       <section 
         id="panel-profile"
-        role="tabpanel"
         aria-label="Developer Profile"
-        class="flex lg:flex lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 flex-col h-full min-h-0 overflow-hidden"
+        class="flex flex-col lg:col-span-4 xl:col-span-4 2xl:col-span-3.5 lg:h-full lg:min-h-0 lg:overflow-hidden shrink-0"
       >
         <ProfileCard />
       </section>
 
-      {/* Right Column: Projects (Top) + GitHub Activity (Bottom) defining row height */}
+      {/* Right Column on Desktop / Bottom Section on Mobile: Projects + GitHub Activity */}
       <section 
         id="panel-work"
-        role="tabpanel"
         aria-label="Engineering Projects and GitHub Activity"
-        class="hidden lg:flex lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 flex-col gap-3 h-fit min-h-0 overflow-hidden"
+        class="flex flex-col gap-5 lg:gap-3 lg:col-span-8 xl:col-span-8 2xl:col-span-8.5 lg:h-fit lg:min-h-0 lg:overflow-hidden"
       >
-        {/* Projects Area: sized for 4 projects before scrolling */}
+        {/* Projects Area */}
         <ProjectsArea 
           client:load 
           publicProjects={publicProjects} 
           closedProjects={closedProjects} 
         />
 
-        {/* GitHub Activity: positioned directly below projects */}
+        {/* GitHub Activity */}
         <GithubContributions client:load />
       </section>
     </div>
   </main>
-
-  <script is:inline>
-    const btnProfile = document.getElementById('btn-view-profile');
-    const btnWork = document.getElementById('btn-view-work');
-    const panelProfile = document.getElementById('panel-profile');
-    const panelWork = document.getElementById('panel-work');
-
-    function setView(view) {
-      if (!btnProfile || !btnWork || !panelProfile || !panelWork) return;
-
-      if (view === 'profile') {
-        panelProfile.classList.remove('hidden');
-        panelProfile.classList.add('flex');
-        panelWork.classList.add('hidden');
-        panelWork.classList.remove('flex');
-        
-        btnProfile.setAttribute('aria-selected', 'true');
-        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
-        
-        btnWork.setAttribute('aria-selected', 'false');
-        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
-      } else {
-        panelWork.classList.remove('hidden');
-        panelWork.classList.add('flex');
-        panelProfile.classList.add('hidden');
-        panelProfile.classList.remove('flex');
-
-        btnWork.setAttribute('aria-selected', 'true');
-        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
-
-        btnProfile.setAttribute('aria-selected', 'false');
-        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
-      }
-    }
-
-    btnProfile?.addEventListener('click', () => setView('profile'));
-    btnWork?.addEventListener('click', () => setView('work'));
-  </script>
 </Layout>

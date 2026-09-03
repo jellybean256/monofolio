@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 
 interface ProjectsAreaProps {
@@ -9,27 +9,18 @@ interface ProjectsAreaProps {
 
 export default function ProjectsArea({ publicProjects, closedProjects }: ProjectsAreaProps) {
   const [activeTab, setActiveTab] = useState<'all' | 'public' | 'closed'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const allProjects = [...publicProjects, ...closedProjects];
 
   const filteredProjects = allProjects.filter((project) => {
     if (activeTab === 'public' && project.category !== 'public') return false;
     if (activeTab === 'closed' && project.category !== 'closed') return false;
-
-    if (searchQuery.trim() !== '') {
-      const q = searchQuery.toLowerCase();
-      const matchTitle = project.title.toLowerCase().includes(q);
-      const matchDesc = project.description.toLowerCase().includes(q);
-      return matchTitle || matchDesc;
-    }
-
     return true;
   });
 
   return (
-    <div className="flex flex-col overflow-hidden h-fit max-h-[296px] shrink-0">
-      {/* Header: Clean quiet tabs & minimal search */}
+    <div className="flex flex-col overflow-visible lg:overflow-hidden h-auto lg:h-fit lg:max-h-[296px] shrink-0">
+      {/* Header: Clean quiet tabs (no search input) */}
       <div className="pb-2.5 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3">
           <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
@@ -71,25 +62,12 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
             </button>
           </div>
         </div>
-
-        {/* Minimal Search */}
-        <div className="relative">
-          <Search className="w-3 h-3 absolute left-2 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search projects..."
-            aria-label="Filter projects"
-            className="w-28 sm:w-36 text-xs pl-6 pr-2 py-0.5 rounded-md bg-transparent border border-zinc-200/80 dark:border-zinc-700/80 text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-500 transition-colors"
-          />
-        </div>
       </div>
 
-      {/* Projects Grid Container: fills vertical space and scrolls internally if content overflows */}
-      <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pr-1.5 pb-1">
+      {/* Projects Grid Container: Scrolls internally on desktop, expands naturally on mobile */}
+      <div className="flex-1 min-h-0 overflow-visible lg:overflow-y-auto custom-scrollbar lg:pr-1.5 pb-1">
         {filteredProjects.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-zinc-400">
+          <div className="h-full flex items-center justify-center text-xs text-zinc-400 py-6">
             No matching projects
           </div>
         ) : (
@@ -108,33 +86,51 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
                       {project.title}
                     </h2>
 
-                    {/* Description as primary focus */}
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
+                    {/* Description */}
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-3 mb-3">
                       {project.description}
                     </p>
                   </div>
 
                   {/* Links Row */}
-                  <div className="pt-2.5 mt-2.5 border-t border-zinc-100 dark:border-zinc-800/40 flex items-center justify-between text-xs">
-                    {isClosed ? (
-                      <span className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">
+                  <div className="flex items-center gap-3 pt-2 border-t border-zinc-100 dark:border-zinc-800/40 text-[11px] font-mono">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
+                      >
+                        <span>Live Demo</span>
+                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                      </a>
+                    )}
+                    {project.repoUrl && (
+                      <a
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
+                      >
+                        <span>Repository</span>
+                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                      </a>
+                    )}
+                    {project.caseStudyUrl && (
+                      <a
+                        href={project.caseStudyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors cursor-pointer"
+                      >
+                        <span>Overview</span>
+                        <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                      </a>
+                    )}
+                    {isClosed && (
+                      <span className="text-zinc-400 dark:text-zinc-600 italic text-[11px]">
                         Closed-source enterprise platform
                       </span>
-                    ) : (
-                      <div className="flex items-center gap-3">
-                        {project.links?.map((link) => (
-                          <a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-0.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                          >
-                            <span>{link.label}</span>
-                            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                          </a>
-                        ))}
-                      </div>
                     )}
                   </div>
                 </div>
