@@ -12,6 +12,7 @@ export interface DeveloperProfile {
   };
   avatarUrl: string;
   bio: string;
+  joinedDate: string;
   metrics: {
     label: string;
     value: string;
@@ -85,6 +86,7 @@ export const developerProfile: DeveloperProfile = {
   },
   avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&auto=format&fit=crop&q=85",
   bio: "Specializing in distributed systems, real-time sync engines, and developer infrastructure. Building deep-module software with zero unnecessary latency and rigorous ergonomics.",
+  joinedDate: "Joined August 2024",
   metrics: [
     { label: "Experience", value: "9+ yrs" },
     { label: "Systems Shipped", value: "32+" },
