@@ -21,8 +21,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
       const q = searchQuery.toLowerCase();
       const matchTitle = project.title.toLowerCase().includes(q);
       const matchDesc = project.description.toLowerCase().includes(q);
-      const matchTech = project.technologies.some((t) => t.toLowerCase().includes(q));
-      return matchTitle || matchDesc || matchTech;
+      return matchTitle || matchDesc;
     }
 
     return true;
@@ -80,7 +79,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
+            placeholder="Search projects..."
             aria-label="Filter projects"
             className="w-28 sm:w-36 text-xs pl-6 pr-2 py-0.5 rounded-md bg-transparent border border-zinc-200/80 dark:border-zinc-700/80 text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-500 transition-colors"
           />
@@ -104,54 +103,51 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
                   className="flex flex-col justify-between p-3 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/30 hover:border-zinc-300/80 dark:hover:border-zinc-700/80 transition-colors"
                 >
                   <div>
-                    {/* Title + Subtle Private indicator */}
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <h2 className="text-xs font-medium text-zinc-900 dark:text-zinc-100 tracking-tight truncate">
+                    {/* Title + Status/Privacy indicator */}
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <h2 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight truncate">
                         {project.title}
                       </h2>
-                      {isClosed && (
+                      {isClosed ? (
                         <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500 font-mono shrink-0">
                           <Lock className="w-2.5 h-2.5" />
                           <span>Private</span>
                         </span>
+                      ) : (
+                        <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 shrink-0">
+                          {project.status}
+                        </span>
                       )}
                     </div>
 
-                    {/* Description as Primary Focus */}
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-2 mb-2">
+                    {/* Description as primary focus */}
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
                       {project.description}
                     </p>
                   </div>
 
-                  <div>
-                    {/* Tech stack: Quiet inline text */}
-                    <div className="text-[11px] font-mono text-zinc-400 dark:text-zinc-500 mb-2 truncate">
-                      {project.technologies.join(' · ')}
-                    </div>
-
-                    {/* Links row: Clean text links */}
-                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/40 flex items-center justify-between text-xs">
-                      {isClosed ? (
-                        <span className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">
-                          Closed-source enterprise platform
-                        </span>
-                      ) : (
-                        <div className="flex items-center gap-3">
-                          {project.links?.map((link) => (
-                            <a
-                              key={link.label}
-                              href={link.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-0.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                            >
-                              <span>{link.label}</span>
-                              <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                  {/* Links Row */}
+                  <div className="pt-2.5 mt-2.5 border-t border-zinc-100 dark:border-zinc-800/40 flex items-center justify-between text-xs">
+                    {isClosed ? (
+                      <span className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">
+                        Closed-source enterprise platform
+                      </span>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        {project.links?.map((link) => (
+                          <a
+                            key={link.label}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-0.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                          >
+                            <span>{link.label}</span>
+                            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               );

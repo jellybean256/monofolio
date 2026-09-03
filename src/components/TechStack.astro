@@ -9,19 +9,19 @@ import { techStackCategories } from '../data/portfolioData';
     </span>
   </div>
 
-  <div class="flex-1 min-h-0 space-y-2.5 overflow-hidden">
+  <div class="flex-1 min-h-0 space-y-2 overflow-y-auto custom-scrollbar pr-0.5">
     {techStackCategories.map((group) => (
       <div>
-        <span class="block text-[11px] font-medium text-zinc-400 dark:text-zinc-500 mb-1">
+        <span class="block text-[10.5px] font-mono text-zinc-400 dark:text-zinc-500 mb-1">
           {group.category}
         </span>
-        <div class="flex flex-wrap gap-1.5">
+        <div class="flex flex-wrap gap-1">
           {group.skills.map((skill) => (
             <span
-              class={`text-xs px-2 py-0.5 rounded-md font-mono transition-colors ${
+              class={`text-[11px] px-1.5 py-0.5 rounded font-mono transition-colors ${
                 skill.highlight
                   ? 'bg-zinc-100 dark:bg-zinc-800 font-medium text-zinc-900 dark:text-zinc-100'
-                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-300'
+                  : 'text-zinc-500 dark:text-zinc-400'
               }`}
             >
               {skill.name}
