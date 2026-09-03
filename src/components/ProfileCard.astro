@@ -1,60 +1,47 @@
 ---
 import { developerProfile, socialLinks } from '../data/portfolioData';
-
-const coreStack = ['TypeScript', 'Rust', 'Go', 'Distributed Systems'];
 ---
 
-<div class="h-full bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-5 sm:p-6 flex flex-col justify-between text-left">
-  <div>
-    {/* Large Circular Avatar */}
-    <img
-      src={developerProfile.avatarUrl}
-      alt={`Profile portrait of ${developerProfile.name}`}
-      class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover ring-2 ring-zinc-200/90 dark:ring-zinc-700/80 shadow-xs shrink-0"
-      loading="eager"
-    />
+<div class="flex flex-col text-left p-2 sm:p-3 lg:p-4">
+  {/* Large Circular Avatar */}
+  <img
+    src={developerProfile.avatarUrl}
+    alt={`Profile portrait of ${developerProfile.name}`}
+    class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover ring-2 ring-zinc-200/90 dark:ring-zinc-700/80 shadow-xs shrink-0"
+    loading="eager"
+  />
 
-    {/* Name (Left-aligned, prominent) */}
-    <h1 class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight mt-4">
-      {developerProfile.name}
-    </h1>
+  {/* Name (Left-aligned, prominent) */}
+  <h1 class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight mt-4">
+    {developerProfile.name}
+  </h1>
 
-    {/* Role */}
-    <p class="text-xs sm:text-sm font-mono text-zinc-600 dark:text-zinc-400 mt-1">
-      {developerProfile.role}
-    </p>
+  {/* Role */}
+  <p class="text-xs sm:text-sm font-mono text-zinc-600 dark:text-zinc-400 mt-1">
+    {developerProfile.role}
+  </p>
 
-    {/* Location with Pin Icon */}
-    <div class="flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-1.5">
-      <svg class="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-      <span>{developerProfile.location}</span>
-    </div>
-
-    {/* Joined Date */}
-    <p class="text-xs font-mono text-zinc-400 dark:text-zinc-500 mt-1">
-      {developerProfile.joinedDate}
-    </p>
-
-    {/* Bio (Left-aligned monospace) */}
-    <p class="text-xs sm:text-sm font-mono text-zinc-700 dark:text-zinc-300 leading-relaxed mt-3.5">
-      {developerProfile.bio}
-    </p>
-
-    {/* Core Focus / Tech Stack Pills (matching reference image) */}
-    <div class="flex flex-wrap gap-1.5 mt-3.5">
-      {coreStack.map((tech) => (
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/60 dark:border-zinc-700/60">
-          {tech}
-        </span>
-      ))}
-    </div>
+  {/* Location with Pin Icon */}
+  <div class="flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 mt-1.5">
+    <svg class="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+    <span>{developerProfile.location}</span>
   </div>
 
-  {/* Social Links Capsule Pills (docked cleanly at bottom of card) */}
-  <div class="flex flex-wrap gap-2 pt-3.5 border-t border-zinc-100/80 dark:border-zinc-800/60">
+  {/* Joined Date */}
+  <p class="text-xs font-mono text-zinc-400 dark:text-zinc-500 mt-1">
+    {developerProfile.joinedDate}
+  </p>
+
+  {/* Bio (Left-aligned monospace) */}
+  <p class="text-xs sm:text-sm font-mono text-zinc-700 dark:text-zinc-300 leading-relaxed mt-4">
+    {developerProfile.bio}
+  </p>
+
+  {/* Social Links Capsule Pills (directly under bio, no tech stack, no extra empty gap) */}
+  <div class="flex flex-wrap gap-2 mt-5">
     {socialLinks.map((link) => (
       <a
         href={link.url}
