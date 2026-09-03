@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Search, ExternalLink } from 'lucide-react';
+import { Search, ExternalLink } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 
 interface ProjectsAreaProps {
@@ -103,22 +103,10 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
                   className="flex flex-col justify-between p-3 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/30 hover:border-zinc-300/80 dark:hover:border-zinc-700/80 transition-colors"
                 >
                   <div>
-                    {/* Title + Status/Privacy indicator */}
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <h2 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight truncate">
-                        {project.title}
-                      </h2>
-                      {isClosed ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500 font-mono shrink-0">
-                          <Lock className="w-2.5 h-2.5" />
-                          <span>Private</span>
-                        </span>
-                      ) : (
-                        <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 shrink-0">
-                          {project.status}
-                        </span>
-                      )}
-                    </div>
+                    {/* Title */}
+                    <h2 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight truncate mb-1.5">
+                      {project.title}
+                    </h2>
 
                     {/* Description as primary focus */}
                     <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
