@@ -28,7 +28,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
   });
 
   return (
-    <div className="flex flex-col overflow-hidden h-fit max-h-[322px] shrink-0">
+    <div className="flex flex-col overflow-hidden h-fit max-h-[296px] shrink-0">
       {/* Header: Clean quiet tabs & minimal search */}
       <div className="pb-2.5 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3">
