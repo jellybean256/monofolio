@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProfileCard from '../components/ProfileCard.astro';
-import TechStack from '../components/TechStack.astro';
 import ProjectsArea from '../components/ProjectsArea';
 import GithubContributions from '../components/GithubContributions';
 import { publicProjects, closedProjects } from '../data/portfolioData';
@@ -24,7 +23,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
           aria-controls="panel-profile"
           class="px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
         >
-          Profile & Stack
+          Profile
         </button>
         <button
           id="btn-view-work"
@@ -40,15 +39,14 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 
     {/* Responsive Dashboard Grid */}
     <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3">
-      {/* Left Column: Unified Profile Component (Avatar, Identity, Bio, Social, Controls) & Unified Tech Stack */}
+      {/* Left Column: Developer Profile */}
       <section 
         id="panel-profile"
         role="tabpanel"
-        aria-label="Developer Profile and Tech Stack"
+        aria-label="Developer Profile"
         class="flex lg:flex lg:col-span-4 xl:col-span-3.5 2xl:col-span-3 flex-col gap-3 min-h-0 h-full overflow-hidden"
       >
         <ProfileCard />
-        <TechStack />
       </section>
 
       {/* Right Column: Projects (Public & Closed) and GitHub Heatmap */}
