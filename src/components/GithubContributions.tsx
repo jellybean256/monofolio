@@ -16,7 +16,7 @@ export default function GithubContributions() {
     return res;
   }, [contributionDays]);
 
-  // Extract month markers for the top
+  // Extract month markers for the top with exact week index
   const monthLabels = useMemo(() => {
     const labels: { name: string; weekIndex: number }[] = [];
     let lastMonth = -1;
@@ -24,7 +24,7 @@ export default function GithubContributions() {
     weeks.forEach((week, index) => {
       const firstDay = new Date(week[0].date);
       const month = firstDay.getMonth();
-      if (month !== lastMonth && index < 48) {
+      if (month !== lastMonth && index < 49) {
         labels.push({
           name: firstDay.toLocaleDateString('en-US', { month: 'short' }),
           weekIndex: index,
@@ -69,7 +69,7 @@ export default function GithubContributions() {
   };
 
   return (
-    <div className="shrink-0 bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-3 sm:p-3.5 flex flex-col justify-between">
+    <div className="shrink-0 bg-white/80 dark:bg-zinc-900/60 rounded-xl border border-zinc-200/60 dark:border-zinc-800/60 p-3 sm:p-3.5 flex flex-col justify-between w-full">
       {/* Header: Pure focus without badge noise */}
       <div className="flex items-center justify-between gap-3 mb-2 shrink-0">
         <div className="flex items-baseline gap-2">
@@ -92,58 +92,61 @@ export default function GithubContributions() {
         </a>
       </div>
 
-      {/* Heatmap Grid - The clear hero visualization */}
-      <div className="overflow-x-auto custom-scrollbar pb-0.5">
-        <div className="inline-block min-w-full">
+      {/* Heatmap Grid - Fully spans 100% of the card width */}
+      <div className="w-full flex items-start gap-1.5 sm:gap-2">
+        {/* Days of week labels (M, W, F) row-aligned with matching gaps */}
+        <div className="flex flex-col gap-[2px] sm:gap-[2.5px] md:gap-[3px] text-[9px] font-mono text-zinc-400 dark:text-zinc-500 select-none pt-5 shrink-0">
+          <div className="w-3 aspect-square flex items-center justify-center invisible">S</div>
+          <div className="w-3 aspect-square flex items-center justify-center leading-none">M</div>
+          <div className="w-3 aspect-square flex items-center justify-center invisible">T</div>
+          <div className="w-3 aspect-square flex items-center justify-center leading-none">W</div>
+          <div className="w-3 aspect-square flex items-center justify-center invisible">T</div>
+          <div className="w-3 aspect-square flex items-center justify-center leading-none">F</div>
+          <div className="w-3 aspect-square flex items-center justify-center invisible">S</div>
+        </div>
+
+        {/* Matrix + Months spanning the full remaining width */}
+        <div className="flex-1 min-w-0 flex flex-col">
           {/* Months Row */}
-          <div className="flex text-[10px] font-mono text-zinc-400 dark:text-zinc-500 mb-1 pl-4 gap-[2.5px]">
+          <div className="relative w-full h-4 text-[10px] font-mono text-zinc-400 dark:text-zinc-500 mb-1 select-none">
             {monthLabels.map((m, idx) => (
               <span
                 key={idx}
                 style={{
-                  minWidth: `${(52 / monthLabels.length) * 11.5}px`,
+                  left: `${(m.weekIndex / 52) * 100}%`,
+                  position: 'absolute',
                 }}
-                className="truncate"
+                className="truncate transform -translate-x-0.5"
               >
                 {m.name}
               </span>
             ))}
           </div>
 
-          {/* Grid: 7 rows of 52 weeks */}
-          <div className="flex gap-1 items-start">
-            {/* Days of week labels */}
-            <div className="flex flex-col justify-between text-[9px] font-mono text-zinc-400 dark:text-zinc-500 h-[74px] pr-1 select-none leading-none pt-2 pb-1">
-              <span>M</span>
-              <span>W</span>
-              <span>F</span>
-            </div>
-
-            {/* Matrix of days */}
-            <div className="flex gap-[2.5px]">
-              {weeks.map((week, weekIdx) => (
-                <div key={weekIdx} className="flex flex-col gap-[2.5px]">
-                  {week.map((day, dayIdx) => (
-                    <div
-                      key={dayIdx}
-                      onMouseEnter={(e) => handleMouseEnter(day, e)}
-                      onMouseLeave={handleMouseLeave}
-                      tabIndex={0}
-                      aria-label={`${day.count} contributions on ${day.date}`}
-                      className={`w-[9.5px] h-[9.5px] sm:w-[10px] sm:h-[10px] xl:w-[10.5px] xl:h-[10.5px] rounded-[2px] transition-all cursor-pointer ${getLevelClass(
-                        day.level
-                      )}`}
-                    />
-                  ))}
-                </div>
-              ))}
-            </div>
+          {/* Matrix of 52 weeks spanning full width of the card */}
+          <div className="w-full flex justify-between gap-[2px] sm:gap-[2.5px] md:gap-[3px]">
+            {weeks.map((week, weekIdx) => (
+              <div key={weekIdx} className="flex flex-col flex-1 gap-[2px] sm:gap-[2.5px] md:gap-[3px]">
+                {week.map((day, dayIdx) => (
+                  <div
+                    key={dayIdx}
+                    onMouseEnter={(e) => handleMouseEnter(day, e)}
+                    onMouseLeave={handleMouseLeave}
+                    tabIndex={0}
+                    aria-label={`${day.count} contributions on ${day.date}`}
+                    className={`w-full aspect-square rounded-[2px] transition-all cursor-pointer ${getLevelClass(
+                      day.level
+                    )}`}
+                  />
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Clean Legend */}
-      <div className="mt-1.5 flex items-center justify-end text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
+      <div className="mt-2 flex items-center justify-end text-[10px] font-mono text-zinc-400 dark:text-zinc-500">
         <div className="flex items-center gap-1.5">
           <span>Less</span>
           <div className="flex gap-[2px]">
