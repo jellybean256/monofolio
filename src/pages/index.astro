@@ -14,20 +14,20 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
   <TopBar />
 
   {/* Main Dashboard - strictly contained within 100dvh minus topbar */}
-  <main class="flex-1 min-h-0 p-2 sm:p-3 lg:p-3.5 overflow-hidden flex flex-col">
+  <main class="flex-1 min-h-0 p-3 sm:p-3.5 lg:p-4 overflow-hidden flex flex-col">
     {/* Responsive View Switcher for mobile / tablet screens */}
-    <div class="lg:hidden flex items-center justify-center shrink-0 mb-2">
+    <div class="lg:hidden flex items-center justify-center shrink-0 mb-2.5">
       <div 
         role="tablist" 
         aria-label="Dashboard View Selector"
-        class="inline-flex p-0.5 rounded-lg bg-slate-200/80 dark:bg-zinc-800 text-xs font-medium border border-slate-300/60 dark:border-zinc-700/60"
+        class="inline-flex p-0.5 rounded-lg bg-zinc-200/70 dark:bg-zinc-800/80 text-xs font-medium"
       >
         <button
           id="btn-view-profile"
           role="tab"
           aria-selected="true"
           aria-controls="panel-profile"
-          class="px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
+          class="px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer"
         >
           Profile & Stack
         </button>
@@ -36,7 +36,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
           role="tab"
           aria-selected="false"
           aria-controls="panel-work"
-          class="px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer"
+          class="px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer"
         >
           Projects & Activity
         </button>
@@ -44,13 +44,13 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
     </div>
 
     {/* Responsive Dashboard Panels */}
-    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3">
+    <div class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3">
       {/* Left Column: Developer Profile, Social Links, Tech Stack */}
       <section 
         id="panel-profile"
         role="tabpanel"
         aria-label="Developer Profile and Tech Stack"
-        class="flex lg:flex lg:col-span-4 xl:col-span-3.5 flex-col gap-2 sm:gap-2.5 min-h-0 h-full overflow-hidden"
+        class="flex lg:flex lg:col-span-4 xl:col-span-3.5 2xl:col-span-3 flex-col gap-3 min-h-0 h-full overflow-hidden"
       >
         <ProfileCard />
         <SocialLinks />
@@ -62,7 +62,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         id="panel-work"
         role="tabpanel"
         aria-label="Engineering Projects and GitHub Contributions"
-        class="hidden lg:flex lg:col-span-8 xl:col-span-8.5 flex-col gap-2 sm:gap-2.5 min-h-0 h-full overflow-hidden"
+        class="hidden lg:flex lg:col-span-8 xl:col-span-8.5 2xl:col-span-9 flex-col gap-3 min-h-0 h-full overflow-hidden"
       >
         {/* Projects Section with category tabs and privacy markers */}
         <ProjectsArea 
@@ -93,10 +93,10 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         panelWork.classList.remove('flex');
         
         btnProfile.setAttribute('aria-selected', 'true');
-        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
         
         btnWork.setAttribute('aria-selected', 'false');
-        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer';
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
       } else {
         panelWork.classList.remove('hidden');
         panelWork.classList.add('flex');
@@ -104,10 +104,10 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         panelProfile.classList.remove('flex');
 
         btnWork.setAttribute('aria-selected', 'true');
-        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-zinc-700 text-slate-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
+        btnWork.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 shadow-2xs cursor-pointer';
 
         btnProfile.setAttribute('aria-selected', 'false');
-        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-100 cursor-pointer';
+        btnProfile.className = 'px-3 py-1 rounded-md text-xs font-medium transition-colors text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 cursor-pointer';
       }
     }
 

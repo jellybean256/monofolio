@@ -7,7 +7,6 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
-    // Read current applied theme or fallback to storage / matchMedia
     const stored = localStorage.getItem('theme');
     if (stored === 'light' || stored === 'dark') {
       setTheme(stored);
@@ -40,12 +39,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button
-        aria-label="Toggle theme"
-        className="w-8 h-8 rounded-lg border border-slate-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 flex items-center justify-center text-slate-500 dark:text-zinc-400"
-      >
-        <span className="w-4 h-4 opacity-0" />
-      </button>
+      <div className="h-7 w-7 rounded-md" />
     );
   }
 
@@ -55,18 +49,12 @@ export default function ThemeToggle() {
       type="button"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className="group relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-slate-100 dark:hover:bg-zinc-800 text-slate-700 dark:text-zinc-300 text-xs font-medium transition-colors shadow-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 cursor-pointer"
+      className="inline-flex items-center justify-center h-7 w-7 rounded-md text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/80 dark:hover:bg-zinc-800/60 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 cursor-pointer"
     >
       {theme === 'dark' ? (
-        <>
-          <Sun className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-45 transition-transform duration-200" />
-          <span className="hidden sm:inline">Light</span>
-        </>
+        <Sun className="w-3.5 h-3.5 text-zinc-400 hover:text-amber-400 transition-colors" />
       ) : (
-        <>
-          <Moon className="w-3.5 h-3.5 text-indigo-500 group-hover:-rotate-12 transition-transform duration-200" />
-          <span className="hidden sm:inline">Dark</span>
-        </>
+        <Moon className="w-3.5 h-3.5 text-zinc-500 hover:text-indigo-600 transition-colors" />
       )}
     </button>
   );
