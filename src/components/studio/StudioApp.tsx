@@ -41,6 +41,13 @@ export default function StudioApp() {
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving'>('saved');
   const [mobilePane, setMobilePane] = useState<'editor' | 'preview'>('editor');
 
+  // Auto-detect mobile viewport on client mount so mobile devices get native mobile preview
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      setPreviewMode('mobile');
+    }
+  }, []);
+
   // Reset preview scroll when toggling view mode
   useEffect(() => {
     const vp = document.getElementById('studio-preview-viewport');
@@ -132,18 +139,20 @@ export default function StudioApp() {
       {/* Top Navigation Bar */}
       <header className="w-full bg-white border-b border-zinc-200/80 px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3 sticky top-0 z-30 shadow-2xs shrink-0">
         {/* Left: Brand & Back */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <a
             href="/"
-            className="flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-mono text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
+            className="flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded-md text-xs font-mono text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition-colors shrink-0"
+            title="Back to Landing Page"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 shrink-0" />
             <span className="hidden sm:inline">Landing</span>
           </a>
-          <span className="text-zinc-200">|</span>
-          <div className="flex items-center gap-2 font-mono text-xs font-semibold text-zinc-900">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>mono.folio Studio</span>
+          <span className="text-zinc-200 shrink-0">|</span>
+          <div className="flex items-center gap-1.5 font-mono text-xs font-semibold text-zinc-900 shrink-0 whitespace-nowrap">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span>mono.folio</span>
+            <span className="hidden xs:inline text-zinc-400 font-normal">Studio</span>
           </div>
         </div>
 
@@ -217,10 +226,11 @@ export default function StudioApp() {
           <button
             type="button"
             onClick={() => setIsPublishOpen(true)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-all shadow-xs cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-all shadow-xs cursor-pointer shrink-0 whitespace-nowrap"
           >
-            <Share2 className="w-3.5 h-3.5" />
-            <span>Publish / Share</span>
+            <Share2 className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">Publish / Share</span>
+            <span className="sm:hidden">Share</span>
           </button>
         </div>
       </header>
@@ -242,7 +252,10 @@ export default function StudioApp() {
           </button>
           <button
             type="button"
-            onClick={() => setMobilePane('preview')}
+            onClick={() => {
+              setMobilePane('preview');
+              setPreviewMode('mobile');
+            }}
             className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-medium transition-all ${
               mobilePane === 'preview'
                 ? 'bg-white text-zinc-900 shadow-2xs font-semibold'

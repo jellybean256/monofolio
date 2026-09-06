@@ -5,13 +5,15 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
   const [viewMode, setViewMode] = useState<'desktop' | 'tablet' | 'mobile'>(initialMode);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Read URL query on initial load if present
+  // Read URL query or detect mobile viewport on initial load
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const v = params.get('view') as 'desktop' | 'tablet' | 'mobile' | null;
       if (v === 'desktop' || v === 'tablet' || v === 'mobile') {
         setViewMode(v);
+      } else if (window.innerWidth < 640) {
+        setViewMode('mobile');
       }
     }
   }, []);
@@ -46,8 +48,8 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-16 flex flex-col items-center">
       {/* Visual Proof Window Frame with smooth width animation */}
       <div className={`w-full transition-all duration-300 ease-in-out ${getContainerMaxWidth()}`}>
-        {/* Window Top Chrome */}
-        <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center justify-between gap-2 shadow-xs">
+        {/* Window Top Chrome (Relative to allow true absolute centering of address bar) */}
+        <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center justify-between gap-2 shadow-xs relative">
           {/* Left: 3 macOS Traffic Light Dots */}
           <div className="flex items-center gap-2 shrink-0">
             <span className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]/40 shadow-2xs" />
@@ -55,9 +57,9 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
             <span className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]/40 shadow-2xs" />
           </div>
 
-          {/* Center: Fake Address Bar */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-zinc-200/80 text-[11px] font-mono text-zinc-500 shadow-2xs min-w-0 max-w-[220px] truncate">
-            <Lock className="w-3 h-3 text-zinc-400 shrink-0" />
+          {/* Center: Fake Address Bar (Dead center via absolute positioning) */}
+          <div className="hidden min-[360px]:flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-white border border-zinc-200/80 text-[10px] sm:text-[11px] font-mono text-zinc-500 shadow-2xs min-w-0 max-w-[110px] min-[440px]:max-w-[160px] sm:max-w-[240px] truncate absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+            <Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-zinc-400 shrink-0" />
             <span className="truncate">mono.folio/julian-vance</span>
             <a
               href="/preview"
@@ -66,7 +68,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
               title="Open preview in new tab"
               className="ml-0.5 text-zinc-400 hover:text-zinc-700 inline-flex items-center shrink-0"
             >
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
             </a>
           </div>
 
