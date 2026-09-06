@@ -6,6 +6,34 @@ interface ProjectsAreaProps {
   closedProjects: Project[];
 }
 
+const projectMeta: Record<string, { shortTitle?: string; tagline: string; year: string }> = {
+  'vortex-kv': {
+    shortTitle: 'Vortex KV',
+    tagline: 'Distributed key-value engine',
+    year: '2024',
+  },
+  'hypertrace-agent': {
+    shortTitle: 'HyperTrace APM',
+    tagline: 'Kernel probe telemetry agent',
+    year: '2023',
+  },
+  'lattice-engine': {
+    shortTitle: 'Lattice UI Kit',
+    tagline: 'Headless component engine',
+    year: '2023',
+  },
+  'aegis-settlement': {
+    shortTitle: 'Aegis Settlement',
+    tagline: 'Financial ledger engine',
+    year: '2022',
+  },
+  'sentinel-telemetry-grid': {
+    shortTitle: 'Sentinel Mesh',
+    tagline: 'Edge vehicle telemetry',
+    year: '2021',
+  },
+};
+
 export default function ProjectsArea({ publicProjects, closedProjects }: ProjectsAreaProps) {
   // Limited to top 5 projects as requested
   const allProjects = [...publicProjects, ...closedProjects].slice(0, 5);
@@ -16,16 +44,6 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
       return project.links[0].url;
     }
     return undefined;
-  };
-
-  // Assign clean year markers based on project maturity
-  const getYear = (project: Project) => {
-    if (project.status === 'Active') return '2024';
-    if (project.status === 'Production') return '2023';
-    if (project.status === 'Beta') return '2023';
-    if (project.status === 'Proprietary') return '2022';
-    if (project.status === 'Internal Engine') return '2021';
-    return '2020';
   };
 
   return (
@@ -40,30 +58,40 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
         </span>
       </div>
 
-      {/* Minimalist Editorial Row List */}
-      <div className="flex flex-col pt-1 divide-y divide-zinc-100/60">
+      {/* Single-Line Tabular / Index Row List */}
+      <div className="flex flex-col pt-1 divide-y divide-zinc-100/50">
         {allProjects.map((project) => {
           const url = getProjectUrl(project);
-          const year = getYear(project);
+          const meta = projectMeta[project.id] || {
+            shortTitle: project.title,
+            tagline: project.description.split('.')[0] || project.description,
+            year: '2023',
+          };
+
+          const displayTitle = meta.shortTitle || project.title;
+          const { tagline, year } = meta;
 
           const content = (
-            <div className="py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group">
-              <div className="flex items-baseline justify-between gap-2">
-                <div className="flex items-center gap-1 min-w-0">
-                  <span className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 truncate">
-                    {project.title}
-                  </span>
-                  {url && (
-                    <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
-                  )}
-                </div>
-                <span className="text-[11px] font-mono text-zinc-400 shrink-0">
-                  {year}
+            <div className="flex items-center justify-between gap-3 py-1.5 px-2 -mx-2 rounded hover:bg-zinc-100/70 transition-colors group">
+              {/* Column 1: Project Title + External Arrow */}
+              <div className="w-40 sm:w-48 shrink-0 flex items-center gap-1 min-w-0">
+                <span className="text-xs font-medium text-zinc-900 group-hover:text-zinc-950 group-hover:underline underline-offset-2 truncate">
+                  {displayTitle}
                 </span>
+                {url && (
+                  <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                )}
               </div>
-              <p className="text-xs text-zinc-500 leading-relaxed truncate mt-0.5">
-                {project.description}
-              </p>
+
+              {/* Column 2: Concise Tagline */}
+              <span className="flex-1 min-w-0 text-[11.5px] text-zinc-500 group-hover:text-zinc-700 truncate">
+                {tagline}
+              </span>
+
+              {/* Column 3: Year */}
+              <span className="text-[11px] font-mono text-zinc-400 shrink-0 text-right">
+                {year}
+              </span>
             </div>
           );
 
