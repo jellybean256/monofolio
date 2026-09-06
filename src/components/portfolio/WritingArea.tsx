@@ -54,14 +54,14 @@ export default function WritingArea({ writings }: WritingAreaProps) {
               href={article.url}
               target="_blank"
               rel="noreferrer"
-              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-all duration-150 no-underline"
+              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 no-underline"
             >
               {content}
             </a>
           ) : (
             <div
               key={article.id}
-              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-all duration-150"
+              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150"
             >
               {content}
             </div>

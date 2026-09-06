@@ -128,9 +128,9 @@ export default function StudioApp() {
     : 'builder';
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#fbfbfb] text-zinc-900 font-sans selection:bg-zinc-200">
+    <div className="w-full h-screen flex flex-col bg-[#fbfbfb] text-zinc-900 font-sans selection:bg-zinc-200 overflow-hidden">
       {/* Top Navigation Bar */}
-      <header className="w-full bg-white border-b border-zinc-200/80 px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3 sticky top-0 z-30 shadow-2xs">
+      <header className="w-full bg-white border-b border-zinc-200/80 px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3 sticky top-0 z-30 shadow-2xs shrink-0">
         {/* Left: Brand & Back */}
         <div className="flex items-center gap-3">
           <a
@@ -223,7 +223,7 @@ export default function StudioApp() {
       </header>
 
       {/* Mobile Screen Switcher Bar (Editor vs Preview) */}
-      <div className="lg:hidden w-full bg-white border-b border-zinc-200/80 px-4 py-2 flex items-center justify-center gap-2">
+      <div className="lg:hidden w-full bg-white border-b border-zinc-200/80 px-4 py-2 flex items-center justify-center gap-2 shrink-0">
         <div className="flex items-center bg-zinc-100 p-0.5 rounded-lg w-full max-w-xs">
           <button
             type="button"
@@ -253,10 +253,10 @@ export default function StudioApp() {
       </div>
 
       {/* Main Studio Body: 2-Column Split View */}
-      <div className="flex-1 flex w-full overflow-hidden">
+      <div className="flex-1 min-h-0 flex w-full overflow-hidden">
         {/* Left: Form Editor Sidebar */}
         <div
-          className={`w-full lg:w-[460px] xl:w-[490px] border-r border-zinc-200/80 bg-white flex flex-col shrink-0 h-[calc(100vh-53px)] lg:h-[calc(100vh-53px)] ${
+          className={`w-full lg:w-[460px] xl:w-[490px] border-r border-zinc-200/80 bg-white flex flex-col shrink-0 h-full min-h-0 ${
             mobilePane === 'editor' ? 'flex' : 'hidden lg:flex'
           }`}
         >
@@ -295,7 +295,7 @@ export default function StudioApp() {
           </div>
 
           {/* Active Tab Scrollable Content */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5">
+          <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5">
             {activeTab === 'profile' && (
               <ProfileEditor
                 profile={data.profile}
@@ -327,13 +327,13 @@ export default function StudioApp() {
 
         {/* Right: Real-time Live Preview Canvas */}
         <div
-          className={`flex-1 bg-zinc-100/70 p-3 sm:p-5 flex flex-col items-center justify-start h-[calc(100vh-53px)] overflow-hidden ${
+          className={`flex-1 min-h-0 bg-zinc-100/70 p-3 sm:p-5 flex flex-col items-center justify-start h-full overflow-hidden ${
             mobilePane === 'preview' ? 'flex' : 'hidden lg:flex'
           }`}
         >
-          <div className={`transition-all duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col h-full`}>
+          <div className={`transition-[max-width,width] duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col h-full min-h-0`}>
             {/* Window Frame Mockup Container */}
-            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full">
+            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full min-h-0 isolate">
               {/* Window Top Chrome (Permanently anchored to top of mockup) */}
               <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2.5 flex items-center justify-between gap-2 shadow-2xs shrink-0 select-none">
                 {/* Traffic light dots */}
@@ -358,7 +358,7 @@ export default function StudioApp() {
               {/* Window Frame Inner Canvas: Live Portfolio (Scrolls cleanly inside device screen) */}
               <div
                 id="studio-preview-viewport"
-                className="flex-1 w-full overflow-y-auto p-4 sm:p-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
+                className="flex-1 min-h-0 w-full overflow-y-auto p-4 sm:p-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
               >
                 <PortfolioView data={data} forceMode={previewMode} isEmbed={true} />
               </div>

@@ -34,7 +34,7 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
           return (
             <div
               key={job.id}
-              className={`relative py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group ${
+              className={`relative py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 group ${
                 isWide
                   ? 'flex flex-row items-center justify-between gap-2 pl-8'
                   : isMobile

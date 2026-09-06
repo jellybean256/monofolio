@@ -86,15 +86,17 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
 
   // Work column styling:
   // - If isStacked: NEVER give it a nested scrollbar or max-h. Must flow naturally with zero nested scroll sections.
-  // - If isDesktop in studio (isEmbed): max-h to scroll cleanly within simulated desktop window.
+  // - If isEmbed: embedded in studio mockup, let #studio-preview-viewport be the single unified window scroll container.
   // - If standalone desktop: lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto.
   const workClasses = isStacked
     ? 'w-full min-w-0 flex flex-col gap-4'
     : isDesktop
-    ? `col-span-8 w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] ${
-        isEmbed ? 'max-h-[calc(100vh-14rem)] overflow-y-auto' : 'lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
+    ? `col-span-8 w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 ${
+        isEmbed ? '' : '[scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
       }`
-    : 'w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 lg:col-span-8 xl:col-span-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto';
+    : `w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 lg:col-span-8 xl:col-span-8 ${
+        isEmbed ? '' : '[scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
+      }`;
 
   return (
     <div className={containerClasses}>
