@@ -21,6 +21,15 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
       if (v === 'desktop' || v === 'tablet' || v === 'mobile') {
         setActiveMode(v);
       }
+
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data && event.data.type === 'SET_VIEW_MODE') {
+          setActiveMode(event.data.mode);
+        }
+      };
+
+      window.addEventListener('message', handleMessage);
+      return () => window.removeEventListener('message', handleMessage);
     }
   }, []);
 

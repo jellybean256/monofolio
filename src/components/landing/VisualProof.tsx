@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Monitor, Tablet, Smartphone, Lock, ExternalLink } from 'lucide-react';
 
 export default function VisualProof({ initialMode = 'desktop' }: { initialMode?: 'desktop' | 'tablet' | 'mobile' }) {
   const [viewMode, setViewMode] = useState<'desktop' | 'tablet' | 'mobile'>(initialMode);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
+  // Read URL query on initial load if present
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -13,6 +15,21 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
       }
     }
   }, []);
+
+  // Send message to iframe to change view mode smoothly without reload
+  const handleModeChange = (newMode: 'desktop' | 'tablet' | 'mobile') => {
+    setViewMode(newMode);
+    try {
+      iframeRef.current?.contentWindow?.postMessage({ type: 'SET_VIEW_MODE', mode: newMode }, '*');
+    } catch (e) {}
+  };
+
+  // Sync mode once iframe finishes loading
+  const handleIframeLoad = () => {
+    try {
+      iframeRef.current?.contentWindow?.postMessage({ type: 'SET_VIEW_MODE', mode: viewMode }, '*');
+    } catch (e) {}
+  };
 
   const getContainerMaxWidth = () => {
     switch (viewMode) {
@@ -25,11 +42,9 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
     }
   };
 
-  const iframeSrc = `/preview?view=${viewMode}`;
-
   return (
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-16 flex flex-col items-center">
-      {/* Visual Proof Window Frame */}
+      {/* Visual Proof Window Frame with smooth width animation */}
       <div className={`w-full transition-all duration-300 ease-in-out ${getContainerMaxWidth()}`}>
         {/* Window Top Chrome */}
         <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center justify-between gap-2 shadow-xs">
@@ -45,7 +60,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
             <Lock className="w-3 h-3 text-zinc-400 shrink-0" />
             <span className="truncate">mono.folio/julian-vance</span>
             <a
-              href={iframeSrc}
+              href="/preview"
               target="_blank"
               rel="noreferrer"
               title="Open preview in new tab"
@@ -58,8 +73,8 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
           {/* Right: 3-Way Viewport Toggle Switcher */}
           <div className="flex items-center bg-zinc-200/70 p-0.5 rounded-lg shrink-0">
             <button
-              onClick={() => setViewMode('desktop')}
-              className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
+              onClick={() => handleModeChange('desktop')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
                 viewMode === 'desktop'
                   ? 'bg-white text-zinc-900 shadow-2xs font-medium'
                   : 'text-zinc-500 hover:text-zinc-800'
@@ -70,8 +85,8 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
               {viewMode !== 'mobile' && <span className="hidden sm:inline">Desktop</span>}
             </button>
             <button
-              onClick={() => setViewMode('tablet')}
-              className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
+              onClick={() => handleModeChange('tablet')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
                 viewMode === 'tablet'
                   ? 'bg-white text-zinc-900 shadow-2xs font-medium'
                   : 'text-zinc-500 hover:text-zinc-800'
@@ -82,8 +97,8 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
               {viewMode !== 'mobile' && <span className="hidden sm:inline">Tablet</span>}
             </button>
             <button
-              onClick={() => setViewMode('mobile')}
-              className={`flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
+              onClick={() => handleModeChange('mobile')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
                 viewMode === 'mobile'
                   ? 'bg-white text-zinc-900 shadow-2xs font-medium'
                   : 'text-zinc-500 hover:text-zinc-800'
@@ -96,15 +111,16 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
           </div>
         </div>
 
-        {/* Window Content: Live Embedded Portfolio via isolated iframe */}
+        {/* Window Content: Single Persistent Iframe without unmounting/reloading */}
         <div
           className={`w-full bg-[#fcfcfc] border border-zinc-200/90 rounded-b-xl shadow-lg shadow-zinc-200/40 overflow-hidden transition-all duration-300 ${
             viewMode === 'desktop' ? 'h-[640px] sm:h-[680px]' : 'h-[680px]'
           }`}
         >
           <iframe
-            key={iframeSrc}
-            src={iframeSrc}
+            ref={iframeRef}
+            src="/preview"
+            onLoad={handleIframeLoad}
             title="Portfolio Live Preview"
             className="w-full h-full border-0 bg-[#fcfcfc]"
             loading="eager"
