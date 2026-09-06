@@ -19,7 +19,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
   });
 
   return (
-    <div className="flex flex-col overflow-visible lg:overflow-hidden h-auto lg:h-[296px] shrink-0">
+    <div className="flex flex-col">
       {/* Header: Clean quiet tabs (no search input) */}
       <div className="pb-2.5 flex items-center justify-between gap-3 shrink-0">
         <div className="flex items-center gap-3">
@@ -64,8 +64,8 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
         </div>
       </div>
 
-      {/* Projects Grid Container: Scrolls internally on desktop, expands naturally on mobile */}
-      <div className="flex-1 min-h-0 overflow-visible lg:overflow-y-auto custom-scrollbar lg:pr-1.5 pb-1">
+      {/* Projects Grid Container */}
+      <div className="w-full pb-1">
         {filteredProjects.length === 0 ? (
           <div className="h-full flex items-center justify-center text-xs text-zinc-400 py-6">
             No matching projects

@@ -63,6 +63,35 @@ export interface ContributionDay {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
+export interface WorkSubProject {
+  name: string;
+  type: string;
+  url?: string;
+}
+
+export interface WorkExperience {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  current?: boolean;
+  companyUrl?: string;
+  domain: string;
+  description: string;
+  technologies: string[];
+  projects?: WorkSubProject[];
+}
+
+export interface Article {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  url: string;
+  tag?: string;
+}
+
 export interface GitHubSummary {
   username: string;
   profileUrl: string;
@@ -261,6 +290,111 @@ export const closedProjects: Project[] = [
 ];
 
 export const allProjects: Project[] = [...publicProjects, ...closedProjects];
+
+export const workHistory: WorkExperience[] = [
+  {
+    id: "vortex-labs",
+    company: "Vortex Labs",
+    role: "Staff Systems Architect",
+    period: "2023 — Present",
+    current: true,
+    companyUrl: "https://github.com/julianvance/vortex-kv",
+    domain: "Distributed Systems",
+    description: "Leading core engine architecture for low-latency consensus, Raft replication, and lock-free state machines. Reduced tail latency across global clusters by 42%.",
+    technologies: ["Rust", "Tokio", "Raft", "eBPF", "Prometheus"],
+    projects: [
+      { name: "Vortex KV Engine", type: "Key-Value Store", url: "https://vortex-kv-demo.dev" },
+      { name: "Raft Consensus Core", type: "Protocol", url: "https://github.com/julianvance/vortex-kv" },
+      { name: "Cluster Rebalancer", type: "Distributed Ops" },
+    ],
+  },
+  {
+    id: "aegis-financial",
+    company: "Aegis Financial",
+    role: "Senior Staff Infrastructure Engineer",
+    period: "2021 — 2023",
+    current: false,
+    companyUrl: "https://aegis-case-study.dev/architecture-summary",
+    domain: "Fintech Core",
+    description: "Engineered multi-asset clearing and atomic settlement ledger handling $4.8B in daily transactional volume with deterministic audit guarantees.",
+    technologies: ["Go", "Kafka", "PostgreSQL", "AWS KMS", "HSM"],
+    projects: [
+      { name: "Aegis Settlement Engine", type: "Core Ledger" },
+      { name: "Idempotent Event Stream", type: "Streaming Pipeline" },
+      { name: "HSM Multi-Sig Vault", type: "Security" },
+    ],
+  },
+  {
+    id: "hypertrace-telemetry",
+    company: "HyperTrace Systems",
+    role: "Principal Systems Engineer",
+    period: "2018 — 2021",
+    current: false,
+    companyUrl: "https://github.com/julianvance/hypertrace",
+    domain: "Kernel & APM",
+    description: "Pioneered zero-overhead Linux eBPF kernel probes extracting TCP socket latency and distributed RPC spans without application bytecode modification.",
+    technologies: ["Go", "C", "eBPF", "ClickHouse", "OpenTelemetry"],
+    projects: [
+      { name: "HyperTrace Agent", type: "Kernel APM", url: "https://hypertrace-demo.dev" },
+      { name: "ClickHouse Spans Sink", type: "Data Storage" },
+      { name: "eBPF Socket Filter", type: "Kernel Module" },
+    ],
+  },
+  {
+    id: "lattice-networks",
+    company: "Lattice Networks",
+    role: "Senior Full-Stack Engineer",
+    period: "2015 — 2018",
+    current: false,
+    companyUrl: "https://lattice-ui.dev",
+    domain: "Developer Tooling",
+    description: "Built real-time telemetry dashboards and reactive state-synchronization protocols for enterprise network operators and reliability teams.",
+    technologies: ["TypeScript", "React", "Node.js", "WebSockets", "Docker"],
+    projects: [
+      { name: "Lattice UI Components", type: "UI Kit", url: "https://lattice-ui.dev" },
+      { name: "Network Mesh Visualizer", type: "Web Canvas" },
+    ],
+  },
+];
+
+export const writingArticles: Article[] = [
+  {
+    id: "taste-is-a-skill",
+    title: "Taste Is a Skill in Systems Engineering",
+    description: "Why the ergonomics of an internal API matter as much as its throughput, and how software restraint separates durable engines from disposable ones.",
+    date: "Aug 30, 2026",
+    readTime: "5 min read",
+    url: "#taste-is-a-skill",
+    tag: "Philosophy",
+  },
+  {
+    id: "zero-overhead-ebpf",
+    title: "Zero-Overhead Profiling with Linux eBPF",
+    description: "Extracting TCP connection latency, socket queuing, and CPU scheduler contention directly from kernel probes with less than 0.2% runtime degradation.",
+    date: "Aug 14, 2026",
+    readTime: "8 min read",
+    url: "#zero-overhead-ebpf",
+    tag: "Systems",
+  },
+  {
+    id: "lock-free-ring-buffers",
+    title: "Lock-Free Ring Buffers & Cache-Line Alignment in Rust",
+    description: "A deep dive into false sharing, memory orderings (Acquire/Release), and structuring bounded queues for high-throughput multi-core message passing.",
+    date: "Jun 22, 2026",
+    readTime: "11 min read",
+    url: "#lock-free-ring-buffers",
+    tag: "Rust",
+  },
+  {
+    id: "atomic-settlement-design",
+    title: "Designing for Atomic Multi-Asset Financial Settlement",
+    description: "Two-phase commit pitfalls, idempotent transactional outbox patterns, and deterministic ledger reconciliation under strict regulatory latency targets.",
+    date: "Feb 09, 2026",
+    readTime: "7 min read",
+    url: "#atomic-settlement-design",
+    tag: "Architecture",
+  },
+];
 
 export const githubSummary: GitHubSummary = {
   username: "julianvance",
