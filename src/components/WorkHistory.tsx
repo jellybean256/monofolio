@@ -18,32 +18,38 @@ export default function WorkHistory() {
           return (
             <div
               key={job.id}
-              className="relative flex items-center justify-between gap-2 pl-8 py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group"
+              className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-2 pl-7 sm:pl-8 py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group"
             >
-              {/* Vertical trunk line (runs from top to center) */}
-              <span className="absolute left-3.5 top-0 w-px h-1/2 bg-zinc-200" />
+              {/* Vertical trunk line (runs from top to branch point) */}
+              <span className="absolute left-3 sm:left-3.5 top-0 w-px h-3.5 sm:h-1/2 bg-zinc-200" />
 
-              {/* Vertical trunk line continuing downward (stops at center for last item) */}
+              {/* Vertical trunk line continuing downward */}
               {!isLast && (
-                <span className="absolute left-3.5 top-1/2 w-px h-1/2 bg-zinc-200" />
+                <span className="absolute left-3 sm:left-3.5 top-3.5 sm:top-1/2 bottom-0 w-px bg-zinc-200" />
               )}
 
-              {/* Horizontal branch line connecting from trunk directly to text */}
-              <span className="absolute left-3.5 top-1/2 w-4 h-px bg-zinc-200 group-hover:bg-zinc-400 transition-colors" />
+              {/* Horizontal branch line connecting from trunk directly to company */}
+              <span className="absolute left-3 sm:left-3.5 top-3.5 sm:top-1/2 w-3.5 sm:w-4 h-px bg-zinc-200 group-hover:bg-zinc-400 transition-colors" />
 
-              {/* Text: Company + Role (No Icons, No Links) */}
-              <div className="flex items-center gap-1.5 min-w-0">
-                <span className="text-xs font-semibold text-zinc-900 truncate">
-                  {job.company}
-                </span>
-                <span className="text-zinc-300 text-xs shrink-0">•</span>
-                <span className="text-xs text-zinc-600 truncate">
+              {/* Company & Role: on mobile stacks cleanly, on desktop stays 1 line */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-1.5 min-w-0">
+                <div className="flex items-center justify-between sm:justify-start gap-2">
+                  <span className="text-xs font-semibold text-zinc-900">
+                    {job.company}
+                  </span>
+                  {/* Period on mobile aligns to the right */}
+                  <span className="sm:hidden text-[11px] font-mono text-zinc-400 shrink-0">
+                    {job.period}
+                  </span>
+                </div>
+                <span className="hidden sm:inline text-zinc-300 text-xs shrink-0">•</span>
+                <span className="text-[11.5px] sm:text-xs text-zinc-500 sm:text-zinc-600 sm:truncate">
                   {job.role}
                 </span>
               </div>
 
-              {/* Right: Period */}
-              <span className="text-[11px] font-mono text-zinc-400 shrink-0">
+              {/* Right: Period on desktop */}
+              <span className="hidden sm:inline text-[11px] font-mono text-zinc-400 shrink-0">
                 {job.period}
               </span>
             </div>

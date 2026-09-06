@@ -9,7 +9,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 
 <Layout>
   {/* Single screen on desktop without vertical scroll, fluid on mobile */}
-  <main class="min-h-screen lg:h-screen w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col justify-start">
+  <main class="min-h-screen lg:h-screen w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col justify-start [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
     {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile */}
     <div class="w-full max-w-full flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
       {/* Left Column on Desktop / Top Section on Mobile: Profile */}

@@ -113,7 +113,7 @@ export const developerProfile: DeveloperProfile = {
     available: true,
     text: "Available for staff engineering & advisory",
   },
-  avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=320&auto=format&fit=crop&q=85",
+  avatarUrl: "/Lee Han Yoil.jpg",
   bio: "Specializing in distributed systems, real-time sync engines, and developer infrastructure. Building deep-module software with zero unnecessary latency and rigorous ergonomics.",
   joinedDate: "Joined August 2024",
   metrics: [
