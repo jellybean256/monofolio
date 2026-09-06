@@ -11,9 +11,6 @@ export default function WritingArea() {
         <span className="text-xs font-semibold text-zinc-900 tracking-tight">
           Writing
         </span>
-        <span className="text-[11px] font-mono text-zinc-400">
-          {posts.length} posts
-        </span>
       </div>
 
       {/* Articles List matching user's reference image 1 exactly */}

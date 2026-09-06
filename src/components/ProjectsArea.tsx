@@ -53,9 +53,6 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
         <span className="text-xs font-semibold text-zinc-900 tracking-tight">
           Projects
         </span>
-        <span className="text-[11px] font-mono text-zinc-400">
-          {allProjects.length} systems
-        </span>
       </div>
 
       {/* Single-Line Tabular / Index Row List */}

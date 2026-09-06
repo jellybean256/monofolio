@@ -8,9 +8,6 @@ export default function WorkHistory() {
         <span className="text-xs font-semibold text-zinc-900 tracking-tight">
           Work Experience
         </span>
-        <span className="text-[11px] font-mono text-zinc-400">
-          9+ yrs
-        </span>
       </div>
 
       {/* Pure Tree Branch (No Icons, No Links, Continuous Vertical Line from Top) */}
