@@ -61,13 +61,13 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
   const isStacked = activeMode === 'tablet' || activeMode === 'mobile';
 
   // Container styling:
-  // - If isStacked (explicit mobile/tablet): NEVER lock height or hide overflow. Let content flow naturally.
-  // - If isEmbed: embedded in studio mockup or visual proof iframe.
+  // - If isEmbed: embedded in studio mockup (mockup container already provides outer padding).
+  // - If isStacked (explicit mobile/tablet): NEVER lock height or hide overflow. Provide p-4 sm:p-6 padding for clean inset.
   // - If standalone desktop: lock to single-screen h-screen with hidden outer scrollbar.
-  const containerClasses = isStacked
+  const containerClasses = isEmbed
     ? 'w-full max-w-full flex flex-col justify-start'
-    : isEmbed
-    ? 'w-full max-w-6xl mx-auto flex flex-col justify-start'
+    : isStacked
+    ? 'w-full max-w-full flex flex-col justify-start p-4 sm:p-6'
     : 'w-full max-w-6xl mx-auto flex flex-col justify-start min-h-screen lg:h-screen p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden';
 
   // Layout grid/flex:

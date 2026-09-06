@@ -5,11 +5,13 @@ import { defaultPortfolioData } from '../data/portfolioData';
 interface Props {
   title?: string;
   description?: string;
+  isPreview?: boolean;
 }
 
 const { 
   title = "Julian Vance — Staff Software & Systems Engineer", 
-  description = "Single-screen developer portfolio and profile for Julian Vance. Distributed systems, real-time architectures, and developer tooling."
+  description = "Single-screen developer portfolio and profile for Julian Vance. Distributed systems, real-time architectures, and developer tooling.",
+  isPreview = false
 } = Astro.props;
 
 const canonicalUrl = "https://julianvance.dev";
@@ -38,7 +40,7 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="en" class="min-h-screen lg:h-screen w-full lg:overflow-hidden" data-theme="light">
+<html lang="en" class={isPreview ? "h-full w-full overflow-hidden" : "min-h-screen lg:h-screen w-full lg:overflow-hidden"} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -84,8 +86,36 @@ const personSchema = {
         localStorage.setItem('theme_preset', 'light');
       } catch (e) {}
     </script>
+
+    {/* Global sleek Geist scrollbars */}
+    <style is:global>
+      html, body {
+        scrollbar-width: thin;
+        scrollbar-color: #d4d4d8 transparent;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #d4d4d8;
+        border-radius: 9999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #a1a1aa;
+      }
+    </style>
   </head>
-  <body class="min-h-screen lg:h-screen w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased lg:overflow-hidden">
-    <slot />
+  <body class={isPreview ? "h-full w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased overflow-hidden" : "min-h-screen lg:h-screen w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased lg:overflow-hidden [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"}>
+    {isPreview ? (
+      <div id="preview-viewport-root" class="h-full w-full overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] flex flex-col">
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )}
   </body>
 </html>

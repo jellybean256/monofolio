@@ -4,6 +4,6 @@ import PortfolioView from '../components/portfolio/PortfolioView';
 import { defaultPortfolioData } from '../data/portfolioData';
 ---
 
-<Layout title="mono.folio — Preview">
+<Layout title="mono.folio — Preview" isPreview={true}>
   <PortfolioView client:load data={defaultPortfolioData} />
 </Layout>

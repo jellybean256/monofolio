@@ -147,8 +147,8 @@ export default function StudioApp() {
           </div>
         </div>
 
-        {/* Center: Viewport Switcher (Desktop only) */}
-        <div className="hidden lg:flex items-center bg-zinc-100/90 p-0.5 rounded-lg border border-zinc-200/60 shadow-2xs">
+        {/* Center: Viewport Switcher (Anchored to exact visual center to eliminate layout shifts) */}
+        <div className="hidden lg:flex items-center bg-zinc-100/90 p-0.5 rounded-lg border border-zinc-200/60 shadow-2xs absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
           <button
             type="button"
             onClick={() => setPreviewMode('desktop')}
@@ -189,13 +189,16 @@ export default function StudioApp() {
 
         {/* Right: Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Auto-save status */}
-          <div className="hidden sm:flex items-center gap-1 text-[11px] font-mono text-zinc-400">
+          {/* Auto-save status with fixed width to eliminate layout shift */}
+          <div className="hidden sm:flex items-center justify-end w-[68px] text-[11px] font-mono text-zinc-400 shrink-0 select-none">
             {saveStatus === 'saving' ? (
-              <span>Saving...</span>
+              <span className="flex items-center gap-1.5 text-zinc-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                <span>Saving...</span>
+              </span>
             ) : (
-              <span className="flex items-center gap-1 text-zinc-500">
-                <Check className="w-3 h-3 text-emerald-600 stroke-[2.5]" />
+              <span className="flex items-center gap-1.5 text-zinc-500">
+                <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5] shrink-0" />
                 <span>Saved</span>
               </span>
             )}
@@ -333,7 +336,7 @@ export default function StudioApp() {
         >
           <div className={`transition-[max-width,width] duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col h-full min-h-0`}>
             {/* Window Frame Mockup Container */}
-            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full min-h-0 isolate">
+            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full min-h-0 isolate [contain:paint]">
               {/* Window Top Chrome (Permanently anchored to top of mockup) */}
               <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2.5 flex items-center justify-between gap-2 shadow-2xs shrink-0 select-none">
                 {/* Traffic light dots */}
