@@ -27,14 +27,14 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
       </div>
 
       {/* Pure Tree Branch (No Icons, No Links, Continuous Vertical Line from Top) */}
-      <div className="relative flex flex-col pt-1">
+      <div className="relative flex flex-col pt-1 min-w-0 w-full">
         {displayedWork.map((job, idx) => {
           const isLast = idx === displayedWork.length - 1;
 
           return (
             <div
               key={job.id}
-              className={`relative py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 group ${
+              className={`relative py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 group min-w-0 w-full overflow-hidden ${
                 isWide
                   ? 'flex flex-row items-center justify-between gap-2 pl-8'
                   : isMobile
@@ -67,7 +67,7 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
 
               {/* Company & Role */}
               <div
-                className={`min-w-0 ${
+                className={`min-w-0 flex-1 overflow-hidden ${
                   isWide
                     ? 'flex flex-row items-center gap-1.5'
                     : isMobile
@@ -76,11 +76,11 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
                 }`}
               >
                 <div
-                  className={`flex items-center gap-2 ${
+                  className={`flex items-center gap-2 min-w-0 ${
                     isWide ? 'justify-start' : isMobile ? 'justify-between' : 'justify-between sm:justify-start'
                   }`}
                 >
-                  <span className="text-xs font-semibold text-zinc-900">
+                  <span className="text-xs font-semibold text-zinc-900 truncate">
                     {job.company}
                   </span>
                   {/* Period on mobile aligns to the right */}

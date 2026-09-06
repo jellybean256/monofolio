@@ -91,11 +91,13 @@ export default function ProfileEditor({
       {/* Identity Fields */}
       <div className="space-y-4">
         <div>
-          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5">
-            Full Name
+          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+            <span>Full Name</span>
+            <span className="text-zinc-400 font-normal">{profile.name.length}/50</span>
           </label>
           <input
             type="text"
+            maxLength={50}
             value={profile.name}
             onChange={(e) => onUpdateProfile({ name: e.target.value })}
             placeholder="e.g. Julian Vance"
@@ -104,11 +106,13 @@ export default function ProfileEditor({
         </div>
 
         <div>
-          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5">
-            Professional Role / Headline
+          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+            <span>Professional Role / Headline</span>
+            <span className="text-zinc-400 font-normal">{profile.role.length}/70</span>
           </label>
           <input
             type="text"
+            maxLength={70}
             value={profile.role}
             onChange={(e) => onUpdateProfile({ role: e.target.value })}
             placeholder="e.g. Staff Systems & Full-Stack Engineer"
@@ -117,11 +121,13 @@ export default function ProfileEditor({
         </div>
 
         <div>
-          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5">
-            Location
+          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+            <span>Location</span>
+            <span className="text-zinc-400 font-normal">{profile.location.length}/50</span>
           </label>
           <input
             type="text"
+            maxLength={50}
             value={profile.location}
             onChange={(e) => onUpdateProfile({ location: e.target.value })}
             placeholder="e.g. San Francisco, CA"
@@ -130,10 +136,12 @@ export default function ProfileEditor({
         </div>
 
         <div>
-          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5">
-            Bio / Mission Statement
+          <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+            <span>Bio / Mission Statement</span>
+            <span className="text-zinc-400 font-normal">{(profile.bio || '').length}/280</span>
           </label>
           <textarea
+            maxLength={280}
             value={profile.bio}
             onChange={(e) => onUpdateProfile({ bio: e.target.value })}
             placeholder="A concise 2-3 sentence overview of what you build and what you care about."
@@ -152,11 +160,13 @@ export default function ProfileEditor({
         </label>
         <div className="space-y-2.5">
           <div>
-            <label className="block text-[10px] font-mono text-zinc-400 mb-1">
-              GitHub URL
+            <label className="block text-[10px] font-mono text-zinc-400 mb-1 flex items-center justify-between">
+              <span>GitHub URL</span>
+              <span className="text-zinc-400 font-normal">{getSocialUrl('github').length}/150</span>
             </label>
             <input
               type="url"
+              maxLength={150}
               value={getSocialUrl('github')}
               onChange={(e) => handleSocialChange('github', e.target.value)}
               placeholder="https://github.com/username"
@@ -165,11 +175,13 @@ export default function ProfileEditor({
           </div>
 
           <div>
-            <label className="block text-[10px] font-mono text-zinc-400 mb-1">
-              LinkedIn URL
+            <label className="block text-[10px] font-mono text-zinc-400 mb-1 flex items-center justify-between">
+              <span>LinkedIn URL</span>
+              <span className="text-zinc-400 font-normal">{getSocialUrl('linkedin').length}/150</span>
             </label>
             <input
               type="url"
+              maxLength={150}
               value={getSocialUrl('linkedin')}
               onChange={(e) => handleSocialChange('linkedin', e.target.value)}
               placeholder="https://linkedin.com/in/username"
@@ -178,11 +190,13 @@ export default function ProfileEditor({
           </div>
 
           <div>
-            <label className="block text-[10px] font-mono text-zinc-400 mb-1">
-              X / Twitter URL
+            <label className="block text-[10px] font-mono text-zinc-400 mb-1 flex items-center justify-between">
+              <span>X / Twitter URL</span>
+              <span className="text-zinc-400 font-normal">{getSocialUrl('twitter').length}/150</span>
             </label>
             <input
               type="url"
+              maxLength={150}
               value={getSocialUrl('twitter')}
               onChange={(e) => handleSocialChange('twitter', e.target.value)}
               placeholder="https://x.com/username"
@@ -191,11 +205,13 @@ export default function ProfileEditor({
           </div>
 
           <div>
-            <label className="block text-[10px] font-mono text-zinc-400 mb-1">
-              Email Address
+            <label className="block text-[10px] font-mono text-zinc-400 mb-1 flex items-center justify-between">
+              <span>Email Address</span>
+              <span className="text-zinc-400 font-normal">{getSocialUrl('mail').replace('mailto:', '').length}/100</span>
             </label>
             <input
               type="email"
+              maxLength={100}
               value={getSocialUrl('mail').replace('mailto:', '')}
               onChange={(e) =>
                 handleSocialChange(

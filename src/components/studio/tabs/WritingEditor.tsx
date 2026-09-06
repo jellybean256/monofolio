@@ -145,11 +145,13 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
                   <div className="p-3.5 pt-1 border-t border-zinc-100 bg-zinc-50/40 space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                       <div className="sm:col-span-2">
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Article Title
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Article Title</span>
+                          <span className="text-zinc-400 font-normal">{writing.title.length}/90</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={90}
                           value={writing.title}
                           onChange={(e) => handleChange(writing.id, 'title', e.target.value)}
                           placeholder="e.g. Taste Is a Skill"
@@ -157,11 +159,13 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Publication Date
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Publication Date</span>
+                          <span className="text-zinc-400 font-normal">{writing.date.length}/24</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={24}
                           value={writing.date}
                           onChange={(e) => handleChange(writing.id, 'date', e.target.value)}
                           placeholder="e.g. Aug 30, 2026"
@@ -171,11 +175,13 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                        One-Line Summary
+                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                        <span>One-Line Summary</span>
+                        <span className="text-zinc-400 font-normal">{(writing.description || '').length}/140</span>
                       </label>
                       <input
                         type="text"
+                        maxLength={140}
                         value={writing.description}
                         onChange={(e) => handleChange(writing.id, 'description', e.target.value)}
                         placeholder="e.g. Why good software feels different."
@@ -185,7 +191,10 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
 
                     <div>
                       <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                        <span>Article URL</span>
+                        <div className="flex items-center gap-2">
+                          <span>Article URL</span>
+                          <span className="text-zinc-400 font-normal">{(writing.url || '').length}/200</span>
+                        </div>
                         {writing.url && (
                           <a
                             href={writing.url}
@@ -200,6 +209,7 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
                       </label>
                       <input
                         type="url"
+                        maxLength={200}
                         value={writing.url || ''}
                         onChange={(e) => handleChange(writing.id, 'url', e.target.value)}
                         placeholder="https://medium.com/@... or blog link"

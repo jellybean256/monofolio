@@ -148,11 +148,13 @@ export default function ExperienceEditor({ experiences, onUpdateExperiences }: E
                   <div className="p-3.5 pt-1 border-t border-zinc-100 bg-zinc-50/40 space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       <div>
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Company / Organization
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Company / Organization</span>
+                          <span className="text-zinc-400 font-normal">{exp.company.length}/50</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={50}
                           value={exp.company}
                           onChange={(e) => handleChange(exp.id, 'company', e.target.value)}
                           placeholder="e.g. Vortex Labs"
@@ -160,11 +162,13 @@ export default function ExperienceEditor({ experiences, onUpdateExperiences }: E
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Period / Years
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Period / Years</span>
+                          <span className="text-zinc-400 font-normal">{exp.period.length}/25</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={25}
                           value={exp.period}
                           onChange={(e) => handleChange(exp.id, 'period', e.target.value)}
                           placeholder="e.g. 2023 — Present"
@@ -174,11 +178,13 @@ export default function ExperienceEditor({ experiences, onUpdateExperiences }: E
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                        Role / Title
+                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                        <span>Role / Title</span>
+                        <span className="text-zinc-400 font-normal">{exp.role.length}/60</span>
                       </label>
                       <input
                         type="text"
+                        maxLength={60}
                         value={exp.role}
                         onChange={(e) => handleChange(exp.id, 'role', e.target.value)}
                         placeholder="e.g. Staff Systems Architect"
@@ -188,7 +194,10 @@ export default function ExperienceEditor({ experiences, onUpdateExperiences }: E
 
                     <div>
                       <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                        <span>Company URL (Optional)</span>
+                        <div className="flex items-center gap-2">
+                          <span>Company URL (Optional)</span>
+                          <span className="text-zinc-400 font-normal">{(exp.url || '').length}/200</span>
+                        </div>
                         {exp.url && (
                           <a
                             href={exp.url}
@@ -203,6 +212,7 @@ export default function ExperienceEditor({ experiences, onUpdateExperiences }: E
                       </label>
                       <input
                         type="url"
+                        maxLength={200}
                         value={exp.url || ''}
                         onChange={(e) => handleChange(exp.id, 'url', e.target.value)}
                         placeholder="https://vortexlabs.dev"

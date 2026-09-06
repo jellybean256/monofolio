@@ -145,11 +145,13 @@ export default function ProjectsEditor({ projects, onUpdateProjects }: ProjectsE
                   <div className="p-3.5 pt-1 border-t border-zinc-100 bg-zinc-50/40 space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
                       <div className="sm:col-span-3">
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Project Title
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Project Title</span>
+                          <span className="text-zinc-400 font-normal">{project.title.length}/50</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={50}
                           value={project.title}
                           onChange={(e) => handleChange(project.id, 'title', e.target.value)}
                           placeholder="e.g. Vortex KV"
@@ -157,11 +159,13 @@ export default function ProjectsEditor({ projects, onUpdateProjects }: ProjectsE
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                          Year
+                        <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                          <span>Year</span>
+                          <span className="text-zinc-400 font-normal">{project.year.length}/12</span>
                         </label>
                         <input
                           type="text"
+                          maxLength={12}
                           value={project.year}
                           onChange={(e) => handleChange(project.id, 'year', e.target.value)}
                           placeholder="e.g. 2024"
@@ -171,11 +175,13 @@ export default function ProjectsEditor({ projects, onUpdateProjects }: ProjectsE
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1">
-                        One-Line Tagline / Description
+                      <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                        <span>One-Line Tagline / Description</span>
+                        <span className="text-zinc-400 font-normal">{project.tagline.length}/100</span>
                       </label>
                       <input
                         type="text"
+                        maxLength={100}
                         value={project.tagline}
                         onChange={(e) => handleChange(project.id, 'tagline', e.target.value)}
                         placeholder="e.g. Distributed key-value engine written in Rust"
@@ -185,7 +191,10 @@ export default function ProjectsEditor({ projects, onUpdateProjects }: ProjectsE
 
                     <div>
                       <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                        <span>Project Link (URL)</span>
+                        <div className="flex items-center gap-2">
+                          <span>Project Link (URL)</span>
+                          <span className="text-zinc-400 font-normal">{(project.url || '').length}/200</span>
+                        </div>
                         {project.url && (
                           <a
                             href={project.url}
@@ -200,6 +209,7 @@ export default function ProjectsEditor({ projects, onUpdateProjects }: ProjectsE
                       </label>
                       <input
                         type="url"
+                        maxLength={200}
                         value={project.url || ''}
                         onChange={(e) => handleChange(project.id, 'url', e.target.value)}
                         placeholder="https://github.com/..."

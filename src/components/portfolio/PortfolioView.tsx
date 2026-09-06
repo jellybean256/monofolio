@@ -79,22 +79,22 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
 
   // Profile column styling:
   const profileClasses = isStacked
-    ? 'w-full min-w-0 flex flex-col shrink-0'
+    ? 'w-full min-w-0 flex flex-col shrink-0 overflow-hidden'
     : isDesktop
-    ? 'w-full min-w-0 flex flex-col shrink-0 self-start md:col-span-4'
-    : 'w-full min-w-0 flex flex-col shrink-0 lg:col-span-4 xl:col-span-4 lg:self-start';
+    ? 'w-full min-w-0 flex flex-col shrink-0 self-start md:col-span-4 overflow-hidden'
+    : 'w-full min-w-0 flex flex-col shrink-0 lg:col-span-4 xl:col-span-4 lg:self-start overflow-hidden';
 
   // Work column styling:
   // - If isStacked: NEVER give it a nested scrollbar or max-h. Must flow naturally with zero nested scroll sections.
   // - If isEmbed: embedded in studio mockup, let #studio-preview-viewport be the single unified window scroll container.
   // - If standalone desktop: md:max-h-[calc(100vh-3rem)] md:overflow-y-auto on wide screens.
   const workClasses = isStacked
-    ? 'w-full min-w-0 flex flex-col gap-4'
+    ? 'w-full min-w-0 flex flex-col gap-4 overflow-hidden'
     : isDesktop
-    ? `w-full min-w-0 flex flex-col gap-4 pr-1 md:pr-2 md:col-span-8 ${
+    ? `w-full min-w-0 flex flex-col gap-4 pr-1 md:pr-2 md:col-span-8 overflow-hidden ${
         isEmbed ? '' : '[scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] md:max-h-[calc(100vh-3rem)] md:overflow-y-auto'
       }`
-    : `w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 lg:col-span-8 xl:col-span-8 ${
+    : `w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 lg:col-span-8 xl:col-span-8 overflow-hidden ${
         isEmbed ? '' : '[scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
       }`;
 

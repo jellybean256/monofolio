@@ -23,12 +23,12 @@ export default function WritingArea({ writings }: WritingAreaProps) {
       </div>
 
       {/* Articles List */}
-      <div className="flex flex-col pt-1 divide-y divide-zinc-100/60">
+      <div className="flex flex-col pt-1 divide-y divide-zinc-100/60 min-w-0 w-full">
         {displayedPosts.map((article) => {
           const content = (
-            <>
-              <div className="flex items-baseline justify-between gap-2">
-                <div className="flex items-center gap-1 min-w-0">
+            <div className="min-w-0 w-full">
+              <div className="flex items-baseline justify-between gap-2 min-w-0">
+                <div className="flex items-center gap-1 min-w-0 flex-1">
                   <h3 className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 truncate">
                     {article.title}
                   </h3>
@@ -41,11 +41,11 @@ export default function WritingArea({ writings }: WritingAreaProps) {
                 </span>
               </div>
               {article.description && (
-                <p className="text-xs text-zinc-500 leading-relaxed mt-0.5">
+                <p className="text-xs text-zinc-500 leading-relaxed mt-0.5 break-words [overflow-wrap:anywhere] line-clamp-2">
                   {article.description}
                 </p>
               )}
-            </>
+            </div>
           );
 
           return article.url ? (
@@ -54,14 +54,14 @@ export default function WritingArea({ writings }: WritingAreaProps) {
               href={article.url}
               target="_blank"
               rel="noreferrer"
-              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 no-underline"
+              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 no-underline min-w-0 w-full overflow-hidden"
             >
               {content}
             </a>
           ) : (
             <div
               key={article.id}
-              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150"
+              className="group block py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-colors duration-150 min-w-0 w-full overflow-hidden"
             >
               {content}
             </div>

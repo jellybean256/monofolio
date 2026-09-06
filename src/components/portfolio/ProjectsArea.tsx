@@ -27,15 +27,15 @@ export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
       </div>
 
       {/* Single-Line Tabular / Index Row List */}
-      <div className="flex flex-col pt-1 divide-y divide-zinc-100/50">
+      <div className="flex flex-col pt-1 divide-y divide-zinc-100/50 min-w-0 w-full">
         {displayedProjects.map((project) => {
           const content = (
-            <div className="py-1.5 px-2 -mx-2 rounded hover:bg-zinc-100/70 transition-colors group">
+            <div className="py-1.5 px-2 -mx-2 rounded hover:bg-zinc-100/70 transition-colors group min-w-0 w-full overflow-hidden">
               <div className="flex items-center justify-between gap-3">
                 {/* Column 1: Project Title + External Arrow */}
                 <div
-                  className={`shrink-0 flex items-center gap-1 min-w-0 ${
-                    isWide ? 'w-48' : isMobile ? 'w-auto' : 'w-auto sm:w-48'
+                  className={`flex items-center gap-1 min-w-0 ${
+                    isWide ? 'w-48 shrink-0' : isMobile ? 'max-w-[75%] shrink' : 'max-w-[75%] sm:max-w-none sm:w-48 shrink-0'
                   }`}
                 >
                   <span className="text-xs font-medium text-zinc-900 group-hover:text-zinc-950 group-hover:underline underline-offset-2 truncate">

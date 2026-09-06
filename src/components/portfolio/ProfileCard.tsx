@@ -21,29 +21,29 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
       />
 
       {/* Name (Left-aligned, prominent) */}
-      <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight leading-tight mt-4">
+      <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 tracking-tight leading-tight mt-4 break-words [overflow-wrap:anywhere]">
         {profile.name}
       </h1>
 
       {/* Role */}
-      <p className="text-xs sm:text-sm font-mono text-zinc-600 mt-1">
+      <p className="text-xs sm:text-sm font-mono text-zinc-600 mt-1 break-words [overflow-wrap:anywhere]">
         {profile.role}
       </p>
 
       {/* Location with Pin Icon */}
       {profile.location && (
-        <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mt-1.5">
+        <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mt-1.5 min-w-0">
           <svg className="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>{profile.location}</span>
+          <span className="truncate">{profile.location}</span>
         </div>
       )}
 
       {/* Bio (Left-aligned monospace) */}
       {profile.bio && (
-        <p className="text-xs sm:text-sm font-mono text-zinc-700 leading-relaxed mt-4 whitespace-pre-line">
+        <p className="text-xs sm:text-sm font-mono text-zinc-700 leading-relaxed mt-4 whitespace-pre-line break-words [overflow-wrap:anywhere]">
           {profile.bio}
         </p>
       )}
