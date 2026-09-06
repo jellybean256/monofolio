@@ -49,13 +49,16 @@ export default function StudioApp() {
     }
   }, []);
 
-  // Reset preview scroll when toggling view mode
+  // Reset preview scroll when toggling view mode or mobile pane
   useEffect(() => {
     const vp = document.getElementById('studio-preview-viewport');
     if (vp) {
       vp.scrollTop = 0;
     }
-  }, [previewMode]);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [previewMode, mobilePane]);
 
   // Load from localStorage on client mount
   useEffect(() => {
@@ -136,7 +139,7 @@ export default function StudioApp() {
     : 'builder';
 
   return (
-    <div className="w-full h-screen flex flex-col bg-[#fbfbfb] text-zinc-900 font-sans selection:bg-zinc-200 overflow-hidden">
+    <div className="w-full min-h-screen lg:h-screen lg:max-h-screen flex flex-col bg-[#fbfbfb] text-zinc-900 font-sans selection:bg-zinc-200 overflow-x-hidden lg:overflow-hidden">
       {/* Top Navigation Bar */}
       <header className="w-full bg-white border-b border-zinc-200/80 px-3 sm:px-5 py-2.5 flex items-center justify-between gap-3 sticky top-0 z-30 shadow-2xs shrink-0">
         {/* Left: Brand & Back */}
@@ -236,16 +239,16 @@ export default function StudioApp() {
         </div>
       </header>
 
-      {/* Mobile Screen Switcher Bar (Editor vs Preview) */}
-      <div className="lg:hidden w-full bg-white border-b border-zinc-200/80 px-4 py-2 flex items-center justify-center gap-2 shrink-0">
+      {/* Mobile Screen Switcher Bar (Editor vs Preview) - Sticky below top header */}
+      <div className="lg:hidden w-full bg-white/95 backdrop-blur-xs border-b border-zinc-200/80 px-4 py-2 flex items-center justify-center gap-2 shrink-0 sticky top-[49px] z-20">
         <div className="flex items-center bg-zinc-100 p-0.5 rounded-lg w-full max-w-xs">
           <button
             type="button"
             onClick={() => setMobilePane('editor')}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
               mobilePane === 'editor'
                 ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                : 'text-zinc-500'
+                : 'text-zinc-500 hover:text-zinc-800'
             }`}
           >
             <Edit3 className="w-3.5 h-3.5" />
@@ -257,10 +260,10 @@ export default function StudioApp() {
               setMobilePane('preview');
               setPreviewMode('mobile');
             }}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-medium transition-all ${
+            className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md text-xs font-medium transition-all cursor-pointer ${
               mobilePane === 'preview'
                 ? 'bg-white text-zinc-900 shadow-2xs font-semibold'
-                : 'text-zinc-500'
+                : 'text-zinc-500 hover:text-zinc-800'
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
@@ -269,16 +272,16 @@ export default function StudioApp() {
         </div>
       </div>
 
-      {/* Main Studio Body: 2-Column Split View */}
-      <div className="flex-1 min-h-0 flex w-full overflow-hidden">
+      {/* Main Studio Body: Full natural flow on mobile, 2-Column Split View on Desktop */}
+      <div className="w-full flex-1 flex flex-col lg:flex-row lg:min-h-0 lg:overflow-hidden">
         {/* Left: Form Editor Sidebar */}
         <div
-          className={`w-full lg:w-[460px] xl:w-[490px] border-r border-zinc-200/80 bg-white flex flex-col shrink-0 h-full min-h-0 ${
+          className={`w-full lg:w-[460px] xl:w-[490px] lg:border-r border-zinc-200/80 bg-white flex flex-col shrink-0 lg:h-full lg:min-h-0 ${
             mobilePane === 'editor' ? 'flex' : 'hidden lg:flex'
           }`}
         >
-          {/* Tab Navigation */}
-          <div className="grid grid-cols-4 border-b border-zinc-200/80 bg-zinc-50/50 p-1.5 gap-1 shrink-0">
+          {/* Tab Navigation: Sticky on mobile so tab switching is always accessible */}
+          <div className="grid grid-cols-4 border-b border-zinc-200/80 bg-zinc-50/95 backdrop-blur-xs p-1.5 gap-1 shrink-0 sticky top-[98px] z-10 lg:static">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -311,8 +314,8 @@ export default function StudioApp() {
             })}
           </div>
 
-          {/* Active Tab Scrollable Content */}
-          <div className="flex-1 min-h-0 overflow-y-auto p-4 sm:p-5">
+          {/* Active Tab Content: Natural document flow on mobile, internal scrollbar on desktop */}
+          <div className="w-full p-4 sm:p-5 pb-16 sm:pb-12 lg:pb-5 lg:flex-1 lg:min-h-0 lg:overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]">
             {activeTab === 'profile' && (
               <ProfileEditor
                 profile={data.profile}
@@ -344,13 +347,13 @@ export default function StudioApp() {
 
         {/* Right: Real-time Live Preview Canvas */}
         <div
-          className={`flex-1 min-h-0 bg-zinc-100/70 p-3 sm:p-5 flex flex-col items-center justify-start h-full overflow-hidden ${
+          className={`w-full flex-1 bg-zinc-100/70 p-3 sm:p-5 pb-16 sm:pb-12 lg:pb-5 flex flex-col items-center justify-start lg:h-full lg:min-h-0 lg:overflow-hidden ${
             mobilePane === 'preview' ? 'flex' : 'hidden lg:flex'
           }`}
         >
-          <div className={`transition-[max-width,width] duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col h-full min-h-0`}>
+          <div className={`transition-[max-width,width] duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col lg:h-full lg:min-h-0`}>
             {/* Window Frame Mockup Container */}
-            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full min-h-0 isolate [contain:paint]">
+            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col lg:h-full lg:min-h-0 isolate [contain:paint]">
               {/* Window Top Chrome (Permanently anchored to top of mockup) */}
               <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2 flex items-center gap-2.5 sm:gap-3.5 shadow-2xs shrink-0 select-none">
                 {/* Traffic light dots */}
@@ -383,10 +386,10 @@ export default function StudioApp() {
                 </div>
               </div>
 
-              {/* Window Frame Inner Canvas: Live Portfolio (Scrolls cleanly inside device screen) */}
+              {/* Window Frame Inner Canvas: Live Portfolio (Natural flow on mobile, internal scrollbar on desktop) */}
               <div
                 id="studio-preview-viewport"
-                className="flex-1 min-h-0 w-full overflow-y-auto p-4 sm:p-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
+                className="w-full p-4 sm:p-8 lg:flex-1 lg:min-h-0 lg:overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
               >
                 <PortfolioView data={data} forceMode={previewMode} isEmbed={true} />
               </div>

@@ -72,11 +72,11 @@ export default function PublishModal({ isOpen, onClose, data, onImportData }: Pu
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/60 backdrop-blur-xs animate-in fade-in duration-150">
       <div
-        className="w-full max-w-lg bg-white border border-zinc-200/90 rounded-2xl shadow-2xl shadow-zinc-950/20 overflow-hidden"
+        className="w-full max-w-lg bg-white border border-zinc-200/90 rounded-2xl shadow-2xl shadow-zinc-950/20 flex flex-col max-h-[90dvh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 py-4 border-b border-zinc-100 flex items-center justify-between">
+        <div className="px-5 py-4 border-b border-zinc-100 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-800">
               <Share2 className="w-4 h-4" />
@@ -96,7 +96,7 @@ export default function PublishModal({ isOpen, onClose, data, onImportData }: Pu
         </div>
 
         {/* Body */}
-        <div className="p-5 space-y-5">
+        <div className="p-5 space-y-5 overflow-y-auto flex-1 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]">
           {/* Shareable Link Box */}
           <div className="space-y-2">
             <label className="block text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
