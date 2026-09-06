@@ -63,12 +63,15 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
   // Container styling:
   // - If isEmbed: embedded in studio mockup (mockup container already provides outer padding).
   // - If isStacked (explicit mobile/tablet): NEVER lock height or hide overflow. Provide p-4 sm:p-6 padding for clean inset.
-  // - If standalone desktop: lock to single-screen h-screen with hidden outer scrollbar.
+  // - If isDesktop: lock to single-screen on md+ with md:overflow-hidden.
+  // - If default standalone: responsive natural flow on mobile (<lg) and single-screen precision on desktop (lg+).
   const containerClasses = isEmbed
     ? 'w-full max-w-full flex flex-col justify-start'
     : isStacked
-    ? 'w-full max-w-full flex flex-col justify-start p-4 sm:p-6'
-    : 'w-full max-w-6xl mx-auto flex flex-col justify-start min-h-screen lg:h-screen p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden';
+    ? 'w-full max-w-full flex flex-col justify-start p-4 sm:p-6 overflow-x-hidden'
+    : isDesktop
+    ? 'w-full max-w-6xl mx-auto flex flex-col justify-start min-h-screen md:h-screen md:max-h-screen p-4 sm:p-6 md:p-6 overflow-x-hidden md:overflow-hidden'
+    : 'w-full max-w-6xl mx-auto flex flex-col justify-start min-h-screen lg:h-screen lg:max-h-screen p-4 sm:p-6 lg:p-6 overflow-x-hidden lg:overflow-hidden';
 
   // Layout grid/flex:
   const layoutClasses = isStacked
