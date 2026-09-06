@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react';
 import { workHistory } from '../data/portfolioData';
 
 export default function WorkHistory() {
@@ -14,7 +13,7 @@ export default function WorkHistory() {
         </span>
       </div>
 
-      {/* Pure Tree Branch (No Icons, Continuous Vertical Line from Top) */}
+      {/* Pure Tree Branch (No Icons, No Links, Continuous Vertical Line from Top) */}
       <div className="relative flex flex-col pt-1">
         {workHistory.map((job, idx) => {
           const isLast = idx === workHistory.length - 1;
@@ -35,23 +34,11 @@ export default function WorkHistory() {
               {/* Horizontal branch line connecting from trunk directly to text */}
               <span className="absolute left-3.5 top-1/2 w-4 h-px bg-zinc-200 group-hover:bg-zinc-400 transition-colors" />
 
-              {/* Text: Company + Role (No Icons) */}
+              {/* Text: Company + Role (No Icons, No Links) */}
               <div className="flex items-center gap-1.5 min-w-0">
-                {job.companyUrl ? (
-                  <a
-                    href={job.companyUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 flex items-center gap-0.5 truncate"
-                  >
-                    <span>{job.company}</span>
-                    <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
-                  </a>
-                ) : (
-                  <span className="text-xs font-semibold text-zinc-900 truncate">
-                    {job.company}
-                  </span>
-                )}
+                <span className="text-xs font-semibold text-zinc-900 truncate">
+                  {job.company}
+                </span>
                 <span className="text-zinc-300 text-xs shrink-0">•</span>
                 <span className="text-xs text-zinc-600 truncate">
                   {job.role}
