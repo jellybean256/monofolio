@@ -48,8 +48,8 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
     <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-16 flex flex-col items-center">
       {/* Visual Proof Window Frame with smooth width animation */}
       <div className={`w-full transition-all duration-300 ease-in-out ${getContainerMaxWidth()}`}>
-        {/* Window Top Chrome (Relative to allow true absolute centering of address bar) */}
-        <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center justify-between gap-2 shadow-xs relative">
+        {/* Window Top Chrome */}
+        <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center gap-2.5 sm:gap-3.5 shadow-xs">
           {/* Left: 3 macOS Traffic Light Dots */}
           <div className="flex items-center gap-2 shrink-0">
             <span className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]/40 shadow-2xs" />
@@ -57,18 +57,20 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
             <span className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]/40 shadow-2xs" />
           </div>
 
-          {/* Center: Fake Address Bar (Dead center via absolute positioning) */}
-          <div className="hidden min-[360px]:flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-white border border-zinc-200/80 text-[10px] sm:text-[11px] font-mono text-zinc-500 shadow-2xs min-w-0 max-w-[110px] min-[440px]:max-w-[160px] sm:max-w-[240px] truncate absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
-            <Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-zinc-400 shrink-0" />
-            <span className="truncate">mono.folio/julian-vance</span>
+          {/* Flexible Address Bar: Stretches gracefully adjacent to traffic lights and adapts across Desktop, Tablet, and Mobile */}
+          <div className="flex-1 min-w-0 flex items-center">
             <a
               href="/preview"
               target="_blank"
               rel="noreferrer"
-              title="Open preview in new tab"
-              className="ml-0.5 text-zinc-400 hover:text-zinc-700 inline-flex items-center shrink-0"
+              title="Open preview in new tab (mono.folio/julian-vance)"
+              className="w-full flex items-center justify-between gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-white border border-zinc-200/80 text-[11px] font-mono text-zinc-500 shadow-2xs hover:border-zinc-300 hover:text-zinc-700 transition-colors group cursor-pointer"
             >
-              <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+              <div className="flex items-center gap-1.5 min-w-0 truncate">
+                <Lock className="w-3 h-3 text-zinc-400 group-hover:text-zinc-600 shrink-0 transition-colors" />
+                <span className="truncate">mono.folio/julian-vance</span>
+              </div>
+              <ExternalLink className="w-3 h-3 text-zinc-400 group-hover:text-zinc-700 inline-flex items-center shrink-0 ml-1 transition-colors" />
             </a>
           </div>
 
