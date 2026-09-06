@@ -52,7 +52,7 @@ export const defaultPortfolioData: FullPortfolioData = {
     name: "Julian Vance",
     role: "Staff Systems & Full-Stack Engineer",
     location: "San Francisco, CA",
-    avatarUrl: "/avatar.jpg",
+    avatarUrl: "/avatar.png",
     bio: "Specializing in distributed systems, real-time sync engines, and developer infrastructure. Building deep-module software with zero unnecessary latency and rigorous ergonomics.",
   },
   socials: [
