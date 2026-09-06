@@ -29,6 +29,7 @@ import {
   ArrowLeft,
   Eye,
   Edit3,
+  ExternalLink,
 } from 'lucide-react';
 
 const STORAGE_KEY = 'monofolio_data_v1';
@@ -351,7 +352,7 @@ export default function StudioApp() {
             {/* Window Frame Mockup Container */}
             <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full min-h-0 isolate [contain:paint]">
               {/* Window Top Chrome (Permanently anchored to top of mockup) */}
-              <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2.5 flex items-center justify-between gap-2 shadow-2xs shrink-0 select-none">
+              <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2 flex items-center gap-2.5 sm:gap-3.5 shadow-2xs shrink-0 select-none">
                 {/* Traffic light dots */}
                 <div className="flex items-center gap-1.5 shrink-0">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] border border-[#e0443e]"></span>
@@ -359,14 +360,25 @@ export default function StudioApp() {
                   <span className="w-2.5 h-2.5 rounded-full bg-[#28c840] border border-[#1aab29]"></span>
                 </div>
 
-                {/* Simulated URL bar */}
-                <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white border border-zinc-200/70 text-[11px] font-mono text-zinc-500 shadow-2xs max-w-xs sm:max-w-md truncate">
-                  <Lock className="w-3 h-3 text-zinc-400 shrink-0" />
-                  <span className="truncate">mono.folio/{slug}</span>
+                {/* Flexible Address Bar: Stretches gracefully adjacent to traffic lights */}
+                <div className="flex-1 min-w-0 flex items-center">
+                  <a
+                    href="/preview"
+                    target="_blank"
+                    rel="noreferrer"
+                    title={`Open live preview in new tab (mono.folio/${slug})`}
+                    className="w-full flex items-center justify-between gap-2 px-2.5 sm:px-3 py-1 rounded-md bg-white border border-zinc-200/80 text-[11px] font-mono text-zinc-500 shadow-2xs hover:border-zinc-300 hover:text-zinc-700 transition-colors group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-1.5 min-w-0 truncate">
+                      <Lock className="w-3 h-3 text-zinc-400 group-hover:text-zinc-600 shrink-0 transition-colors" />
+                      <span className="truncate">mono.folio/{slug}</span>
+                    </div>
+                    <ExternalLink className="w-3 h-3 text-zinc-400 group-hover:text-zinc-700 inline-flex items-center shrink-0 ml-1 transition-colors" />
+                  </a>
                 </div>
 
                 {/* Viewport indicators */}
-                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider shrink-0">
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider shrink-0 whitespace-nowrap">
                   {previewMode} view
                 </div>
               </div>
