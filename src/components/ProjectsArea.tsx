@@ -7,7 +7,8 @@ interface ProjectsAreaProps {
 }
 
 export default function ProjectsArea({ publicProjects, closedProjects }: ProjectsAreaProps) {
-  const allProjects = [...publicProjects, ...closedProjects];
+  // Limited to top 5 projects as requested
+  const allProjects = [...publicProjects, ...closedProjects].slice(0, 5);
 
   // Helper to get primary URL or fallback
   const getProjectUrl = (project: Project) => {
@@ -30,7 +31,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="pb-2 flex items-center justify-between gap-3 shrink-0 border-b border-zinc-200/50">
+      <div className="pb-1.5 flex items-center justify-between gap-3 shrink-0 border-b border-zinc-200/50">
         <span className="text-xs font-semibold text-zinc-900 tracking-tight">
           Projects
         </span>
