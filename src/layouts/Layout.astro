@@ -81,14 +81,14 @@ const personSchema = {
     <script is:inline>
       (function() {
         try {
-          const stored = localStorage.getItem('theme');
-          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (stored === 'dark' || (!stored && prefersDark)) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.style.colorScheme = 'dark';
-          } else {
+          const stored = localStorage.getItem('theme_preset') || 'dark';
+          document.documentElement.setAttribute('data-theme', stored);
+          if (stored === 'light') {
             document.documentElement.classList.remove('dark');
             document.documentElement.style.colorScheme = 'light';
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
           }
         } catch (e) {}
       })();

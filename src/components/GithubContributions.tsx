@@ -40,17 +40,17 @@ export default function GithubContributions() {
   const getLevelClass = (level: number) => {
     switch (level) {
       case 0:
-        return 'bg-zinc-100 dark:bg-zinc-800/60 hover:ring-1 hover:ring-zinc-400 dark:hover:ring-zinc-500';
+        return 'gh-level-0 bg-zinc-100 dark:bg-zinc-800/60 hover:ring-1 hover:ring-zinc-400 dark:hover:ring-zinc-500';
       case 1:
-        return 'bg-emerald-200 dark:bg-emerald-950/80 hover:ring-1 hover:ring-emerald-400';
+        return 'gh-level-1 bg-emerald-200 dark:bg-emerald-950/80 hover:ring-1 hover:ring-emerald-400';
       case 2:
-        return 'bg-emerald-400 dark:bg-emerald-800 hover:ring-1 hover:ring-emerald-400';
+        return 'gh-level-2 bg-emerald-400 dark:bg-emerald-800 hover:ring-1 hover:ring-emerald-400';
       case 3:
-        return 'bg-emerald-500 dark:bg-emerald-600 hover:ring-1 hover:ring-emerald-300';
+        return 'gh-level-3 bg-emerald-500 dark:bg-emerald-600 hover:ring-1 hover:ring-emerald-300';
       case 4:
-        return 'bg-emerald-600 dark:bg-emerald-400 hover:ring-1 hover:ring-emerald-300';
+        return 'gh-level-4 bg-emerald-600 dark:bg-emerald-400 hover:ring-1 hover:ring-emerald-300';
       default:
-        return 'bg-zinc-100 dark:bg-zinc-800/60';
+        return 'gh-level-0 bg-zinc-100 dark:bg-zinc-800/60';
     }
   };
 

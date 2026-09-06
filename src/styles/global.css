@@ -2,8 +2,115 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  color-scheme: light dark;
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-page: #09090b;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --card-bg: rgba(24, 24, 27, 0.35);
+  --card-border: rgba(39, 39, 42, 0.5);
+  --card-hover-border: rgba(63, 63, 70, 0.8);
+  --pill-bg: rgba(24, 24, 27, 0.4);
+  --pill-hover-bg: rgba(39, 39, 42, 0.5);
+  --pill-border: rgba(39, 39, 42, 0.5);
+  --pill-hover-border: rgba(63, 63, 70, 0.6);
+  --tab-active-bg: #27272a;
+  --accent: #10b981;
+  --gh-0: #18181b;
+  --gh-1: rgba(6, 78, 59, 0.6);
+  --gh-2: rgba(4, 120, 87, 0.75);
+  --gh-3: rgba(16, 185, 129, 0.85);
+  --gh-4: #34d399;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-page: #fafafa;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #71717a;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(228, 228, 231, 0.9);
+  --card-hover-border: rgba(212, 212, 216, 1);
+  --pill-bg: #f4f4f5;
+  --pill-hover-bg: #e4e4e7;
+  --pill-border: rgba(228, 228, 231, 0.9);
+  --pill-hover-border: rgba(212, 212, 216, 1);
+  --tab-active-bg: #e4e4e7;
+  --accent: #059669;
+  --gh-0: #e4e4e7;
+  --gh-1: #a7f3d0;
+  --gh-2: #34d399;
+  --gh-3: #059669;
+  --gh-4: #065f46;
+}
+
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --bg-page: #060913;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --card-bg: rgba(15, 23, 42, 0.45);
+  --card-border: rgba(30, 41, 59, 0.65);
+  --card-hover-border: rgba(56, 189, 248, 0.5);
+  --pill-bg: rgba(15, 23, 42, 0.5);
+  --pill-hover-bg: rgba(30, 41, 59, 0.7);
+  --pill-border: rgba(30, 41, 59, 0.65);
+  --pill-hover-border: rgba(56, 189, 248, 0.4);
+  --tab-active-bg: #1e293b;
+  --accent: #38bdf8;
+  --gh-0: #0d1527;
+  --gh-1: #075985;
+  --gh-2: #0284c7;
+  --gh-3: #38bdf8;
+  --gh-4: #7dd3fc;
+}
+
+[data-theme="emerald"] {
+  color-scheme: dark;
+  --bg-page: #040d08;
+  --text-primary: #ecfdf5;
+  --text-secondary: #86efac;
+  --text-muted: #4ade80;
+  --card-bg: rgba(6, 78, 59, 0.18);
+  --card-border: rgba(16, 185, 129, 0.25);
+  --card-hover-border: rgba(52, 211, 153, 0.6);
+  --pill-bg: rgba(6, 78, 59, 0.25);
+  --pill-hover-bg: rgba(6, 78, 59, 0.4);
+  --pill-border: rgba(16, 185, 129, 0.3);
+  --pill-hover-border: rgba(52, 211, 153, 0.5);
+  --tab-active-bg: rgba(16, 185, 129, 0.25);
+  --accent: #34d399;
+  --gh-0: #061e14;
+  --gh-1: #065f46;
+  --gh-2: #059669;
+  --gh-3: #10b981;
+  --gh-4: #34d399;
+}
+
+[data-theme="amber"] {
+  color-scheme: dark;
+  --bg-page: #0d0a07;
+  --text-primary: #fef3c7;
+  --text-secondary: #fcd34d;
+  --text-muted: #d97706;
+  --card-bg: rgba(69, 26, 3, 0.22);
+  --card-border: rgba(217, 119, 6, 0.25);
+  --card-hover-border: rgba(245, 158, 11, 0.6);
+  --pill-bg: rgba(69, 26, 3, 0.3);
+  --pill-hover-bg: rgba(120, 53, 15, 0.4);
+  --pill-border: rgba(217, 119, 6, 0.3);
+  --pill-hover-border: rgba(245, 158, 11, 0.5);
+  --tab-active-bg: rgba(217, 119, 6, 0.3);
+  --accent: #f59e0b;
+  --gh-0: #1a1209;
+  --gh-1: #78350f;
+  --gh-2: #b45309;
+  --gh-3: #f59e0b;
+  --gh-4: #fde68a;
 }
 
 html, body {
@@ -15,6 +122,46 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  background-color: var(--bg-page) !important;
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Dynamic theme classes */
+.theme-card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.theme-card:hover {
+  border-color: var(--card-hover-border) !important;
+}
+
+.theme-pill {
+  background-color: var(--pill-bg) !important;
+  border-color: var(--pill-border) !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.theme-pill:hover {
+  background-color: var(--pill-hover-bg) !important;
+  border-color: var(--pill-hover-border) !important;
+}
+
+.theme-tab-active {
+  background-color: var(--tab-active-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Heatmap level dynamic colors */
+.gh-level-0 { background-color: var(--gh-0) !important; }
+.gh-level-1 { background-color: var(--gh-1) !important; }
+.gh-level-2 { background-color: var(--gh-2) !important; }
+.gh-level-3 { background-color: var(--gh-3) !important; }
+.gh-level-4 { background-color: var(--gh-4) !important; }
 
 /* Custom subtle scrollbar for inner scrollable panels */
 .custom-scrollbar::-webkit-scrollbar {

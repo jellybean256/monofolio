@@ -3,12 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import ProfileCard from '../components/ProfileCard.astro';
 import ProjectsArea from '../components/ProjectsArea';
 import GithubContributions from '../components/GithubContributions';
+import ThemeSlider from '../components/ThemeSlider';
 import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
   {/* Single-Screen on Desktop, Fluid Scrollable on Mobile without tabs */}
-  <main class="min-h-screen lg:h-screen w-full max-w-full lg:w-screen p-3.5 sm:p-5 lg:p-4 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col">
+  <main class="min-h-screen lg:h-screen w-full max-w-full lg:w-screen p-3.5 sm:p-5 lg:p-4 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col justify-between">
     {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile */}
     <div class="w-full max-w-full flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-3 lg:items-stretch">
       {/* Left Column on Desktop / Top Section on Mobile: Profile */}
@@ -36,6 +37,11 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         {/* GitHub Activity */}
         <GithubContributions client:load />
       </section>
+    </div>
+
+    {/* Bottom Theme Slider Bar in the empty space */}
+    <div class="mt-auto pt-4 lg:pt-6 pb-2 w-full flex justify-center items-center shrink-0">
+      <ThemeSlider client:load />
     </div>
   </main>
 </Layout>

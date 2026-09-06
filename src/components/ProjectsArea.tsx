@@ -32,7 +32,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
               onClick={() => setActiveTab('all')}
               className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
                 activeTab === 'all'
-                  ? 'font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
+                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
                   : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
               }`}
             >
@@ -43,7 +43,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
               onClick={() => setActiveTab('public')}
               className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
                 activeTab === 'public'
-                  ? 'font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
+                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
                   : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
               }`}
             >
@@ -54,7 +54,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
               onClick={() => setActiveTab('closed')}
               className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
                 activeTab === 'closed'
-                  ? 'font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
+                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
                   : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
               }`}
             >
@@ -78,7 +78,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
               return (
                 <div
                   key={project.id}
-                  className="flex flex-col justify-between p-3 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/30 hover:border-zinc-300/80 dark:hover:border-zinc-700/80 transition-colors"
+                  className="theme-card flex flex-col justify-between p-3 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/30 hover:border-zinc-300/80 dark:hover:border-zinc-700/80 transition-colors"
                 >
                   <div>
                     {/* Title */}
