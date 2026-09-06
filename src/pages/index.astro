@@ -1,45 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProfileCard from '../components/ProfileCard.astro';
-import ProjectsArea from '../components/ProjectsArea';
-import WorkHistory from '../components/WorkHistory';
-import WritingArea from '../components/WritingArea';
-import { publicProjects, closedProjects } from '../data/portfolioData';
+import PortfolioView from '../components/portfolio/PortfolioView';
+import { defaultPortfolioData } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Single screen on desktop without vertical scroll, fluid on mobile */}
-  <main class="min-h-screen lg:h-screen w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col justify-start [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-    {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile */}
-    <div class="w-full max-w-full flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
-      {/* Left Column on Desktop / Top Section on Mobile: Profile */}
-      <section 
-        id="panel-profile"
-        aria-label="Developer Profile"
-        class="w-full min-w-0 flex flex-col lg:col-span-4 xl:col-span-4 shrink-0 lg:sticky lg:top-6"
-      >
-        <ProfileCard />
-      </section>
-
-      {/* Right Column on Desktop / Bottom Section on Mobile: Projects + Work History + Writing */}
-      <section 
-        id="panel-work"
-        aria-label="Engineering Projects, Experience, and Writing"
-        class="w-full min-w-0 flex flex-col gap-4 lg:col-span-8 xl:col-span-8 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto pr-1 lg:pr-2 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
-      >
-        {/* Projects Area */}
-        <ProjectsArea 
-          client:load 
-          publicProjects={publicProjects} 
-          closedProjects={closedProjects} 
-        />
-
-        {/* Work Experience */}
-        <WorkHistory client:load />
-
-        {/* Writing Area */}
-        <WritingArea client:load />
-      </section>
-    </div>
-  </main>
+  <PortfolioView client:load data={defaultPortfolioData} />
 </Layout>

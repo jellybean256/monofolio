@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { developerProfile, socialLinks } from '../data/portfolioData';
+import { defaultPortfolioData } from '../data/portfolioData';
 
 interface Props {
   title?: string;
@@ -13,16 +13,18 @@ const {
 } = Astro.props;
 
 const canonicalUrl = "https://julianvance.dev";
+const profile = defaultPortfolioData.profile;
+const socials = defaultPortfolioData.socials;
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   "mainEntity": {
     "@type": "Person",
-    "name": developerProfile.name,
-    "jobTitle": developerProfile.role,
-    "description": developerProfile.bio,
-    "image": developerProfile.avatarUrl,
+    "name": profile.name,
+    "jobTitle": profile.role,
+    "description": profile.bio,
+    "image": profile.avatarUrl,
     "url": canonicalUrl,
     "address": {
       "@type": "PostalAddress",
@@ -30,7 +32,7 @@ const personSchema = {
       "addressRegion": "CA",
       "addressCountry": "US"
     },
-    "sameAs": socialLinks.map(s => s.url)
+    "sameAs": socials.map((s) => s.url)
   }
 };
 ---
@@ -48,7 +50,7 @@ const personSchema = {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="author" content={developerProfile.name} />
+    <meta name="author" content={profile.name} />
     <meta name="keywords" content="Julian Vance, Staff Engineer, Systems Engineer, Full-Stack, Rust, Go, TypeScript, Distributed Systems, eBPF, Astro Portfolio" />
     <meta name="robots" content="index, follow" />
     <meta name="color-scheme" content="light" />
@@ -58,8 +60,8 @@ const personSchema = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={developerProfile.avatarUrl} />
-    <meta property="og:site_name" content={`${developerProfile.name} Portfolio`} />
+    <meta property="og:image" content={profile.avatarUrl} />
+    <meta property="og:site_name" content={`${profile.name} Portfolio`} />
     <meta property="og:locale" content="en_US" />
 
     {/* Twitter */}
@@ -67,7 +69,7 @@ const personSchema = {
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={developerProfile.avatarUrl} />
+    <meta name="twitter:image" content={profile.avatarUrl} />
     <meta name="twitter:creator" content="@julianvance" />
 
     {/* Structured Data: JSON-LD Schema.org */}

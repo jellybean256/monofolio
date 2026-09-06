@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { workHistory } from '../data/portfolioData';
+import type { ExperienceItem } from '../../data/portfolioData';
 
-export default function WorkHistory() {
+interface WorkHistoryProps {
+  experiences: ExperienceItem[];
+}
+
+export default function WorkHistory({ experiences }: WorkHistoryProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const displayedWork = expanded ? workHistory : workHistory.slice(0, 4);
+  if (!experiences || experiences.length === 0) return null;
+
+  const displayedWork = expanded ? experiences : experiences.slice(0, 4);
 
   return (
     <div className="flex flex-col">
@@ -64,7 +70,7 @@ export default function WorkHistory() {
       </div>
 
       {/* Solution C Inline Toggle Action */}
-      {workHistory.length > 4 && (
+      {experiences.length > 4 && (
         <button
           onClick={() => setExpanded(!expanded)}
           className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
@@ -76,7 +82,7 @@ export default function WorkHistory() {
             </>
           ) : (
             <>
-              <span>+ {workHistory.length - 4} earlier roles</span>
+              <span>+ {experiences.length - 4} earlier roles</span>
               <ChevronDown className="w-3 h-3" />
             </>
           )}
