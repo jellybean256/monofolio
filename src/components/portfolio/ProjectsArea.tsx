@@ -4,14 +4,18 @@ import type { ProjectItem } from '../../data/portfolioData';
 
 interface ProjectsAreaProps {
   projects: ProjectItem[];
+  mode?: 'desktop' | 'tablet' | 'mobile';
 }
 
-export default function ProjectsArea({ projects }: ProjectsAreaProps) {
+export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
   const [expanded, setExpanded] = useState(false);
 
   if (!projects || projects.length === 0) return null;
 
   const displayedProjects = expanded ? projects : projects.slice(0, 5);
+
+  const isWide = mode === 'desktop' || mode === 'tablet';
+  const isMobile = mode === 'mobile';
 
   return (
     <div className="flex flex-col">
@@ -29,7 +33,11 @@ export default function ProjectsArea({ projects }: ProjectsAreaProps) {
             <div className="py-1.5 px-2 -mx-2 rounded hover:bg-zinc-100/70 transition-colors group">
               <div className="flex items-center justify-between gap-3">
                 {/* Column 1: Project Title + External Arrow */}
-                <div className="w-auto sm:w-48 shrink-0 flex items-center gap-1 min-w-0">
+                <div
+                  className={`shrink-0 flex items-center gap-1 min-w-0 ${
+                    isWide ? 'w-48' : isMobile ? 'w-auto' : 'w-auto sm:w-48'
+                  }`}
+                >
                   <span className="text-xs font-medium text-zinc-900 group-hover:text-zinc-950 group-hover:underline underline-offset-2 truncate">
                     {project.title}
                   </span>
@@ -38,8 +46,12 @@ export default function ProjectsArea({ projects }: ProjectsAreaProps) {
                   )}
                 </div>
 
-                {/* Column 2: Concise Tagline (shown in-line on desktop) */}
-                <span className="hidden sm:block flex-1 min-w-0 text-[11.5px] text-zinc-500 group-hover:text-zinc-700 truncate">
+                {/* Column 2: Concise Tagline (shown in-line on desktop/tablet) */}
+                <span
+                  className={`flex-1 min-w-0 text-[11.5px] text-zinc-500 group-hover:text-zinc-700 truncate ${
+                    isWide ? 'block' : isMobile ? 'hidden' : 'hidden sm:block'
+                  }`}
+                >
                   {project.tagline}
                 </span>
 
@@ -51,7 +63,11 @@ export default function ProjectsArea({ projects }: ProjectsAreaProps) {
 
               {/* Tagline on Mobile: stacks cleanly below title */}
               {project.tagline && (
-                <p className="sm:hidden text-[11.5px] text-zinc-500 truncate mt-0.5">
+                <p
+                  className={`text-[11.5px] text-zinc-500 truncate mt-0.5 ${
+                    isWide ? 'hidden' : isMobile ? 'block' : 'sm:hidden'
+                  }`}
+                >
                   {project.tagline}
                 </p>
               )}
