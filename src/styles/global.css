@@ -1,4 +1,11 @@
 @import "tailwindcss";
+@import "@fontsource/geist-sans/latin.css";
+@import "@fontsource/geist-mono/latin.css";
+
+@theme {
+  --font-sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
 
 :root {
   color-scheme: light;
@@ -24,4 +31,5 @@ html, body {
 body {
   background-color: var(--bg-page) !important;
   color: var(--text-primary);
+  font-family: var(--font-sans);
 }
