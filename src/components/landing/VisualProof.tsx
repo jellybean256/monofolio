@@ -35,7 +35,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
               href="/preview"
               target="_blank"
               rel="noreferrer"
-              title="Buka preview di tab baru"
+              title="Open preview in new tab"
               className="ml-0.5 text-zinc-400 hover:text-zinc-700 inline-flex items-center shrink-0"
             >
               <ExternalLink className="w-3 h-3" />
@@ -51,7 +51,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
                   ? 'bg-white text-zinc-900 shadow-2xs font-medium'
                   : 'text-zinc-500 hover:text-zinc-800'
               }`}
-              title="Tampilan Desktop (Single Screen)"
+              title="Desktop View (Single Screen)"
             >
               <Monitor className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline">Desktop</span>
@@ -63,7 +63,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
                   ? 'bg-white text-zinc-900 shadow-2xs font-medium'
                   : 'text-zinc-500 hover:text-zinc-800'
               }`}
-              title="Tampilan Mobile (Responsive Phone)"
+              title="Mobile View (Responsive Phone)"
             >
               <Smartphone className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden sm:inline">Mobile</span>
@@ -89,7 +89,7 @@ export default function VisualProof({ initialMode = 'desktop' }: { initialMode?:
       {/* Proof Subtitle */}
       <div className="flex items-center gap-2 mt-4 text-xs font-mono text-zinc-400">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-        <span>Live interactive preview — coba klik tombol atau scroll di dalam portofolio</span>
+        <span>Live interactive preview — click buttons or scroll inside the portfolio</span>
       </div>
     </section>
   );
