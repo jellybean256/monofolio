@@ -13,6 +13,17 @@ interface PortfolioViewProps {
 
 export default function PortfolioView({ data, isEmbed = false, forceMode }: PortfolioViewProps) {
   const [activeMode, setActiveMode] = useState<'desktop' | 'tablet' | 'mobile' | undefined>(forceMode);
+  const [activeData, setActiveData] = useState<FullPortfolioData>(data);
+
+  useEffect(() => {
+    setActiveData(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (forceMode) {
+      setActiveMode(forceMode);
+    }
+  }, [forceMode]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -20,6 +31,19 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
       const v = params.get('view') as 'desktop' | 'tablet' | 'mobile' | null;
       if (v === 'desktop' || v === 'tablet' || v === 'mobile') {
         setActiveMode(v);
+      }
+
+      const dataParam = params.get('data');
+      if (dataParam) {
+        try {
+          const decoded = decodeURIComponent(atob(dataParam));
+          const parsed = JSON.parse(decoded);
+          if (parsed.profile && parsed.projects) {
+            setActiveData(parsed);
+          }
+        } catch (e) {
+          console.error('Failed to parse data from URL query', e);
+        }
       }
 
       const handleMessage = (event: MessageEvent) => {
@@ -66,7 +90,7 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
               : 'lg:col-span-4 xl:col-span-4 lg:sticky lg:top-6'
           }`}
         >
-          <ProfileCard profile={data.profile} socials={data.socials} />
+          <ProfileCard profile={activeData.profile} socials={activeData.socials} />
         </section>
 
         {/* Right Column on Desktop / Bottom Section on Mobile/Tablet: Projects + Work History + Writing */}
@@ -84,13 +108,13 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
           }`}
         >
           {/* Projects Area */}
-          <ProjectsArea projects={data.projects} mode={activeMode} />
+          <ProjectsArea projects={activeData.projects} mode={activeMode} />
 
           {/* Work Experience */}
-          <WorkHistory experiences={data.experiences} mode={activeMode} />
+          <WorkHistory experiences={activeData.experiences} mode={activeMode} />
 
           {/* Writing Area */}
-          <WritingArea writings={data.writings} />
+          <WritingArea writings={activeData.writings} />
         </section>
       </div>
     </div>
