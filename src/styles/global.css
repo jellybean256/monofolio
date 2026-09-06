@@ -27,24 +27,25 @@
 
 [data-theme="light"] {
   color-scheme: light;
-  --bg-page: #fafafa;
+  --bg-page: #ffffff;
   --text-primary: #09090b;
   --text-secondary: #52525b;
   --text-muted: #71717a;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --card-border: rgba(228, 228, 231, 0.9);
-  --card-hover-border: rgba(212, 212, 216, 1);
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-hover-border: rgba(0, 0, 0, 0.3);
   --pill-bg: #f4f4f5;
   --pill-hover-bg: #e4e4e7;
-  --pill-border: rgba(228, 228, 231, 0.9);
-  --pill-hover-border: rgba(212, 212, 216, 1);
-  --tab-active-bg: #e4e4e7;
-  --accent: #059669;
-  --gh-0: #e4e4e7;
-  --gh-1: #a7f3d0;
-  --gh-2: #34d399;
-  --gh-3: #059669;
-  --gh-4: #065f46;
+  --pill-border: rgba(0, 0, 0, 0.08);
+  --pill-hover-border: rgba(0, 0, 0, 0.2);
+  --tab-active-bg: #18181b;
+  --tab-active-text: #ffffff;
+  --accent: #18181b;
+  --gh-0: #f4f4f5;
+  --gh-1: #d4d4d8;
+  --gh-2: #a1a1aa;
+  --gh-3: #52525b;
+  --gh-4: #18181b;
 }
 
 [data-theme="midnight"] {
@@ -153,7 +154,7 @@ body {
 
 .theme-tab-active {
   background-color: var(--tab-active-bg) !important;
-  color: var(--text-primary) !important;
+  color: var(--tab-active-text, var(--text-primary)) !important;
 }
 
 /* Heatmap level dynamic colors */

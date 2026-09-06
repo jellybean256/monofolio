@@ -42,13 +42,13 @@ export default function GithubContributions() {
       case 0:
         return 'gh-level-0 bg-zinc-100 dark:bg-zinc-800/60 hover:ring-1 hover:ring-zinc-400 dark:hover:ring-zinc-500';
       case 1:
-        return 'gh-level-1 bg-emerald-200 dark:bg-emerald-950/80 hover:ring-1 hover:ring-emerald-400';
+        return 'gh-level-1 hover:ring-1 hover:ring-zinc-900/30 dark:hover:ring-white/40';
       case 2:
-        return 'gh-level-2 bg-emerald-400 dark:bg-emerald-800 hover:ring-1 hover:ring-emerald-400';
+        return 'gh-level-2 hover:ring-1 hover:ring-zinc-900/30 dark:hover:ring-white/40';
       case 3:
-        return 'gh-level-3 bg-emerald-500 dark:bg-emerald-600 hover:ring-1 hover:ring-emerald-300';
+        return 'gh-level-3 hover:ring-1 hover:ring-zinc-900/40 dark:hover:ring-white/50';
       case 4:
-        return 'gh-level-4 bg-emerald-600 dark:bg-emerald-400 hover:ring-1 hover:ring-emerald-300';
+        return 'gh-level-4 hover:ring-1 hover:ring-zinc-900/50 dark:hover:ring-white/60';
       default:
         return 'gh-level-0 bg-zinc-100 dark:bg-zinc-800/60';
     }
@@ -153,11 +153,11 @@ export default function GithubContributions() {
         <div className="flex items-center gap-1.5">
           <span>Less</span>
           <div className="flex gap-[2px]">
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-zinc-100 dark:bg-zinc-800/60" />
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-200 dark:bg-emerald-950/80" />
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-400 dark:bg-emerald-800" />
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-500 dark:bg-emerald-600" />
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-emerald-600 dark:bg-emerald-400" />
+            <span className="w-2.5 h-2.5 rounded-[2px] gh-level-0" />
+            <span className="w-2.5 h-2.5 rounded-[2px] gh-level-1" />
+            <span className="w-2.5 h-2.5 rounded-[2px] gh-level-2" />
+            <span className="w-2.5 h-2.5 rounded-[2px] gh-level-3" />
+            <span className="w-2.5 h-2.5 rounded-[2px] gh-level-4" />
           </div>
           <span>More</span>
         </div>
@@ -174,7 +174,7 @@ export default function GithubContributions() {
           }}
           className="z-50 pointer-events-none px-2 py-1 rounded bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-mono shadow-md whitespace-nowrap animate-in fade-in zoom-in-95 duration-100"
         >
-          <span className="font-semibold text-emerald-400 dark:text-emerald-700">
+          <span className="font-semibold text-white dark:text-zinc-900 underline decoration-zinc-500">
             {hoveredDay.count} {hoveredDay.count === 1 ? 'contribution' : 'contributions'}
           </span>{' '}
           on {hoveredDay.date}

@@ -22,9 +22,9 @@ export const THEME_OPTIONS: ThemeOption[] = [
     id: 'light',
     name: 'Pure Light',
     tag: 'Light',
-    accent: '#059669',
-    bgHex: '#fafafa',
-    desc: 'Minimal crisp paper light mode',
+    accent: '#18181b',
+    bgHex: '#ffffff',
+    desc: 'Pure monochrome black & white (Light)',
   },
   {
     id: 'midnight',
