@@ -79,10 +79,10 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
 
   // Profile column styling:
   const profileClasses = isStacked
-    ? 'w-full min-w-0 flex flex-col shrink-0 overflow-hidden'
+    ? 'w-full min-w-0 flex flex-col shrink-0'
     : isDesktop
-    ? 'w-full min-w-0 flex flex-col shrink-0 self-start md:col-span-4 overflow-hidden'
-    : 'w-full min-w-0 flex flex-col shrink-0 lg:col-span-4 xl:col-span-4 lg:self-start overflow-hidden';
+    ? 'w-full min-w-0 flex flex-col shrink-0 self-start md:col-span-4'
+    : 'w-full min-w-0 flex flex-col shrink-0 lg:col-span-4 xl:col-span-4 lg:self-start';
 
   // Work column styling:
   // - If isStacked: NEVER give it a nested scrollbar or max-h. Must flow naturally with zero nested scroll sections.

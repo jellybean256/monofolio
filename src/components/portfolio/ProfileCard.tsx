@@ -12,7 +12,7 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
       <img
         src={profile.avatarUrl || '/avatar.png'}
         alt={`Profile portrait of ${profile.name}`}
-        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-2 ring-zinc-200/90 shadow-xs shrink-0 bg-zinc-100/80"
+        className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-2 ring-zinc-200/90 shadow-xs shrink-0 bg-zinc-100/80 m-0.5"
         loading="eager"
         onError={(e) => {
           // Fallback if image fails to load
