@@ -1,9 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PortfolioView from '../components/portfolio/PortfolioView';
-import { defaultPortfolioData } from '../data/portfolioData';
+import Hero from '../components/landing/Hero.astro';
+import VisualProof from '../components/landing/VisualProof';
+import LandingFooter from '../components/landing/LandingFooter.astro';
 ---
 
-<Layout>
-  <PortfolioView client:load data={defaultPortfolioData} />
+<Layout 
+  title="mono.folio — A single-screen portfolio for builders" 
+  description="Buat portofolio satu layar yang bersih, modern, dan presisi dalam 2 menit. Tanpa login, tanpa drag-and-drop rumit."
+>
+  <div class="min-h-screen w-full flex flex-col bg-[#fcfcfc] text-zinc-900 overflow-x-hidden">
+    {/* 1. Hero Section */}
+    <Hero />
+
+    {/* 2. Visual Proof (Live Interactive Frame) */}
+    <VisualProof client:load />
+
+    {/* 3. Minimal Footer */}
+    <LandingFooter />
+  </div>
 </Layout>
