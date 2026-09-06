@@ -10,7 +10,7 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
     <div className="flex flex-col text-left p-0">
       {/* Large Circular Avatar */}
       <img
-        src={profile.avatarUrl || '/Lee Han Yoil.jpg'}
+        src={profile.avatarUrl || '/avatar.jpg'}
         alt={`Profile portrait of ${profile.name}`}
         className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-2 ring-zinc-200/90 shadow-xs shrink-0"
         loading="eager"
