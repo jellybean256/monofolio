@@ -42,7 +42,7 @@ export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
                     {project.title}
                   </span>
                   {project.url && (
-                    <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                    <ArrowUpRight className="w-3 h-3 text-zinc-500 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" aria-hidden="true" />
                   )}
                 </div>
 
@@ -56,7 +56,7 @@ export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
                 </span>
 
                 {/* Column 3: Year */}
-                <span className="text-[11px] font-mono text-zinc-400 shrink-0 text-right">
+                <span className="text-[11px] font-mono text-zinc-500 shrink-0 text-right">
                   {project.year}
                 </span>
               </div>
@@ -100,17 +100,17 @@ export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
             e.currentTarget.blur();
             setExpanded(!expanded);
           }}
-          className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
+          className="self-start mt-1 text-[11px] font-mono text-zinc-500 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
         >
           {expanded ? (
             <>
               <span>- show fewer</span>
-              <ChevronUp className="w-3 h-3" />
+              <ChevronUp className="w-3 h-3" aria-hidden="true" />
             </>
           ) : (
             <>
               <span>+ {projects.length - 5} more projects</span>
-              <ChevronDown className="w-3 h-3" />
+              <ChevronDown className="w-3 h-3" aria-hidden="true" />
             </>
           )}
         </button>

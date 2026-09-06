@@ -10,11 +10,13 @@ import LandingFooter from '../components/landing/LandingFooter.astro';
   description="Build a clean, modern, and precision single-screen portfolio in 2 minutes. No sign-up, zero complex drag-and-drop."
 >
   <div class="min-h-screen w-full flex flex-col bg-[#fcfcfc] text-zinc-900 overflow-x-hidden">
-    {/* 1. Hero Section */}
-    <Hero />
+    <main id="main-content" class="w-full flex flex-col flex-1">
+      {/* 1. Hero Section */}
+      <Hero />
 
-    {/* 2. Visual Proof (Live Interactive Frame) */}
-    <VisualProof client:load />
+      {/* 2. Visual Proof (Live Interactive Frame) */}
+      <VisualProof client:idle />
+    </main>
 
     {/* 3. Minimal Footer */}
     <LandingFooter />

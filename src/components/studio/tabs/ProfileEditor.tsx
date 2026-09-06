@@ -13,13 +13,13 @@ const AVATAR_OPTIONS = [
     id: 'builder_a',
     name: 'Builder A',
     subtitle: 'Classic',
-    url: '/avatar.png',
+    url: '/avatar.webp',
   },
   {
     id: 'builder_b',
     name: 'Builder B',
     subtitle: 'Bun & Glasses',
-    url: '/avatar_girl.png',
+    url: '/avatar_girl.webp',
   },
 ];
 
@@ -45,7 +45,9 @@ export default function ProfileEditor({
         </label>
         <div className="grid grid-cols-2 gap-3">
           {AVATAR_OPTIONS.map((opt) => {
-            const isSelected = profile.avatarUrl === opt.url;
+            const isSelected =
+              profile.avatarUrl === opt.url ||
+              profile.avatarUrl === opt.url.replace(/\.webp$/, '.png');
             return (
               <button
                 key={opt.id}

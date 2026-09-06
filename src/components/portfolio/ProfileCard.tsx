@@ -10,13 +10,20 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
     <div className="flex flex-col text-left p-0">
       {/* Large Circular Avatar */}
       <img
-        src={profile.avatarUrl || '/avatar.png'}
+        src={profile.avatarUrl || '/avatar.webp'}
         alt={`Profile portrait of ${profile.name}`}
+        width="96"
+        height="96"
         className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover ring-2 ring-zinc-200/90 shadow-xs shrink-0 bg-zinc-100/80 m-0.5"
         loading="eager"
+        decoding="async"
         onError={(e) => {
-          // Fallback if image fails to load
-          (e.target as HTMLElement).style.display = 'none';
+          const target = e.target as HTMLImageElement;
+          if (target.src.endsWith('.webp')) {
+            target.src = target.src.replace(/\.webp$/, '.png');
+          } else {
+            target.style.display = 'none';
+          }
         }}
       />
 
@@ -33,7 +40,7 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
       {/* Location with Pin Icon */}
       {profile.location && (
         <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 mt-1.5 min-w-0">
-          <svg className="w-3.5 h-3.5 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-3.5 h-3.5 text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
@@ -59,7 +66,7 @@ export default function ProfileCard({ profile, socials }: ProfileCardProps) {
               rel="noreferrer"
               aria-label={link.ariaLabel || link.name}
               title={link.name}
-              className="text-zinc-400 hover:text-zinc-900 transition-colors"
+              className="text-zinc-500 hover:text-zinc-900 transition-colors"
             >
               {link.icon === 'github' && (
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

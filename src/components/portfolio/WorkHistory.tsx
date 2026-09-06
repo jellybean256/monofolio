@@ -85,7 +85,7 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
                   </span>
                   {/* Period on mobile aligns to the right */}
                   <span
-                    className={`text-[11px] font-mono text-zinc-400 shrink-0 ${
+                    className={`text-[11px] font-mono text-zinc-500 shrink-0 ${
                       isWide ? 'hidden' : isMobile ? 'inline' : 'sm:hidden'
                     }`}
                   >
@@ -96,11 +96,12 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
                   className={`text-zinc-300 text-xs shrink-0 ${
                     isWide ? 'inline' : isMobile ? 'hidden' : 'hidden sm:inline'
                   }`}
+                  aria-hidden="true"
                 >
                   •
                 </span>
                 <span
-                  className={`text-zinc-500 sm:text-zinc-600 truncate ${
+                  className={`text-zinc-600 truncate ${
                     isWide
                       ? 'text-xs'
                       : isMobile
@@ -114,7 +115,7 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
 
               {/* Right: Period on desktop/tablet */}
               <span
-                className={`text-[11px] font-mono text-zinc-400 shrink-0 ${
+                className={`text-[11px] font-mono text-zinc-500 shrink-0 ${
                   isWide ? 'inline' : isMobile ? 'hidden' : 'hidden sm:inline'
                 }`}
               >
@@ -133,17 +134,17 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
             e.currentTarget.blur();
             setExpanded(!expanded);
           }}
-          className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
+          className="self-start mt-1 text-[11px] font-mono text-zinc-500 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
         >
           {expanded ? (
             <>
               <span>- show fewer</span>
-              <ChevronUp className="w-3 h-3" />
+              <ChevronUp className="w-3 h-3" aria-hidden="true" />
             </>
           ) : (
             <>
               <span>+ {experiences.length - 4} earlier roles</span>
-              <ChevronDown className="w-3 h-3" />
+              <ChevronDown className="w-3 h-3" aria-hidden="true" />
             </>
           )}
         </button>

@@ -14,9 +14,11 @@ const {
   isPreview = false
 } = Astro.props;
 
-const canonicalUrl = "https://julianvance.dev";
+const siteUrl = "https://monofolio-ten.vercel.app";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 const profile = defaultPortfolioData.profile;
 const socials = defaultPortfolioData.socials;
+const ogImage = profile.avatarUrl ? profile.avatarUrl.replace(/\.webp$/, '.png') : '/avatar.png';
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -62,7 +64,7 @@ const personSchema = {
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={profile.avatarUrl} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content={`${profile.name} Portfolio`} />
     <meta property="og:locale" content="en_US" />
 
@@ -71,7 +73,7 @@ const personSchema = {
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={profile.avatarUrl} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@julianvance" />
 
     {/* Structured Data: JSON-LD Schema.org */}
