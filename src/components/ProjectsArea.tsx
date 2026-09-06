@@ -1,4 +1,5 @@
-import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 
 interface ProjectsAreaProps {
@@ -7,36 +8,23 @@ interface ProjectsAreaProps {
 }
 
 const projectMeta: Record<string, { shortTitle?: string; tagline: string; year: string }> = {
-  'vortex-kv': {
-    shortTitle: 'Vortex KV',
-    tagline: 'Distributed key-value engine',
-    year: '2024',
-  },
-  'hypertrace-agent': {
-    shortTitle: 'HyperTrace APM',
-    tagline: 'Kernel probe telemetry agent',
-    year: '2023',
-  },
-  'lattice-engine': {
-    shortTitle: 'Lattice UI Kit',
-    tagline: 'Headless component engine',
-    year: '2023',
-  },
-  'aegis-settlement': {
-    shortTitle: 'Aegis Settlement',
-    tagline: 'Financial ledger engine',
-    year: '2022',
-  },
-  'sentinel-telemetry-grid': {
-    shortTitle: 'Sentinel Mesh',
-    tagline: 'Edge vehicle telemetry',
-    year: '2021',
-  },
+  'vortex-kv': { shortTitle: 'Vortex KV', tagline: 'Distributed key-value engine', year: '2024' },
+  'hypertrace-agent': { shortTitle: 'HyperTrace APM', tagline: 'Kernel probe telemetry agent', year: '2023' },
+  'lattice-engine': { shortTitle: 'Lattice UI Kit', tagline: 'Headless component engine', year: '2023' },
+  'aegis-settlement': { shortTitle: 'Aegis Settlement', tagline: 'Financial ledger engine', year: '2022' },
+  'sentinel-telemetry-grid': { shortTitle: 'Sentinel Mesh', tagline: 'Edge vehicle telemetry', year: '2021' },
+  'chronos-queue': { shortTitle: 'Chronos Queue', tagline: 'Delayed job scheduler', year: '2021' },
+  'strata-storage': { shortTitle: 'Strata Storage', tagline: 'Columnar cold-storage format', year: '2020' },
+  'prism-proxy': { shortTitle: 'Prism Proxy', tagline: 'Low-latency mesh gateway', year: '2020' },
+  'nexus-rpc': { shortTitle: 'Nexus RPC', tagline: 'Zero-copy serialization protocol', year: '2019' },
+  'orion-inference-router': { shortTitle: 'Orion Gateway', tagline: 'GPU inference load distributor', year: '2019' },
 };
 
 export default function ProjectsArea({ publicProjects, closedProjects }: ProjectsAreaProps) {
-  // Limited to top 5 projects as requested
-  const allProjects = [...publicProjects, ...closedProjects].slice(0, 5);
+  const [expanded, setExpanded] = useState(false);
+
+  const allProjects = [...publicProjects, ...closedProjects];
+  const displayedProjects = expanded ? allProjects : allProjects.slice(0, 5);
 
   // Helper to get primary URL or fallback
   const getProjectUrl = (project: Project) => {
@@ -57,7 +45,7 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
 
       {/* Single-Line Tabular / Index Row List */}
       <div className="flex flex-col pt-1 divide-y divide-zinc-100/50">
-        {allProjects.map((project) => {
+        {displayedProjects.map((project) => {
           const url = getProjectUrl(project);
           const meta = projectMeta[project.id] || {
             shortTitle: project.title,
@@ -116,6 +104,26 @@ export default function ProjectsArea({ publicProjects, closedProjects }: Project
           );
         })}
       </div>
+
+      {/* Solution C Inline Toggle Action */}
+      {allProjects.length > 5 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
+        >
+          {expanded ? (
+            <>
+              <span>- show fewer</span>
+              <ChevronUp className="w-3 h-3" />
+            </>
+          ) : (
+            <>
+              <span>+ {allProjects.length - 5} more projects</span>
+              <ChevronDown className="w-3 h-3" />
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }

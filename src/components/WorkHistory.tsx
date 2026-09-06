@@ -1,6 +1,12 @@
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { workHistory } from '../data/portfolioData';
 
 export default function WorkHistory() {
+  const [expanded, setExpanded] = useState(false);
+
+  const displayedWork = expanded ? workHistory : workHistory.slice(0, 4);
+
   return (
     <div className="flex flex-col">
       {/* Header */}
@@ -12,8 +18,8 @@ export default function WorkHistory() {
 
       {/* Pure Tree Branch (No Icons, No Links, Continuous Vertical Line from Top) */}
       <div className="relative flex flex-col pt-1">
-        {workHistory.map((job, idx) => {
-          const isLast = idx === workHistory.length - 1;
+        {displayedWork.map((job, idx) => {
+          const isLast = idx === displayedWork.length - 1;
 
           return (
             <div
@@ -56,6 +62,26 @@ export default function WorkHistory() {
           );
         })}
       </div>
+
+      {/* Solution C Inline Toggle Action */}
+      {workHistory.length > 4 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
+        >
+          {expanded ? (
+            <>
+              <span>- show fewer</span>
+              <ChevronUp className="w-3 h-3" />
+            </>
+          ) : (
+            <>
+              <span>+ {workHistory.length - 4} earlier roles</span>
+              <ChevronDown className="w-3 h-3" />
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }

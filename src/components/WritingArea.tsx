@@ -1,8 +1,11 @@
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { writingArticles } from '../data/portfolioData';
 
 export default function WritingArea() {
-  // Matches user's image 1 (2 posts)
-  const posts = writingArticles.slice(0, 2);
+  const [expanded, setExpanded] = useState(false);
+
+  const displayedPosts = expanded ? writingArticles : writingArticles.slice(0, 2);
 
   return (
     <div className="flex flex-col">
@@ -15,7 +18,7 @@ export default function WritingArea() {
 
       {/* Articles List matching user's reference image 1 exactly */}
       <div className="flex flex-col pt-1 divide-y divide-zinc-100/60">
-        {posts.map((article) => (
+        {displayedPosts.map((article) => (
           <a
             key={article.id}
             href={article.url}
@@ -35,6 +38,26 @@ export default function WritingArea() {
           </a>
         ))}
       </div>
+
+      {/* Solution C Inline Toggle Action */}
+      {writingArticles.length > 2 && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
+        >
+          {expanded ? (
+            <>
+              <span>- show fewer</span>
+              <ChevronUp className="w-3 h-3" />
+            </>
+          ) : (
+            <>
+              <span>+ {writingArticles.length - 2} more essays</span>
+              <ChevronDown className="w-3 h-3" />
+            </>
+          )}
+        </button>
+      )}
     </div>
   );
 }

@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProfileCard from '../components/ProfileCard.astro';
-import SolutionComparison from '../components/SolutionComparison';
-import { allProjects, workHistory, writingArticles } from '../data/portfolioData';
+import ProjectsArea from '../components/ProjectsArea';
+import WorkHistory from '../components/WorkHistory';
+import WritingArea from '../components/WritingArea';
+import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
@@ -19,18 +21,24 @@ import { allProjects, workHistory, writingArticles } from '../data/portfolioData
         <ProfileCard />
       </section>
 
-      {/* Right Column on Desktop / Bottom Section on Mobile: Interactive Solutions Comparison */}
+      {/* Right Column on Desktop / Bottom Section on Mobile: Projects + Work History + Writing */}
       <section 
         id="panel-work"
         aria-label="Engineering Projects, Experience, and Writing"
-        class="w-full min-w-0 flex flex-col gap-4 lg:col-span-8 xl:col-span-8"
+        class="w-full min-w-0 flex flex-col gap-4 lg:col-span-8 xl:col-span-8 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto pr-1 lg:pr-2 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
       >
-        <SolutionComparison
-          client:load
-          allProjects={allProjects}
-          workHistory={workHistory}
-          writingArticles={writingArticles}
+        {/* Projects Area */}
+        <ProjectsArea 
+          client:load 
+          publicProjects={publicProjects} 
+          closedProjects={closedProjects} 
         />
+
+        {/* Work Experience */}
+        <WorkHistory client:load />
+
+        {/* Writing Area */}
+        <WritingArea client:load />
       </section>
     </div>
   </main>
