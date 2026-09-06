@@ -14,49 +14,48 @@ export default function WorkHistory() {
         </span>
       </div>
 
-      {/* Compact Tree / Timeline (No Description) */}
-      <div className="relative pl-3.5 border-l border-zinc-200/80 space-y-1.5 ml-2 mt-2">
+      {/* Clean Precision Timeline (No Awkward Ticks) */}
+      <div className="relative pl-3.5 ml-1.5 border-l border-zinc-200 space-y-2 my-2">
         {workHistory.map((job) => {
-          const content = (
-            <div className="relative flex items-center justify-between gap-2 py-1 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group">
-              {/* Branch Connector Line */}
-              <span className="absolute -left-[14px] top-1/2 -translate-y-1/2 w-2.5 h-px bg-zinc-200 group-hover:bg-zinc-400 transition-colors" />
+          return (
+            <div
+              key={job.id}
+              className="relative flex items-center justify-between gap-2 py-0.5 px-1.5 -mx-1.5 rounded hover:bg-zinc-100/60 transition-colors group"
+            >
+              {/* Node Bead sitting precisely on the vertical line */}
+              <span
+                className={`absolute -left-[18px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 border-[#fcfcfc] transition-all duration-150 ${
+                  job.current
+                    ? 'bg-emerald-500 ring-2 ring-emerald-500/20'
+                    : 'bg-zinc-300 group-hover:bg-zinc-800'
+                }`}
+              />
 
               <div className="flex items-center gap-1.5 min-w-0">
-                <span className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 flex items-center gap-0.5 truncate">
-                  {job.company}
-                  {job.companyUrl && (
+                {job.companyUrl ? (
+                  <a
+                    href={job.companyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 flex items-center gap-0.5 truncate"
+                  >
+                    <span>{job.company}</span>
                     <ArrowUpRight className="w-2.5 h-2.5 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
-                  )}
-                </span>
+                  </a>
+                ) : (
+                  <span className="text-xs font-semibold text-zinc-900 truncate">
+                    {job.company}
+                  </span>
+                )}
                 <span className="text-zinc-300 text-xs shrink-0">•</span>
                 <span className="text-xs text-zinc-600 truncate">
                   {job.role}
                 </span>
-                {job.current && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 animate-pulse ml-0.5" title="Current role" />
-                )}
               </div>
 
               <span className="text-[11px] font-mono text-zinc-400 shrink-0">
                 {job.period}
               </span>
-            </div>
-          );
-
-          return job.companyUrl ? (
-            <a
-              key={job.id}
-              href={job.companyUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="block no-underline"
-            >
-              {content}
-            </a>
-          ) : (
-            <div key={job.id} className="block">
-              {content}
             </div>
           );
         })}
