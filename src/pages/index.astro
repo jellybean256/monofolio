@@ -8,15 +8,15 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Open-flow layout in clean light theme */}
-  <main class="min-h-screen w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 flex flex-col">
-    {/* Two-Column Layout on Desktop (sticky profile), Continuous Flow on Mobile */}
-    <div class="w-full max-w-full flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+  {/* Single screen on desktop without vertical scroll, fluid on mobile */}
+  <main class="min-h-screen lg:h-screen w-full max-w-6xl mx-auto p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden flex flex-col justify-start">
+    {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile */}
+    <div class="w-full max-w-full flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
       {/* Left Column on Desktop / Top Section on Mobile: Profile */}
       <section 
         id="panel-profile"
         aria-label="Developer Profile"
-        class="w-full min-w-0 flex flex-col lg:col-span-4 xl:col-span-4 lg:sticky lg:top-8 shrink-0"
+        class="w-full min-w-0 flex flex-col lg:col-span-4 xl:col-span-4 shrink-0"
       >
         <ProfileCard />
       </section>
@@ -25,7 +25,7 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
       <section 
         id="panel-work"
         aria-label="Engineering Projects, Experience, and Writing"
-        class="w-full min-w-0 flex flex-col gap-8 lg:col-span-8 xl:col-span-8"
+        class="w-full min-w-0 flex flex-col gap-4 lg:col-span-8 xl:col-span-8"
       >
         {/* Projects Area */}
         <ProjectsArea 

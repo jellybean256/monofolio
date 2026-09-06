@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '../data/portfolioData';
 
 interface ProjectsAreaProps {
@@ -8,118 +7,81 @@ interface ProjectsAreaProps {
 }
 
 export default function ProjectsArea({ publicProjects, closedProjects }: ProjectsAreaProps) {
-  const [activeTab, setActiveTab] = useState<'all' | 'public' | 'closed'>('all');
-
   const allProjects = [...publicProjects, ...closedProjects];
 
-  const filteredProjects = allProjects.filter((project) => {
-    if (activeTab === 'public' && project.category !== 'public') return false;
-    if (activeTab === 'closed' && project.category !== 'closed') return false;
-    return true;
-  });
+  // Helper to get primary URL or fallback
+  const getProjectUrl = (project: Project) => {
+    if (project.links && project.links.length > 0) {
+      return project.links[0].url;
+    }
+    return undefined;
+  };
+
+  // Assign clean year markers based on project maturity
+  const getYear = (project: Project) => {
+    if (project.status === 'Active') return '2024';
+    if (project.status === 'Production') return '2023';
+    if (project.status === 'Beta') return '2023';
+    if (project.status === 'Proprietary') return '2022';
+    if (project.status === 'Internal Engine') return '2021';
+    return '2020';
+  };
 
   return (
     <div className="flex flex-col">
-      {/* Header: Clean quiet tabs (no search input) */}
-      <div className="pb-2.5 flex items-center justify-between gap-3 shrink-0">
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-            Projects
-          </span>
-          <div className="flex items-center gap-1 text-xs">
-            <button
-              type="button"
-              onClick={() => setActiveTab('all')}
-              className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
-                activeTab === 'all'
-                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
-                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
-              }`}
-            >
-              All
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('public')}
-              className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
-                activeTab === 'public'
-                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
-                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
-              }`}
-            >
-              Public
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('closed')}
-              className={`px-2 py-0.5 rounded-md transition-colors cursor-pointer ${
-                activeTab === 'closed'
-                  ? 'theme-tab-active font-medium text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800'
-                  : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
-              }`}
-            >
-              Private
-            </button>
-          </div>
-        </div>
+      {/* Header */}
+      <div className="pb-2 flex items-center justify-between gap-3 shrink-0 border-b border-zinc-200/50">
+        <span className="text-xs font-semibold text-zinc-900 tracking-tight">
+          Projects
+        </span>
+        <span className="text-[11px] font-mono text-zinc-400">
+          {allProjects.length} systems
+        </span>
       </div>
 
-      {/* Projects Grid Container */}
-      <div className="w-full pb-1">
-        {filteredProjects.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-zinc-400 py-6">
-            No matching projects
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {filteredProjects.map((project) => {
-              const isClosed = project.category === 'closed';
+      {/* Minimalist Editorial Row List */}
+      <div className="flex flex-col pt-1 divide-y divide-zinc-100/60">
+        {allProjects.map((project) => {
+          const url = getProjectUrl(project);
+          const year = getYear(project);
 
-              return (
-                <div
-                  key={project.id}
-                  className="theme-card flex flex-col justify-between p-3 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 bg-white/40 dark:bg-zinc-900/30 hover:border-zinc-300/80 dark:hover:border-zinc-700/80 transition-colors"
-                >
-                  <div>
-                    {/* Title */}
-                    <h2 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight truncate mb-1.5">
-                      {project.title}
-                    </h2>
-
-                    {/* Description as primary focus */}
-                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  {/* Links Row */}
-                  <div className="pt-2.5 mt-2.5 border-t border-zinc-100 dark:border-zinc-800/40 flex items-center justify-between text-xs">
-                    {isClosed ? (
-                      <span className="text-[11px] text-zinc-400 dark:text-zinc-500 italic">
-                        Closed-source enterprise platform
-                      </span>
-                    ) : (
-                      <div className="flex items-center gap-3">
-                        {project.links?.map((link) => (
-                          <a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-0.5 text-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                          >
-                            <span>{link.label}</span>
-                            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+          const content = (
+            <div className="py-1.5 px-2 -mx-2 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group">
+              <div className="flex items-baseline justify-between gap-2">
+                <div className="flex items-center gap-1 min-w-0">
+                  <span className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-2 truncate">
+                    {project.title}
+                  </span>
+                  {url && (
+                    <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover:text-zinc-900 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
+                  )}
                 </div>
-              );
-            })}
-          </div>
-        )}
+                <span className="text-[11px] font-mono text-zinc-400 shrink-0">
+                  {year}
+                </span>
+              </div>
+              <p className="text-xs text-zinc-500 leading-relaxed truncate mt-0.5">
+                {project.description}
+              </p>
+            </div>
+          );
+
+          return url ? (
+            <a
+              key={project.id}
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="block no-underline"
+            >
+              {content}
+            </a>
+          ) : (
+            <div key={project.id} className="block">
+              {content}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

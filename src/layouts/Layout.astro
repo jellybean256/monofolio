@@ -36,7 +36,7 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="en" class="min-h-screen w-full" data-theme="light">
+<html lang="en" class="min-h-screen lg:h-screen w-full lg:overflow-hidden" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -87,7 +87,7 @@ const personSchema = {
       } catch (e) {}
     </script>
   </head>
-  <body class="min-h-screen w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased">
+  <body class="min-h-screen lg:h-screen w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased lg:overflow-hidden">
     <slot />
   </body>
 </html>
