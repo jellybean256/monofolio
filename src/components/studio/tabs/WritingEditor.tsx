@@ -185,7 +185,7 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
 
                     <div>
                       <label className="block text-[10px] font-mono text-zinc-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                        <span>Article URL (Optional)</span>
+                        <span>Article URL</span>
                         {writing.url && (
                           <a
                             href={writing.url}
@@ -202,7 +202,7 @@ export default function WritingEditor({ writings, onUpdateWritings }: WritingEdi
                         type="url"
                         value={writing.url || ''}
                         onChange={(e) => handleChange(writing.id, 'url', e.target.value)}
-                        placeholder="https://medium.com/@... or personal blog link"
+                        placeholder="https://medium.com/@... or blog link"
                         className="w-full px-2.5 py-1.5 text-xs text-zinc-900 bg-white border border-zinc-200 rounded-lg outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/10 font-mono"
                       />
                     </div>

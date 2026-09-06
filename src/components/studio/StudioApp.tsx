@@ -41,6 +41,14 @@ export default function StudioApp() {
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving'>('saved');
   const [mobilePane, setMobilePane] = useState<'editor' | 'preview'>('editor');
 
+  // Reset preview scroll when toggling view mode
+  useEffect(() => {
+    const vp = document.getElementById('studio-preview-viewport');
+    if (vp) {
+      vp.scrollTop = 0;
+    }
+  }, [previewMode]);
+
   // Load from localStorage on client mount
   useEffect(() => {
     try {
@@ -253,7 +261,7 @@ export default function StudioApp() {
           }`}
         >
           {/* Tab Navigation */}
-          <div className="grid grid-cols-4 border-b border-zinc-200/80 bg-zinc-50/50 p-1 gap-1 shrink-0">
+          <div className="grid grid-cols-4 border-b border-zinc-200/80 bg-zinc-50/50 p-1.5 gap-1 shrink-0">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -262,18 +270,20 @@ export default function StudioApp() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  className={`flex items-center justify-center gap-1.5 py-2 px-1 rounded-lg text-xs font-medium transition-colors duration-150 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 ${
                     isActive
-                      ? 'bg-white text-zinc-900 shadow-2xs font-semibold border border-zinc-200/80'
-                      : 'text-zinc-500 hover:text-zinc-800 hover:bg-zinc-100/60'
+                      ? 'bg-white text-zinc-900 shadow-2xs border border-zinc-200/80'
+                      : 'text-zinc-500 hover:text-zinc-800 hover:bg-zinc-100/60 border border-transparent'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">{tab.label}</span>
                   {tab.count !== null && (
                     <span
-                      className={`text-[10px] font-mono px-1 py-0.2 rounded-full ${
-                        isActive ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-400'
+                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full transition-colors duration-150 ${
+                        isActive
+                          ? 'bg-zinc-100 text-zinc-900 font-semibold'
+                          : 'bg-zinc-200/50 text-zinc-400'
                       }`}
                     >
                       {tab.count}
@@ -317,35 +327,41 @@ export default function StudioApp() {
 
         {/* Right: Real-time Live Preview Canvas */}
         <div
-          className={`flex-1 bg-zinc-100/70 p-3 sm:p-6 overflow-y-auto flex flex-col items-center justify-start h-[calc(100vh-53px)] ${
+          className={`flex-1 bg-zinc-100/70 p-3 sm:p-5 flex flex-col items-center justify-start h-[calc(100vh-53px)] overflow-hidden ${
             mobilePane === 'preview' ? 'flex' : 'hidden lg:flex'
           }`}
         >
-          <div className={`transition-all duration-300 ease-in-out ${getPreviewWidthClass()}`}>
-            {/* Window Frame Top Chrome */}
-            <div className="w-full bg-zinc-100/95 border border-zinc-200/90 border-b-0 rounded-t-xl px-3.5 py-2 flex items-center justify-between gap-2 shadow-2xs">
-              {/* Traffic light dots */}
-              <div className="flex items-center gap-1.5 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] border border-[#e0443e]"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e] border border-[#d89e24]"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-[#28c840] border border-[#1aab29]"></span>
+          <div className={`transition-all duration-300 ease-in-out ${getPreviewWidthClass()} w-full flex flex-col h-full`}>
+            {/* Window Frame Mockup Container */}
+            <div className="w-full rounded-xl border border-zinc-200/90 shadow-xl shadow-zinc-200/50 bg-[#fcfcfc] overflow-hidden flex flex-col h-full">
+              {/* Window Top Chrome (Permanently anchored to top of mockup) */}
+              <div className="w-full bg-zinc-100/95 border-b border-zinc-200/90 px-3.5 py-2.5 flex items-center justify-between gap-2 shadow-2xs shrink-0 select-none">
+                {/* Traffic light dots */}
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] border border-[#e0443e]"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e] border border-[#d89e24]"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#28c840] border border-[#1aab29]"></span>
+                </div>
+
+                {/* Simulated URL bar */}
+                <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white border border-zinc-200/70 text-[11px] font-mono text-zinc-500 shadow-2xs max-w-xs sm:max-w-md truncate">
+                  <Lock className="w-3 h-3 text-zinc-400 shrink-0" />
+                  <span className="truncate">mono.folio/{slug}</span>
+                </div>
+
+                {/* Viewport indicators */}
+                <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider shrink-0">
+                  {previewMode} view
+                </div>
               </div>
 
-              {/* Simulated URL bar */}
-              <div className="flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-white border border-zinc-200/70 text-[11px] font-mono text-zinc-500 shadow-2xs max-w-xs sm:max-w-md truncate">
-                <Lock className="w-3 h-3 text-zinc-400 shrink-0" />
-                <span className="truncate">mono.folio/{slug}</span>
+              {/* Window Frame Inner Canvas: Live Portfolio (Scrolls cleanly inside device screen) */}
+              <div
+                id="studio-preview-viewport"
+                className="flex-1 w-full overflow-y-auto p-4 sm:p-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent]"
+              >
+                <PortfolioView data={data} forceMode={previewMode} isEmbed={true} />
               </div>
-
-              {/* Viewport indicators (when in mobile/tablet mode) */}
-              <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider shrink-0">
-                {previewMode} view
-              </div>
-            </div>
-
-            {/* Window Frame Inner Canvas: Live Portfolio */}
-            <div className="w-full bg-[#fcfcfc] border border-zinc-200/90 rounded-b-xl shadow-xl shadow-zinc-200/40 p-4 sm:p-8 min-h-[580px] overflow-x-hidden">
-              <PortfolioView data={data} forceMode={previewMode} />
             </div>
           </div>
         </div>

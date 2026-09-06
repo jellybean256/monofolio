@@ -60,35 +60,51 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
   const isDesktop = activeMode === 'desktop';
   const isStacked = activeMode === 'tablet' || activeMode === 'mobile';
 
+  // Container styling:
+  // - If isStacked (explicit mobile/tablet): NEVER lock height or hide overflow. Let content flow naturally.
+  // - If isEmbed: embedded in studio mockup or visual proof iframe.
+  // - If standalone desktop: lock to single-screen h-screen with hidden outer scrollbar.
+  const containerClasses = isStacked
+    ? 'w-full max-w-full flex flex-col justify-start'
+    : isEmbed
+    ? 'w-full max-w-6xl mx-auto flex flex-col justify-start'
+    : 'w-full max-w-6xl mx-auto flex flex-col justify-start min-h-screen lg:h-screen p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden';
+
+  // Layout grid/flex:
+  const layoutClasses = isStacked
+    ? 'w-full max-w-full flex flex-col gap-6'
+    : isDesktop
+    ? 'w-full max-w-full grid grid-cols-12 gap-8 items-start'
+    : 'w-full max-w-full flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start';
+
+  // Profile column styling:
+  const profileClasses = isStacked
+    ? 'w-full min-w-0 flex flex-col shrink-0'
+    : isDesktop
+    ? 'col-span-4 w-full min-w-0 flex flex-col shrink-0 sticky top-6'
+    : 'w-full min-w-0 flex flex-col shrink-0 lg:col-span-4 xl:col-span-4 lg:sticky lg:top-6';
+
+  // Work column styling:
+  // - If isStacked: NEVER give it a nested scrollbar or max-h. Must flow naturally with zero nested scroll sections.
+  // - If isDesktop in studio (isEmbed): max-h to scroll cleanly within simulated desktop window.
+  // - If standalone desktop: lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto.
+  const workClasses = isStacked
+    ? 'w-full min-w-0 flex flex-col gap-4'
+    : isDesktop
+    ? `col-span-8 w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] ${
+        isEmbed ? 'max-h-[calc(100vh-14rem)] overflow-y-auto' : 'lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
+      }`
+    : 'w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 lg:col-span-8 xl:col-span-8 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto';
+
   return (
-    <div
-      className={`w-full max-w-6xl mx-auto flex flex-col justify-start ${
-        isEmbed
-          ? 'p-4 sm:p-6 max-h-full overflow-y-auto'
-          : 'min-h-screen lg:h-screen p-4 sm:p-6 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
-      }`}
-    >
+    <div className={containerClasses}>
       {/* Combined Two-Column Layout on Desktop, Single Continuous Vertical Flow on Mobile / Tablet */}
-      <div
-        className={`w-full max-w-full ${
-          isDesktop
-            ? 'grid grid-cols-12 gap-8 items-start'
-            : isStacked
-            ? 'flex flex-col gap-6'
-            : 'flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start'
-        }`}
-      >
+      <div className={layoutClasses}>
         {/* Left Column on Desktop / Top Section on Mobile/Tablet: Profile */}
         <section
           id="panel-profile"
           aria-label="Developer Profile"
-          className={`w-full min-w-0 flex flex-col shrink-0 ${
-            isDesktop
-              ? 'col-span-4 sticky top-6'
-              : isStacked
-              ? ''
-              : 'lg:col-span-4 xl:col-span-4 lg:sticky lg:top-6'
-          }`}
+          className={profileClasses}
         >
           <ProfileCard profile={activeData.profile} socials={activeData.socials} />
         </section>
@@ -97,15 +113,7 @@ export default function PortfolioView({ data, isEmbed = false, forceMode }: Port
         <section
           id="panel-work"
           aria-label="Engineering Projects, Experience, and Writing"
-          className={`w-full min-w-0 flex flex-col gap-4 pr-1 lg:pr-2 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] ${
-            isDesktop
-              ? 'col-span-8'
-              : isStacked
-              ? ''
-              : 'lg:col-span-8 xl:col-span-8'
-          } ${
-            isEmbed ? '' : 'lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto'
-          }`}
+          className={workClasses}
         >
           {/* Projects Area */}
           <ProjectsArea projects={activeData.projects} mode={activeMode} />
