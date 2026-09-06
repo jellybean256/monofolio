@@ -14,23 +14,28 @@ export default function WorkHistory() {
         </span>
       </div>
 
-      {/* Clean Precision Timeline (No Awkward Ticks) */}
-      <div className="relative pl-3.5 ml-1.5 border-l border-zinc-200 space-y-2 my-2">
-        {workHistory.map((job) => {
+      {/* Pure Tree Branch (No Icons, Continuous Vertical Line from Top) */}
+      <div className="relative flex flex-col pt-1">
+        {workHistory.map((job, idx) => {
+          const isLast = idx === workHistory.length - 1;
+
           return (
             <div
               key={job.id}
-              className="relative flex items-center justify-between gap-2 py-0.5 px-1.5 -mx-1.5 rounded hover:bg-zinc-100/60 transition-colors group"
+              className="relative flex items-center justify-between gap-2 pl-8 py-1.5 px-1.5 -mx-1.5 rounded-md hover:bg-zinc-100/70 transition-all duration-150 group"
             >
-              {/* Node Bead sitting precisely on the vertical line */}
-              <span
-                className={`absolute -left-[18px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full border-2 border-[#fcfcfc] transition-all duration-150 ${
-                  job.current
-                    ? 'bg-emerald-500 ring-2 ring-emerald-500/20'
-                    : 'bg-zinc-300 group-hover:bg-zinc-800'
-                }`}
-              />
+              {/* Vertical trunk line (runs from top to center) */}
+              <span className="absolute left-3.5 top-0 w-px h-1/2 bg-zinc-200" />
 
+              {/* Vertical trunk line continuing downward (stops at center for last item) */}
+              {!isLast && (
+                <span className="absolute left-3.5 top-1/2 w-px h-1/2 bg-zinc-200" />
+              )}
+
+              {/* Horizontal branch line connecting from trunk directly to text */}
+              <span className="absolute left-3.5 top-1/2 w-4 h-px bg-zinc-200 group-hover:bg-zinc-400 transition-colors" />
+
+              {/* Text: Company + Role (No Icons) */}
               <div className="flex items-center gap-1.5 min-w-0">
                 {job.companyUrl ? (
                   <a
@@ -53,6 +58,7 @@ export default function WorkHistory() {
                 </span>
               </div>
 
+              {/* Right: Period */}
               <span className="text-[11px] font-mono text-zinc-400 shrink-0">
                 {job.period}
               </span>
