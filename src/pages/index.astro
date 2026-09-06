@@ -4,13 +4,12 @@ import ProfileCard from '../components/ProfileCard.astro';
 import ProjectsArea from '../components/ProjectsArea';
 import WorkHistory from '../components/WorkHistory';
 import WritingArea from '../components/WritingArea';
-import ThemeSlider from '../components/ThemeSlider';
 import { publicProjects, closedProjects } from '../data/portfolioData';
 ---
 
 <Layout>
-  {/* Open-flow layout without single-screen restriction */}
-  <main class="min-h-screen w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-32 flex flex-col">
+  {/* Open-flow layout in clean light theme */}
+  <main class="min-h-screen w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-16 flex flex-col">
     {/* Two-Column Layout on Desktop (sticky profile), Continuous Flow on Mobile */}
     <div class="w-full max-w-full flex flex-col gap-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
       {/* Left Column on Desktop / Top Section on Mobile: Profile */}
@@ -41,11 +40,6 @@ import { publicProjects, closedProjects } from '../data/portfolioData';
         {/* Writing Area */}
         <WritingArea client:load />
       </section>
-    </div>
-
-    {/* Floating Theme Slider Bar */}
-    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg px-3 pointer-events-auto">
-      <ThemeSlider client:load />
     </div>
   </main>
 </Layout>

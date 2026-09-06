@@ -3,32 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root,
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg-page: #09090b;
-  --text-primary: #f4f4f5;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --card-bg: rgba(24, 24, 27, 0.35);
-  --card-border: rgba(39, 39, 42, 0.5);
-  --card-hover-border: rgba(63, 63, 70, 0.8);
-  --pill-bg: rgba(24, 24, 27, 0.4);
-  --pill-hover-bg: rgba(39, 39, 42, 0.5);
-  --pill-border: rgba(39, 39, 42, 0.5);
-  --pill-hover-border: rgba(63, 63, 70, 0.6);
-  --tab-active-bg: #27272a;
-  --tab-active-text: #f4f4f5;
-  --accent: #10b981;
-  --gh-0: #18181b;
-  --gh-1: rgba(6, 78, 59, 0.6);
-  --gh-2: rgba(4, 120, 87, 0.75);
-  --gh-3: rgba(16, 185, 129, 0.85);
-  --gh-4: #34d399;
-  --selection-bg: rgba(255, 255, 255, 0.18);
-  --selection-text: #ffffff;
-}
-
-/* pifa.studio aesthetic clean light theme */
 [data-theme="light"] {
   color-scheme: light;
   --bg-page: #fcfcfc;
@@ -52,6 +26,31 @@
   --gh-4: #18181b;
   --selection-bg: #e5e5e5;
   --selection-text: #18181b;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-page: #09090b;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --card-bg: rgba(24, 24, 27, 0.35);
+  --card-border: rgba(39, 39, 42, 0.5);
+  --card-hover-border: rgba(63, 63, 70, 0.8);
+  --pill-bg: rgba(24, 24, 27, 0.4);
+  --pill-hover-bg: rgba(39, 39, 42, 0.5);
+  --pill-border: rgba(39, 39, 42, 0.5);
+  --pill-hover-border: rgba(63, 63, 70, 0.6);
+  --tab-active-bg: #27272a;
+  --tab-active-text: #f4f4f5;
+  --accent: #10b981;
+  --gh-0: #18181b;
+  --gh-1: rgba(6, 78, 59, 0.6);
+  --gh-2: rgba(4, 120, 87, 0.75);
+  --gh-3: rgba(16, 185, 129, 0.85);
+  --gh-4: #34d399;
+  --selection-bg: rgba(255, 255, 255, 0.18);
+  --selection-text: #ffffff;
 }
 
 [data-theme="midnight"] {

@@ -36,7 +36,7 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="en" class="min-h-screen w-full">
+<html lang="en" class="min-h-screen w-full" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -77,24 +77,17 @@ const personSchema = {
     {/* Structured Data: JSON-LD Schema.org */}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 
-    {/* Inline script to prevent theme flash (FOUC) */}
+    {/* Enforce pure light theme */}
     <script is:inline>
-      (function() {
-        try {
-          const stored = localStorage.getItem('theme_preset') || 'dark';
-          document.documentElement.setAttribute('data-theme', stored);
-          if (stored === 'light') {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.style.colorScheme = 'light';
-          } else {
-            document.documentElement.classList.add('dark');
-            document.documentElement.style.colorScheme = 'dark';
-          }
-        } catch (e) {}
-      })();
+      try {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.classList.remove('dark');
+        document.documentElement.style.colorScheme = 'light';
+        localStorage.setItem('theme_preset', 'light');
+      } catch (e) {}
     </script>
   </head>
-  <body class="min-h-screen w-full bg-zinc-50/80 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans antialiased">
+  <body class="min-h-screen w-full bg-[#fcfcfc] text-zinc-900 flex flex-col font-sans antialiased">
     <slot />
   </body>
 </html>
