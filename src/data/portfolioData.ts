@@ -2,29 +2,8 @@ export interface DeveloperProfile {
   name: string;
   role: string;
   location: string;
-  country: string;
-  countryCode: string;
-  timezone: string;
-  localTimeBadge: string;
-  status: {
-    available: boolean;
-    text: string;
-  };
   avatarUrl: string;
   bio: string;
-  joinedDate?: string;
-  metrics: {
-    label: string;
-    value: string;
-  }[];
-}
-
-export interface TechCategory {
-  category: 'Languages' | 'Frontend' | 'Backend & Cloud' | 'Systems & DevOps';
-  skills: {
-    name: string;
-    highlight?: boolean;
-  }[];
 }
 
 export interface SocialLink {
@@ -47,20 +26,14 @@ export interface Project {
   title: string;
   description: string;
   category: 'public' | 'closed';
-  status: 'Production' | 'Live' | 'Active' | 'Beta' | 'Proprietary' | 'Internal Engine';
-  technologies: string[];
+  status: string;
+  technologies?: string[];
   links?: ProjectLink[];
   privateDetails?: {
     badge: string;
     notice: string;
   };
   highlightMetric?: string;
-}
-
-export interface ContributionDay {
-  date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
 }
 
 export interface WorkSubProject {
@@ -76,9 +49,9 @@ export interface WorkExperience {
   period: string;
   current?: boolean;
   companyUrl?: string;
-  domain: string;
-  description: string;
-  technologies: string[];
+  domain?: string;
+  description?: string;
+  technologies?: string[];
   projects?: WorkSubProject[];
 }
 
@@ -87,84 +60,18 @@ export interface Article {
   title: string;
   description: string;
   date: string;
-  readTime: string;
+  readTime?: string;
   url: string;
   tag?: string;
-}
-
-export interface GitHubSummary {
-  username: string;
-  profileUrl: string;
-  totalLastYear: number;
-  currentStreakDays: number;
-  longestStreakDays: number;
-  avgPerDay: number;
 }
 
 export const developerProfile: DeveloperProfile = {
   name: "Julian Vance",
   role: "Staff Systems & Full-Stack Engineer",
   location: "San Francisco, CA",
-  country: "United States",
-  countryCode: "US",
-  timezone: "UTC-7 (PT)",
-  localTimeBadge: "SF / Pacific",
-  status: {
-    available: true,
-    text: "Available for staff engineering & advisory",
-  },
   avatarUrl: "/Lee Han Yoil.jpg",
   bio: "Specializing in distributed systems, real-time sync engines, and developer infrastructure. Building deep-module software with zero unnecessary latency and rigorous ergonomics.",
-  joinedDate: "Joined August 2024",
-  metrics: [
-    { label: "Experience", value: "9+ yrs" },
-    { label: "Systems Shipped", value: "32+" },
-    { label: "Annual Commits", value: "2,140+" },
-  ],
 };
-
-export const techStackCategories: TechCategory[] = [
-  {
-    category: "Languages",
-    skills: [
-      { name: "TypeScript", highlight: true },
-      { name: "Rust", highlight: true },
-      { name: "Go", highlight: true },
-      { name: "Python" },
-      { name: "SQL" },
-    ],
-  },
-  {
-    category: "Frontend",
-    skills: [
-      { name: "React", highlight: true },
-      { name: "Astro", highlight: true },
-      { name: "Tailwind CSS", highlight: true },
-      { name: "Next.js" },
-      { name: "WebAssembly" },
-    ],
-  },
-  {
-    category: "Backend & Cloud",
-    skills: [
-      { name: "Node.js", highlight: true },
-      { name: "PostgreSQL", highlight: true },
-      { name: "Redis", highlight: true },
-      { name: "Kafka" },
-      { name: "gRPC & GraphQL" },
-    ],
-  },
-  {
-    category: "Systems & DevOps",
-    skills: [
-      { name: "Docker", highlight: true },
-      { name: "Kubernetes" },
-      { name: "AWS" },
-      { name: "eBPF / Linux" },
-      { name: "Terraform" },
-    ],
-  },
-];
 
 export const socialLinks: SocialLink[] = [
   {
@@ -470,70 +377,4 @@ export const writingArticles: Article[] = [
   },
 ];
 
-export const githubSummary: GitHubSummary = {
-  username: "julianvance",
-  profileUrl: "https://github.com/julianvance",
-  totalLastYear: 2184,
-  currentStreakDays: 34,
-  longestStreakDays: 112,
-  avgPerDay: 5.9,
-};
 
-/**
- * Generate 52 weeks (364 days) of realistic, compact contribution calendar data
- */
-export function generateContributionData(): ContributionDay[] {
-  const days: ContributionDay[] = [];
-  const today = new Date();
-  
-  let seed = 1337;
-  const pseudoRand = () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-
-  const totalDays = 52 * 7;
-
-  for (let i = totalDays - 1; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const dayOfWeek = d.getDay(); // 0 = Sun, 6 = Sat
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
-    const r = pseudoRand();
-    let count = 0;
-    let level: 0 | 1 | 2 | 3 | 4 = 0;
-
-    if (isWeekend) {
-      if (r > 0.55) {
-        count = Math.floor(r * 4) + 1;
-        level = count > 2 ? 2 : 1;
-      }
-    } else {
-      if (r > 0.1) {
-        count = Math.floor(r * 12) + 1;
-        if (count >= 9) level = 4;
-        else if (count >= 6) level = 3;
-        else if (count >= 3) level = 2;
-        else level = 1;
-      }
-    }
-
-    // Concentrated productive sprint cycles
-    const weekIndex = Math.floor((totalDays - 1 - i) / 7);
-    if ((weekIndex >= 8 && weekIndex <= 13) || (weekIndex >= 22 && weekIndex <= 28) || (weekIndex >= 44 && weekIndex <= 50)) {
-      if (!isWeekend && level > 0) {
-        count += 3;
-        level = Math.min(4, level + 1) as 0 | 1 | 2 | 3 | 4;
-      }
-    }
-
-    days.push({
-      date: d.toISOString().split('T')[0],
-      count,
-      level,
-    });
-  }
-
-  return days;
-}
