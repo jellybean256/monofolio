@@ -95,7 +95,11 @@ export default function ProjectsArea({ projects, mode }: ProjectsAreaProps) {
       {/* Solution C Inline Toggle Action */}
       {projects.length > 5 && (
         <button
-          onClick={() => setExpanded(!expanded)}
+          type="button"
+          onClick={(e) => {
+            e.currentTarget.blur();
+            setExpanded(!expanded);
+          }}
           className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
         >
           {expanded ? (

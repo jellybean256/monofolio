@@ -128,7 +128,11 @@ export default function WorkHistory({ experiences, mode }: WorkHistoryProps) {
       {/* Solution C Inline Toggle Action */}
       {experiences.length > 4 && (
         <button
-          onClick={() => setExpanded(!expanded)}
+          type="button"
+          onClick={(e) => {
+            e.currentTarget.blur();
+            setExpanded(!expanded);
+          }}
           className="self-start mt-1 text-[11px] font-mono text-zinc-400 hover:text-zinc-900 transition-colors flex items-center gap-1 cursor-pointer pt-0.5"
         >
           {expanded ? (
